@@ -1,0 +1,1820 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU fdisk 1.3.0a\n"
+"Report-Msgid-Bugs-To: bug-fdisk@gnu.org\n"
+"POT-Creation-Date: 2011-09-18 18:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/common.c:277
+msgid "The resulting partition is not properly aligned for best performance"
+msgstr ""
+
+#: src/common.c:294
+#, c-format
+msgid "Partition %s is being used.  You must unmount it before you modify it."
+msgstr ""
+
+#: src/common.c:311 src/fdisk.c:330
+#, c-format
+msgid "Partition(s) on %s are being used."
+msgstr ""
+
+#: src/common.c:330
+msgid ""
+"The extended partition is not empty. Deleting it will delete any partitions "
+"inside it. Do you want to continue?"
+msgstr ""
+
+#: src/common.c:759
+#, c-format
+msgid "Size (min %s, max %s)"
+msgstr ""
+
+#: src/common.c:762 src/cfdisk.c:1989
+msgid "Size"
+msgstr ""
+
+#: src/common.c:781
+#, c-format
+msgid "%s is an invalid partition size"
+msgstr ""
+
+#: src/common.c:913
+msgid "The partition table is empty."
+msgstr ""
+
+#: src/common.c:918
+#, c-format
+msgid "%s number (1-%d)"
+msgstr ""
+
+#: src/common.c:924
+msgid "Expecting a partition number."
+msgstr ""
+
+#: src/common.c:931
+msgid "Partition doesn't exist."
+msgstr ""
+
+#: src/common.c:959
+msgid "Expecting a disk label type."
+msgstr ""
+
+#: src/common.c:986
+msgid "primary"
+msgstr ""
+
+#: src/common.c:990
+msgid "extended"
+msgstr ""
+
+#: src/common.c:994
+msgid "logical"
+msgstr ""
+
+#: src/common.c:999
+msgid "Can't create any more partitions."
+msgstr ""
+
+#: src/common.c:1016
+msgid "Expecting a partition type."
+msgstr ""
+
+#: src/common.c:1059
+msgid "Expecting a file system type."
+msgstr ""
+
+#: src/common.c:1065
+#, c-format
+msgid "Unknown file system type \"%s\"."
+msgstr ""
+
+#: src/common.c:1100
+msgid "Expecting a flag."
+msgstr ""
+
+#: src/common.c:1106
+#, c-format
+msgid "Unknown flag \"%s\"."
+msgstr ""
+
+#: src/common.c:1295
+msgid "First cylinder"
+msgstr ""
+
+#: src/common.c:1297
+msgid "First sector"
+msgstr ""
+
+#: src/common.c:1299 src/fdisk.c:991
+msgid "Start"
+msgstr ""
+
+#: src/common.c:1315
+msgid "Last cilynder or +size or +sizeMB or +sizeKB or +size%"
+msgstr ""
+
+#: src/common.c:1316
+msgid "Last cylinder or +size or +sizeMB or +sizeKB"
+msgstr ""
+
+#: src/common.c:1322
+msgid "Last sector or +size or +sizeMB or +sizeKB or +size%"
+msgstr ""
+
+#: src/common.c:1323
+msgid "Last sector or +size or +sizeMB or +sizeKB"
+msgstr ""
+
+#: src/common.c:1326
+msgid "End or +size"
+msgstr ""
+
+#: src/common.c:1366 src/common.c:1444 src/common.c:1752 src/common.c:1873
+#: src/common.c:2122 src/common.c:2212 src/common.c:2235 src/common.c:2256
+#: src/common.c:2280 src/fdisk.c:1492 src/fdisk.c:1742 src/fdisk.c:1824
+msgid "Partition"
+msgstr ""
+
+#: src/common.c:1402
+msgid "New disk label type"
+msgstr ""
+
+#: src/common.c:1437 src/common.c:1720 src/common.c:1760 src/common.c:2063
+#: src/common.c:2128
+msgid "WARNING: This writes all data to disk automatically, continue?"
+msgstr ""
+
+#: src/common.c:1451
+msgid "File system"
+msgstr ""
+
+#: src/common.c:1461
+#, c-format
+msgid "The partition is too small to create %s filesystem on it."
+msgstr ""
+
+#: src/common.c:1467
+#, c-format
+msgid "The partition is too big to create %s filesystem on it"
+msgstr ""
+
+#: src/common.c:1524 src/cfdisk.c:1859 src/fdisk.c:682
+msgid "Partition type"
+msgstr ""
+
+#: src/common.c:1545 src/common.c:1880 src/cfdisk.c:1862
+msgid "Partition name"
+msgstr ""
+
+#: src/common.c:1620
+#, c-format
+msgid ""
+"You requested a partition from %s to %s.\n"
+"The closest location we can manage is %s to %s.  Is this still acceptable to "
+"you?"
+msgstr ""
+
+#: src/common.c:1725 src/common.c:2259
+msgid "File system type"
+msgstr ""
+
+#: src/common.c:1774
+msgid "Can't move an extended partition."
+msgstr ""
+
+#: src/common.c:1830
+msgid "Can't move a partition onto itself.  Try using resize, perhaps?"
+msgstr ""
+
+#: src/common.c:1956 src/fdisk.c:1341
+#, c-format
+msgid ""
+"A %s %s partition was found at %s -> %s.  Do you want to add it to the "
+"partition table?"
+msgstr ""
+
+#: src/common.c:1997 src/fdisk.c:1379
+msgid "searching for file systems"
+msgstr ""
+
+#: src/common.c:2283
+msgid "Flag to change"
+msgstr ""
+
+#: src/common.c:2288
+msgid "New state"
+msgstr ""
+
+#: src/common.c:2307
+msgid "WARNING: This writes all data to disk, continue?"
+msgstr ""
+
+#: src/common.c:2374
+#, c-format
+msgid "Fixing partition order on %s partition label type not implemented."
+msgstr ""
+
+#: src/common.c:2496
+#, c-format
+msgid "Partition %i does not end on cylinder boundary."
+msgstr ""
+
+#: src/common.c:2527
+#, c-format
+msgid "Total allocated sectors %lld greater than the maximum %lld"
+msgstr ""
+
+#: src/common.c:2532
+#, c-format
+msgid "%lld unallocated sectors"
+msgstr ""
+
+#: src/cfdisk.c:84
+msgid ""
+"Copyright (C) 2006 Free Software Foundation, Inc.\n"
+"This is free software.  You may redistribute copies of it under the terms "
+"of\n"
+"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+
+#: src/cfdisk.c:90
+msgid "Usage: cfdisk [OPTION]... [DEVICE]\n"
+msgstr ""
+
+#: src/cfdisk.c:95
+msgid "displays this help message"
+msgstr ""
+
+#: src/cfdisk.c:96
+msgid "displays the version"
+msgstr ""
+
+#: src/cfdisk.c:97
+msgid "use an arrow cursor instead of reverse video"
+msgstr ""
+
+#: src/cfdisk.c:98
+msgid "create a new partition table on the disk"
+msgstr ""
+
+#: src/cfdisk.c:99
+msgid "TYPE"
+msgstr ""
+
+#: src/cfdisk.c:99
+msgid "use align TYPE, can be none, cyl, min or opt"
+msgstr ""
+
+#: src/cfdisk.c:100
+msgid "UNIT"
+msgstr ""
+
+#: src/cfdisk.c:100
+msgid "sets the default display units to UNIT"
+msgstr ""
+
+#: src/cfdisk.c:101
+msgid "displays a list of supported partition types"
+msgstr ""
+
+#: src/cfdisk.c:107
+msgid ""
+"This is a curses-based disk partition manipulation program, which allows you "
+"create, destroy, resize, move and copy partitions on a hard drive.\n"
+"\n"
+"Copyright (C) 2006 Free Software Foundation, Inc.\n"
+"\n"
+"Key\tFunction\n"
+"---\t--------\n"
+"\n"
+" n\tCreate a new partition residing on the free space.\n"
+" d\tDelete the selected partition.\n"
+" c\tCheck the selected partition for consistency.\n"
+" r\tResize the selected partition or change the size of the entry in the "
+"partition table\n"
+" o\tMove the partition to another place on the drive.\n"
+" y\tCopies another partition over the selected one.\n"
+" s\tLook for deleted file systems in the selected free space.\n"
+" b\tDisplay or change partition flags, such as the bootable flag.\n"
+" t\tChange the system type on the partition in the partition in case it is "
+"currently wrong.\n"
+" m\tChange the partition name, if supported.\n"
+" x\tMaximize the extended partition.\n"
+" z\tMinimize the extended partition.\n"
+" u\tChange the display units.\n"
+" i\tDisplay partition info.\n"
+" w\tWrite the changes to the disk.\n"
+" q\tQuit the program.\n"
+" h\tDisplay this help.\n"
+msgstr ""
+
+#: src/cfdisk.c:584 src/cfdisk.c:692 src/cfdisk.c:697 src/cfdisk.c:775
+#: src/cfdisk.c:1784 src/cfdisk.c:1787 src/cfdisk.c:1813
+msgid "Invalid key"
+msgstr ""
+
+#: src/cfdisk.c:663
+msgid "No more text"
+msgstr ""
+
+#: src/cfdisk.c:663
+msgid "No more choices"
+msgstr ""
+
+#: src/cfdisk.c:759
+msgid "Bug in the program. The programmer is an idiot."
+msgstr ""
+
+#: src/cfdisk.c:832
+msgid "No more characters to delete"
+msgstr ""
+
+#: src/cfdisk.c:844
+msgid "String too long"
+msgstr ""
+
+#: src/cfdisk.c:861 src/cfdisk.c:929
+msgid "Yes"
+msgstr ""
+
+#: src/cfdisk.c:862 src/cfdisk.c:930
+msgid "No"
+msgstr ""
+
+#: src/cfdisk.c:928
+msgid "Fix"
+msgstr ""
+
+#: src/cfdisk.c:931
+msgid "OK"
+msgstr ""
+
+#: src/cfdisk.c:932
+msgid "Retry"
+msgstr ""
+
+#: src/cfdisk.c:933
+msgid "Ignore"
+msgstr ""
+
+#: src/cfdisk.c:934 src/cfdisk.c:1099 src/cfdisk.c:1106 src/cfdisk.c:1113
+#: src/cfdisk.c:1239 src/cfdisk.c:1245 src/cfdisk.c:1338 src/cfdisk.c:1440
+#: src/cfdisk.c:1609 src/cfdisk.c:2124
+msgid "Cancel"
+msgstr ""
+
+#: src/cfdisk.c:953
+msgid "Information"
+msgstr ""
+
+#: src/cfdisk.c:956
+msgid "Warning!"
+msgstr ""
+
+#: src/cfdisk.c:959
+msgid "Error!"
+msgstr ""
+
+#: src/cfdisk.c:962
+msgid "Fatal exception!"
+msgstr ""
+
+#: src/cfdisk.c:965
+msgid "Bug in the program"
+msgstr ""
+
+#: src/cfdisk.c:968
+msgid "Unsupported"
+msgstr ""
+
+#: src/cfdisk.c:1015
+#, c-format
+msgid "We are now %s."
+msgstr ""
+
+#: src/cfdisk.c:1017
+#, c-format
+msgid "An operation is now taking place."
+msgstr ""
+
+#: src/cfdisk.c:1019
+#, c-format
+msgid "Progress: %3.1f%%   Time left: %4.2ld:%.2ld"
+msgstr ""
+
+#: src/cfdisk.c:1052
+msgid "Press any key to continue"
+msgstr ""
+
+#: src/cfdisk.c:1096 src/cfdisk.c:1236 src/cfdisk.c:1335
+msgid "Begining"
+msgstr ""
+
+#: src/cfdisk.c:1096
+msgid "Create the partition at the begining of the free space"
+msgstr ""
+
+#: src/cfdisk.c:1097 src/cfdisk.c:1237 src/cfdisk.c:1336 src/fdisk.c:991
+msgid "End"
+msgstr ""
+
+#: src/cfdisk.c:1097
+msgid "Create the partition at the end of the free space"
+msgstr ""
+
+#: src/cfdisk.c:1098 src/cfdisk.c:1238 src/cfdisk.c:1337 src/cfdisk.c:1439
+#: src/cfdisk.c:1608
+msgid "Custom"
+msgstr ""
+
+#: src/cfdisk.c:1098 src/cfdisk.c:1238 src/cfdisk.c:1337
+msgid "Select custom start and end position of the partition"
+msgstr ""
+
+#: src/cfdisk.c:1099 src/cfdisk.c:1106 src/cfdisk.c:1113
+msgid "Do not create a partition"
+msgstr ""
+
+#: src/cfdisk.c:1103 src/cfdisk.c:1858 src/cfdisk.c:2038 src/cfdisk.c:2042
+msgid "Primary"
+msgstr ""
+
+#: src/cfdisk.c:1103
+msgid "Create primary partition"
+msgstr ""
+
+#: src/cfdisk.c:1104 src/cfdisk.c:1856 src/cfdisk.c:2033 src/fdisk.c:1069
+msgid "Extended"
+msgstr ""
+
+#: src/cfdisk.c:1104
+msgid "Create extended partition"
+msgstr ""
+
+#: src/cfdisk.c:1105
+msgid "BSD disklabel"
+msgstr ""
+
+#: src/cfdisk.c:1105
+msgid "Create a new BSD disklabel"
+msgstr ""
+
+#: src/cfdisk.c:1110
+msgid "FreeBSD"
+msgstr ""
+
+#: src/cfdisk.c:1110
+msgid "Create a FreeBSD partition type"
+msgstr ""
+
+#: src/cfdisk.c:1111
+msgid "OpenBSD"
+msgstr ""
+
+#: src/cfdisk.c:1111
+msgid "Create a OpenBSD partition type"
+msgstr ""
+
+#: src/cfdisk.c:1112
+msgid "NetBSD"
+msgstr ""
+
+#: src/cfdisk.c:1112
+msgid "Create a NetBSD partition type"
+msgstr ""
+
+#: src/cfdisk.c:1127
+msgid "Report a bug in the function menu_new and win a cookie."
+msgstr ""
+
+#: src/cfdisk.c:1135
+msgid "Cannot create more primary partitions"
+msgstr ""
+
+#: src/cfdisk.c:1142
+msgid "Type of partition you want to create"
+msgstr ""
+
+#: src/cfdisk.c:1160
+msgid "Where do you want to put the partition"
+msgstr ""
+
+#: src/cfdisk.c:1172
+msgid "Can't create partition."
+msgstr ""
+
+#: src/cfdisk.c:1188 src/fdisk.c:822
+msgid ""
+"Editing a BSD label, before writing the msdos partition table is not "
+"supported in GNU fdisk."
+msgstr ""
+
+#: src/cfdisk.c:1198
+msgid ""
+"This partition seems to contain a filesystem. This is going to destroy it. "
+"Are you sure you want to continue?"
+msgstr ""
+
+#: src/cfdisk.c:1213
+msgid "There is no BSD label on this partition. Do you want to create one?"
+msgstr ""
+
+#: src/cfdisk.c:1234
+msgid "Fixed start"
+msgstr ""
+
+#: src/cfdisk.c:1234
+msgid "Don't move the beginning of the partition"
+msgstr ""
+
+#: src/cfdisk.c:1236
+msgid "Place it as back as possible on partitions that support it"
+msgstr ""
+
+#: src/cfdisk.c:1237
+msgid "Place it as forward as possible on partitions that support it"
+msgstr ""
+
+#: src/cfdisk.c:1239 src/cfdisk.c:1245
+msgid "Do not resize the partition"
+msgstr ""
+
+#: src/cfdisk.c:1243 src/cfdisk.c:2102
+msgid "Resize"
+msgstr ""
+
+#: src/cfdisk.c:1243
+msgid "Resize the filesystem"
+msgstr ""
+
+#: src/cfdisk.c:1244
+msgid "Change size"
+msgstr ""
+
+#: src/cfdisk.c:1244
+msgid "Change the size of the partition (if you know what you are doing)"
+msgstr ""
+
+#: src/cfdisk.c:1262
+msgid "What do you want to do?"
+msgstr ""
+
+#: src/cfdisk.c:1268
+msgid "Can't resize the partition. Alter the size? (For experts only)"
+msgstr ""
+
+#: src/cfdisk.c:1309
+msgid "Where to place the resized partition"
+msgstr ""
+
+#: src/cfdisk.c:1321
+msgid "Couldn't resize partition."
+msgstr ""
+
+#: src/cfdisk.c:1335
+msgid "Move the partition to the begining of the free space"
+msgstr ""
+
+#: src/cfdisk.c:1336
+msgid "Move the partition to the end of the free space"
+msgstr ""
+
+#: src/cfdisk.c:1338
+msgid "Do not move the partition"
+msgstr ""
+
+#: src/cfdisk.c:1349
+msgid "Can't open the filesystem"
+msgstr ""
+
+#: src/cfdisk.c:1354
+msgid "We can't move this partition"
+msgstr ""
+
+#: src/cfdisk.c:1358
+msgid "Select free space to move the partition to"
+msgstr ""
+
+#: src/cfdisk.c:1373
+msgid "You can't move this partition here"
+msgstr ""
+
+#: src/cfdisk.c:1381
+msgid "Where do you want to move the partition"
+msgstr ""
+
+#: src/cfdisk.c:1389 src/fdisk.c:1560
+msgid "Partition move failed"
+msgstr ""
+
+#: src/cfdisk.c:1406
+#, c-format
+msgid "The partition has %s set as a filesystem. Use it?"
+msgstr ""
+
+#: src/cfdisk.c:1412
+#, c-format
+msgid "Can't create filesystem %s, you'll have to choose another"
+msgstr ""
+
+#: src/cfdisk.c:1417
+msgid "The filesystem was not created successfully"
+msgstr ""
+
+#: src/cfdisk.c:1420
+msgid "The filesystem was created successfully."
+msgstr ""
+
+#: src/cfdisk.c:1428
+msgid "The consistency check failed."
+msgstr ""
+
+#: src/cfdisk.c:1431
+msgid "The consistency of the partition seems to be OK."
+msgstr ""
+
+#: src/cfdisk.c:1438
+msgid "Continue"
+msgstr ""
+
+#: src/cfdisk.c:1438
+msgid "Proceed with the rescue"
+msgstr ""
+
+#: src/cfdisk.c:1439
+msgid "Select custom area to look for partitions (for experts only)"
+msgstr ""
+
+#: src/cfdisk.c:1440
+msgid "Return to the main menu"
+msgstr ""
+
+#: src/cfdisk.c:1446
+msgid "This will try to rescue broken or deleted partitions"
+msgstr ""
+
+#: src/cfdisk.c:1457
+msgid "There was an error during rescue"
+msgstr ""
+
+#: src/cfdisk.c:1470
+msgid "Finished looking for partitions"
+msgstr ""
+
+#: src/cfdisk.c:1479
+msgid "Partition not copied successfully"
+msgstr ""
+
+#: src/cfdisk.c:1482
+msgid "Partition copied successfully"
+msgstr ""
+
+#: src/cfdisk.c:1493
+msgid "You should not delete this partition."
+msgstr ""
+
+#: src/cfdisk.c:1501
+msgid "Do you want to delete this partition?"
+msgstr ""
+
+#: src/cfdisk.c:1504
+msgid "Can't delete partition"
+msgstr ""
+
+#: src/cfdisk.c:1517
+msgid "Couldn't maximize this partition"
+msgstr ""
+
+#: src/cfdisk.c:1533
+msgid "Couldn't minimize the extended partition"
+msgstr ""
+
+#: src/cfdisk.c:1549
+msgid "Commit failed."
+msgstr ""
+
+#: src/cfdisk.c:1552
+msgid "Partition table successfully written."
+msgstr ""
+
+#: src/cfdisk.c:1559
+msgid "Sectors"
+msgstr ""
+
+#: src/cfdisk.c:1559
+msgid "Show the sizes in sectors"
+msgstr ""
+
+#: src/cfdisk.c:1560
+msgid "Bytes"
+msgstr ""
+
+#: src/cfdisk.c:1560
+msgid "Show the sizes in bytes"
+msgstr ""
+
+#: src/cfdisk.c:1561
+msgid "Kilobytes"
+msgstr ""
+
+#: src/cfdisk.c:1561
+msgid "Use 1,000 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1562
+msgid "Megabytes"
+msgstr ""
+
+#: src/cfdisk.c:1562
+msgid "Use 1,000,000 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1563
+msgid "Gigabytes"
+msgstr ""
+
+#: src/cfdisk.c:1563
+msgid "Use 1,000,000,000 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1564
+msgid "Terabytes"
+msgstr ""
+
+#: src/cfdisk.c:1564
+msgid "Use 1,000,000,000,000 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1565
+msgid "Percents"
+msgstr ""
+
+#: src/cfdisk.c:1565
+msgid "Show the sizes in percents"
+msgstr ""
+
+#: src/cfdisk.c:1566
+msgid "Compact"
+msgstr ""
+
+#: src/cfdisk.c:1566
+msgid "Show the size in most appropriate units"
+msgstr ""
+
+#: src/cfdisk.c:1567
+msgid "Kibibytes"
+msgstr ""
+
+#: src/cfdisk.c:1567
+msgid "Use 1,024 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1568
+msgid "Mebibytes"
+msgstr ""
+
+#: src/cfdisk.c:1568
+msgid "Use 1,048,576 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1569
+msgid "Gibibytes"
+msgstr ""
+
+#: src/cfdisk.c:1569
+msgid "Use 1,073,741,824 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1570
+msgid "Tebibytes"
+msgstr ""
+
+#: src/cfdisk.c:1570
+msgid "Use 1,099,511,627,776 bytes as unit size"
+msgstr ""
+
+#: src/cfdisk.c:1571
+msgid "Cylinders"
+msgstr ""
+
+#: src/cfdisk.c:1571
+msgid "Show the sizes in cylinders"
+msgstr ""
+
+#: src/cfdisk.c:1572
+msgid "CHS"
+msgstr ""
+
+#: src/cfdisk.c:1572
+msgid "Show the sizes in CHS units"
+msgstr ""
+
+#: src/cfdisk.c:1607
+msgid "Auto"
+msgstr ""
+
+#: src/cfdisk.c:1607
+msgid "Try to automatically set the correct type"
+msgstr ""
+
+#: src/cfdisk.c:1608
+msgid "Select a custom filesystem type (for experts only)"
+msgstr ""
+
+#: src/cfdisk.c:1609
+msgid "Do not change the filesystem type"
+msgstr ""
+
+#: src/cfdisk.c:1615
+msgid "Set the filesystem type of the partition"
+msgstr ""
+
+#: src/cfdisk.c:1623
+msgid "Couldn't change the filesystem type"
+msgstr ""
+
+#: src/cfdisk.c:1632
+msgid "The partition label doesn't support partition names"
+msgstr ""
+
+#: src/cfdisk.c:1636
+msgid "Name wasn't changed successfully."
+msgstr ""
+
+#: src/cfdisk.c:1639
+msgid "Name was changed successfully."
+msgstr ""
+
+#: src/cfdisk.c:1652 src/cfdisk.c:2029
+msgid "Bootable"
+msgstr ""
+
+#: src/cfdisk.c:1653
+msgid "Root"
+msgstr ""
+
+#: src/cfdisk.c:1654
+msgid "Swap"
+msgstr ""
+
+#: src/cfdisk.c:1655
+msgid "Hidden"
+msgstr ""
+
+#: src/cfdisk.c:1656
+msgid "RAID"
+msgstr ""
+
+#: src/cfdisk.c:1657
+msgid "LVM"
+msgstr ""
+
+#: src/cfdisk.c:1658
+msgid "LBA"
+msgstr ""
+
+#: src/cfdisk.c:1659
+msgid "HP Service"
+msgstr ""
+
+#: src/cfdisk.c:1660
+msgid "Palo"
+msgstr ""
+
+#: src/cfdisk.c:1661
+msgid "Prep"
+msgstr ""
+
+#: src/cfdisk.c:1662
+msgid "MSFT Reserved"
+msgstr ""
+
+#: src/cfdisk.c:1707
+msgid "Partition flags (press Esc two times to end)"
+msgstr ""
+
+#: src/cfdisk.c:1719
+msgid "Other partition flags (for experts only):"
+msgstr ""
+
+#: src/cfdisk.c:1757
+msgid "No flags can be changed for this partition"
+msgstr ""
+
+#: src/cfdisk.c:1794 src/cfdisk.c:1802
+msgid "No more flags"
+msgstr ""
+
+#: src/cfdisk.c:1821
+msgid "cfdisk help"
+msgstr ""
+
+#: src/cfdisk.c:1844
+msgid "Possible partition device"
+msgstr ""
+
+#: src/cfdisk.c:1849
+msgid "Free space inside an extended partition"
+msgstr ""
+
+#: src/cfdisk.c:1851 src/cfdisk.c:2048
+msgid "Free space"
+msgstr ""
+
+#: src/cfdisk.c:1854 src/cfdisk.c:2035
+msgid "Logical"
+msgstr ""
+
+#: src/cfdisk.c:1868
+msgid "Partition size in bytes"
+msgstr ""
+
+#: src/cfdisk.c:1871
+msgid "Partition size in sectors"
+msgstr ""
+
+#: src/cfdisk.c:1874
+msgid "Portion of the hard disk"
+msgstr ""
+
+#: src/cfdisk.c:1882
+msgid "Filesystem type"
+msgstr ""
+
+#: src/cfdisk.c:1889
+msgid "System type"
+msgstr ""
+
+#: src/cfdisk.c:1894
+msgid "System type name"
+msgstr ""
+
+#: src/cfdisk.c:1900
+msgid "Position"
+msgstr ""
+
+#: src/cfdisk.c:1904
+msgid "Start (cyl,heads,sector)"
+msgstr ""
+
+#: src/cfdisk.c:1907
+msgid "End (cyl,heads,sector)"
+msgstr ""
+
+#: src/cfdisk.c:1914 src/cfdisk.c:1983 src/cfdisk.c:2094
+msgid "Flags"
+msgstr ""
+
+#: src/cfdisk.c:1919
+msgid "Partition info"
+msgstr ""
+
+#: src/cfdisk.c:1982
+msgid "Number"
+msgstr ""
+
+#: src/cfdisk.c:1984
+msgid "Part Type"
+msgstr ""
+
+#: src/cfdisk.c:1985
+msgid "Filesystem"
+msgstr ""
+
+#: src/cfdisk.c:1986
+msgid "Label"
+msgstr ""
+
+#: src/cfdisk.c:2038
+msgid "Pri/Ext"
+msgstr ""
+
+#: src/cfdisk.c:2040
+msgid "None"
+msgstr ""
+
+#: src/cfdisk.c:2094
+msgid "Change the flags of the current partition"
+msgstr ""
+
+#: src/cfdisk.c:2095
+msgid "New"
+msgstr ""
+
+#: src/cfdisk.c:2095
+msgid "Create new partition from free space"
+msgstr ""
+
+#: src/cfdisk.c:2096
+msgid "Edit"
+msgstr ""
+
+#: src/cfdisk.c:2096
+msgid "Edit this BSD disklabel"
+msgstr ""
+
+#: src/cfdisk.c:2097
+msgid "Rescue"
+msgstr ""
+
+#: src/cfdisk.c:2097
+msgid "Look for deleted and corrupted partitions in the free space"
+msgstr ""
+
+#: src/cfdisk.c:2098
+msgid "Make FS"
+msgstr ""
+
+#: src/cfdisk.c:2098
+msgid "Creates a filesystem on the partition"
+msgstr ""
+
+#: src/cfdisk.c:2099
+msgid "Check"
+msgstr ""
+
+#: src/cfdisk.c:2099
+msgid "Check partition for consistency"
+msgstr ""
+
+#: src/cfdisk.c:2100
+msgid "Rename"
+msgstr ""
+
+#: src/cfdisk.c:2100
+msgid "Change partition name"
+msgstr ""
+
+#: src/cfdisk.c:2101
+msgid "Copy"
+msgstr ""
+
+#: src/cfdisk.c:2101
+msgid "Write another partition over this one (requires commit)"
+msgstr ""
+
+#: src/cfdisk.c:2102
+msgid "Resizes the current partition (requires commit)"
+msgstr ""
+
+#: src/cfdisk.c:2103
+msgid "Maximize"
+msgstr ""
+
+#: src/cfdisk.c:2103
+msgid "Enlarges the partition to the maximum possible size"
+msgstr ""
+
+#: src/cfdisk.c:2104
+msgid "Minimize"
+msgstr ""
+
+#: src/cfdisk.c:2104
+msgid "Shrinks the partition to the minimum possible size"
+msgstr ""
+
+#: src/cfdisk.c:2105
+msgid "Move"
+msgstr ""
+
+#: src/cfdisk.c:2105
+msgid "Moves the current partition (requires commit)"
+msgstr ""
+
+#: src/cfdisk.c:2106
+msgid "Delete"
+msgstr ""
+
+#: src/cfdisk.c:2106
+msgid "Delete the current partition"
+msgstr ""
+
+#: src/cfdisk.c:2107
+msgid "Type"
+msgstr ""
+
+#: src/cfdisk.c:2107
+msgid "Set the filesystem type (doesn't convert the filesystem)"
+msgstr ""
+
+#: src/cfdisk.c:2108
+msgid "Units"
+msgstr ""
+
+#: src/cfdisk.c:2108
+msgid "Change units of the partition size display"
+msgstr ""
+
+#: src/cfdisk.c:2109
+msgid "Commit"
+msgstr ""
+
+#: src/cfdisk.c:2109
+msgid "Write the changes to the disk"
+msgstr ""
+
+#: src/cfdisk.c:2110 src/cfdisk.c:2396 src/cfdisk.c:2401
+msgid "Quit"
+msgstr ""
+
+#: src/cfdisk.c:2110
+msgid "End editing this partition table"
+msgstr ""
+
+#: src/cfdisk.c:2111
+msgid "Info"
+msgstr ""
+
+#: src/cfdisk.c:2111
+msgid "Display additional partition information"
+msgstr ""
+
+#: src/cfdisk.c:2112
+msgid "Help"
+msgstr ""
+
+#: src/cfdisk.c:2112
+msgid "Display help"
+msgstr ""
+
+#: src/cfdisk.c:2123
+msgid "Select"
+msgstr ""
+
+#: src/cfdisk.c:2123
+msgid "Select this as the source partition"
+msgstr ""
+
+#: src/cfdisk.c:2124
+msgid "Abort partition copy"
+msgstr ""
+
+#: src/cfdisk.c:2140
+msgid "Partition table has changed, are you sure you want to quit?"
+msgstr ""
+
+#: src/cfdisk.c:2145
+msgid "Are you sure you want to quit?"
+msgstr ""
+
+#: src/cfdisk.c:2285 src/cfdisk.c:2300
+msgid "No more partitions"
+msgstr ""
+
+#: src/cfdisk.c:2359
+#, c-format
+msgid "Disk: %s   Disk type: %s    Size: %s"
+msgstr ""
+
+#: src/cfdisk.c:2363
+#, c-format
+msgid "Disk: %s   Disk type: %s"
+msgstr ""
+
+#: src/cfdisk.c:2368
+#, c-format
+msgid "Heads: %s   Sectors per track: %s   Cylinders: %s"
+msgstr ""
+
+#: src/cfdisk.c:2395
+msgid "Choose"
+msgstr ""
+
+#: src/cfdisk.c:2395
+msgid "Prompt for device address"
+msgstr ""
+
+#: src/cfdisk.c:2396 src/cfdisk.c:2401
+msgid "Quit program"
+msgstr ""
+
+#: src/cfdisk.c:2400
+msgid "Create"
+msgstr ""
+
+#: src/cfdisk.c:2400
+msgid "Create new partition table"
+msgstr ""
+
+#: src/cfdisk.c:2406
+msgid "Cannot find a device automatically"
+msgstr ""
+
+#: src/cfdisk.c:2410 src/cfdisk.c:2420
+msgid "Invalid device"
+msgstr ""
+
+#: src/cfdisk.c:2414
+msgid "Enter path to the device"
+msgstr ""
+
+#: src/cfdisk.c:2433
+msgid "Cannot find a partition table on the disk"
+msgstr ""
+
+#: src/cfdisk.c:2436 src/cfdisk.c:2446
+msgid "Creation of partition table failed"
+msgstr ""
+
+#: src/cfdisk.c:2442
+msgid "Internal error initializing disk flags"
+msgstr ""
+
+#: src/cfdisk.c:2460
+#, c-format
+msgid "%s, %s"
+msgstr ""
+
+#: src/cfdisk.c:2468
+msgid "Device file"
+msgstr ""
+
+#: src/cfdisk.c:2534
+msgid "OPTIONs:"
+msgstr ""
+
+#: src/cfdisk.c:2613 src/cfdisk.c:2624
+#, c-format
+msgid "Invalid device\n"
+msgstr ""
+
+#: src/fdisk.c:157
+msgid ""
+"NUMBER is the partition number used by Linux.  On MS-DOS disk labels, the "
+"primary partitions number from 1 to 4, logical partitions from 5 onwards.\n"
+msgstr ""
+
+#: src/fdisk.c:160
+msgid "LABEL-TYPE is one of: "
+msgstr ""
+
+#: src/fdisk.c:161
+msgid "FLAG is one of: "
+msgstr ""
+
+#: src/fdisk.c:162
+msgid "UNIT is one of: "
+msgstr ""
+
+#: src/fdisk.c:166
+msgid "FS-TYPE is one of: "
+msgstr ""
+
+#: src/fdisk.c:167
+msgid ""
+"START and END are disk locations, such as 4GB or 10%.  Negative values count "
+"from the end of the disk.  For example, -1s specifies exactly the last "
+"sector.\n"
+msgstr ""
+
+#: src/fdisk.c:233
+#, c-format
+msgid "%0.f%%\t(time left %.2ld:%.2ld)"
+msgstr ""
+
+#: src/fdisk.c:313
+#, c-format
+msgid ""
+"Partition %s is being used.  You must unmount it before you modify it with "
+"Parted."
+msgstr ""
+
+#: src/fdisk.c:608
+msgid "Command action"
+msgstr ""
+
+#: src/fdisk.c:778
+#, c-format
+msgid "Minor: %d\n"
+msgstr ""
+
+#: src/fdisk.c:779
+#, c-format
+msgid "Flags: "
+msgstr ""
+
+#: src/fdisk.c:780
+#, c-format
+msgid "File System: %s\n"
+msgstr ""
+
+#: src/fdisk.c:781
+#, c-format
+msgid "Size:         "
+msgstr ""
+
+#: src/fdisk.c:786
+#, c-format
+msgid "Minimum size: "
+msgstr ""
+
+#: src/fdisk.c:789
+#, c-format
+msgid "Maximum size: "
+msgstr ""
+
+#: src/fdisk.c:845
+msgid ""
+"There is a BSD partition on the disk but it seems to contain a filesystem. "
+"This is going to destroy it. Are you sure you want to continue?"
+msgstr ""
+
+#: src/fdisk.c:862
+msgid ""
+"There is a BSD partition on the disk, but there is no BSD disklabel on it. "
+"Do you want to create one?"
+msgstr ""
+
+#: src/fdisk.c:881
+#, c-format
+msgid "There was an error opening the *BSD partition on %s.\n"
+msgstr ""
+
+#: src/fdisk.c:906
+#, c-format
+msgid "There is no *BSD partition on %s.\n"
+msgstr ""
+
+#: src/fdisk.c:950
+#, c-format
+msgid ""
+"\n"
+"Disk %s: %lld %s, %lld bytes\n"
+msgstr ""
+
+#: src/fdisk.c:958
+#, c-format
+msgid ""
+"%lld heads, %lld sectors/track, %lld cylinders, total %lld sectors\n"
+"Units = sectors of %d * %d = %d bytes\n"
+msgstr ""
+
+#: src/fdisk.c:963
+#, c-format
+msgid ""
+"%lld heads, %lld sectors/track, %lld cylinders\n"
+"Units = cylinders of %lld * %d = %s bytes\n"
+msgstr ""
+
+#: src/fdisk.c:980
+msgid "#   "
+msgstr ""
+
+#: src/fdisk.c:981
+msgid "start"
+msgstr ""
+
+#: src/fdisk.c:981
+msgid "end"
+msgstr ""
+
+#: src/fdisk.c:981
+msgid "blocks"
+msgstr ""
+
+#: src/fdisk.c:981
+msgid "id"
+msgstr ""
+
+#: src/fdisk.c:981
+msgid "system"
+msgstr ""
+
+#: src/fdisk.c:990
+msgid "Device"
+msgstr ""
+
+#: src/fdisk.c:991
+msgid "Boot"
+msgstr ""
+
+#: src/fdisk.c:991
+msgid "Blocks"
+msgstr ""
+
+#: src/fdisk.c:991
+msgid "Id"
+msgstr ""
+
+#: src/fdisk.c:992
+msgid "System"
+msgstr ""
+
+#: src/fdisk.c:1062
+msgid "82"
+msgstr ""
+
+#: src/fdisk.c:1062
+msgid "Linux Swap / Solaris"
+msgstr ""
+
+#: src/fdisk.c:1065
+msgid "a5"
+msgstr ""
+
+#: src/fdisk.c:1065
+msgid "Free/Net/OpenBSD"
+msgstr ""
+
+#: src/fdisk.c:1067
+msgid "83"
+msgstr ""
+
+#: src/fdisk.c:1067
+msgid "Linux"
+msgstr ""
+
+#: src/fdisk.c:1069
+msgid "5"
+msgstr ""
+
+#: src/fdisk.c:1102
+#, c-format
+msgid ""
+"\n"
+"Disk %s: %d heads, %d sectors, %d cylinders\n"
+"\n"
+msgstr ""
+
+#: src/fdisk.c:1104
+#, c-format
+msgid "Nr AF  Hd Sec     Cyl  Hd Sec     Cyl      Start       Size ID\n"
+msgstr ""
+
+#: src/fdisk.c:1194
+#, c-format
+msgid "Raw printing on %s not supported\n"
+msgstr ""
+
+#: src/fdisk.c:1199
+#, c-format
+msgid "Device: %s\n"
+msgstr ""
+
+#: src/fdisk.c:1222
+#, c-format
+msgid "There is no partition %d on %s\n"
+msgstr ""
+
+#: src/fdisk.c:1447
+msgid "WARNING: rescue writes all data to disk automatically, continue"
+msgstr ""
+
+#: src/fdisk.c:1450
+msgid "Start?"
+msgstr ""
+
+#: src/fdisk.c:1452
+msgid "End?"
+msgstr ""
+
+#: src/fdisk.c:1479
+msgid "don't move the beginning of the partition"
+msgstr ""
+
+#: src/fdisk.c:1480
+msgid "place it at the beginning of the free space before it"
+msgstr ""
+
+#: src/fdisk.c:1481
+msgid "place it at the end"
+msgstr ""
+
+#: src/fdisk.c:1482
+msgid "select custom start and end"
+msgstr ""
+
+#: src/fdisk.c:1516
+msgid "Place for the resized partition"
+msgstr ""
+
+#: src/fdisk.c:1526
+msgid "Resize of the partition failed"
+msgstr ""
+
+#: src/fdisk.c:1573
+msgid "New device?"
+msgstr ""
+
+#: src/fdisk.c:1580
+msgid ""
+"WARNING: changes were made to the disk, are you sure you want to discard them"
+msgstr ""
+
+#: src/fdisk.c:1623
+msgid "Changing display/entry units to sectors"
+msgstr ""
+
+#: src/fdisk.c:1628
+msgid "Changing display/entry units to cylinders"
+msgstr ""
+
+#: src/fdisk.c:1646
+msgid ""
+"You should reinstall your boot loader before rebooting.  Read section 4 of "
+"the Parted User documentation for more information."
+msgstr ""
+
+#: src/fdisk.c:1654
+msgid "Don't forget to update /etc/fstab, if necessary.\n"
+msgstr ""
+
+#: src/fdisk.c:1658
+#, c-format
+msgid ""
+"\n"
+"Writing all changes to %s.\n"
+msgstr ""
+
+#: src/fdisk.c:1696
+#, c-format
+msgid "System types for this disk label type are not available.\n"
+msgstr ""
+
+#: src/fdisk.c:1736
+msgid ""
+"WARNING: System types for this disk label type seem unavailable, continue?"
+msgstr ""
+
+#: src/fdisk.c:1766
+msgid "Unknown"
+msgstr ""
+
+#: src/fdisk.c:1768
+#, c-format
+msgid "Changed type of partition %d to %x (%s)\n"
+msgstr ""
+
+#: src/fdisk.c:1787
+msgid "Number of sectors"
+msgstr ""
+
+#: src/fdisk.c:1799
+msgid "Number of heads"
+msgstr ""
+
+#: src/fdisk.c:1811
+msgid "Number of cylinders"
+msgstr ""
+
+#: src/fdisk.c:1834
+msgid "New beginning of data"
+msgstr ""
+
+#: src/fdisk.c:1839
+#, c-format
+msgid "Value out of range."
+msgstr ""
+
+#: src/fdisk.c:1949 src/fdisk.c:2192
+msgid "d"
+msgstr ""
+
+#: src/fdisk.c:1952
+msgid " d   delete a BSD partition"
+msgstr ""
+
+#: src/fdisk.c:1958 src/fdisk.c:2201
+msgid "l"
+msgstr ""
+
+#: src/fdisk.c:1961
+msgid " l   list known filesystem types"
+msgstr ""
+
+#: src/fdisk.c:1965 src/fdisk.c:2111 src/fdisk.c:2208
+msgid "m"
+msgstr ""
+
+#: src/fdisk.c:1968 src/fdisk.c:2114 src/fdisk.c:2211
+msgid " m   print this menu"
+msgstr ""
+
+#: src/fdisk.c:1972 src/fdisk.c:2215
+msgid "n"
+msgstr ""
+
+#: src/fdisk.c:1975
+msgid " n   add a new BSD partition"
+msgstr ""
+
+#: src/fdisk.c:1981 src/fdisk.c:2119 src/fdisk.c:2126 src/fdisk.c:2229
+msgid "p"
+msgstr ""
+
+#: src/fdisk.c:1984
+msgid " p   print the BSD partition table"
+msgstr ""
+
+#: src/fdisk.c:1989 src/fdisk.c:2133 src/fdisk.c:2236
+msgid "q"
+msgstr ""
+
+#: src/fdisk.c:1992 src/fdisk.c:2136 src/fdisk.c:2239
+msgid " q   quit without saving changes"
+msgstr ""
+
+#: src/fdisk.c:1997 src/fdisk.c:2141
+msgid "r"
+msgstr ""
+
+#: src/fdisk.c:2000 src/fdisk.c:2144
+msgid " r   return to the main menu"
+msgstr ""
+
+#: src/fdisk.c:2006 src/fdisk.c:2252
+msgid "t"
+msgstr ""
+
+#: src/fdisk.c:2009
+msgid " t   change a partition's filesystem id"
+msgstr ""
+
+#: src/fdisk.c:2015 src/fdisk.c:2259
+msgid "u"
+msgstr ""
+
+#: src/fdisk.c:2018 src/fdisk.c:2262
+msgid " u   change display/entry units"
+msgstr ""
+
+#: src/fdisk.c:2022 src/fdisk.c:2164 src/fdisk.c:2274
+msgid "w"
+msgstr ""
+
+#: src/fdisk.c:2025
+msgid " w   write disklabel to disk"
+msgstr ""
+
+#: src/fdisk.c:2037 src/fdisk.c:2157 src/fdisk.c:2267
+msgid "v"
+msgstr ""
+
+#: src/fdisk.c:2039
+msgid " v   move a partition"
+msgstr ""
+
+#: src/fdisk.c:2044 src/fdisk.c:2073
+msgid "c"
+msgstr ""
+
+#: src/fdisk.c:2046
+msgid " c   rescue a lost partition"
+msgstr ""
+
+#: src/fdisk.c:2050
+msgid "z"
+msgstr ""
+
+#: src/fdisk.c:2052
+msgid " z   resize a partition"
+msgstr ""
+
+#: src/fdisk.c:2056 src/fdisk.c:2104
+msgid "h"
+msgstr ""
+
+#: src/fdisk.c:2058
+msgid " h   check the consistency of a partition"
+msgstr ""
+
+#: src/fdisk.c:2065 src/fdisk.c:2185
+msgid "b"
+msgstr ""
+
+#: src/fdisk.c:2068
+msgid " b   move beginning of data in a partition"
+msgstr ""
+
+#: src/fdisk.c:2076
+msgid " c   change number of cylinders"
+msgstr ""
+
+#: src/fdisk.c:2081
+msgid "e"
+msgstr ""
+
+#: src/fdisk.c:2084
+msgid " e   list extended partitions"
+msgstr ""
+
+#: src/fdisk.c:2088
+msgid "f"
+msgstr ""
+
+#: src/fdisk.c:2091
+msgid " f   fix partition order"
+msgstr ""
+
+#: src/fdisk.c:2095
+msgid "g"
+msgstr ""
+
+#: src/fdisk.c:2098
+msgid " g   create an IRIX (SGI) partition table"
+msgstr ""
+
+#: src/fdisk.c:2107
+msgid " h   change number of heads"
+msgstr ""
+
+#: src/fdisk.c:2122 src/fdisk.c:2129 src/fdisk.c:2232
+msgid " p   print the partition table"
+msgstr ""
+
+#: src/fdisk.c:2149 src/fdisk.c:2243
+msgid "s"
+msgstr ""
+
+#: src/fdisk.c:2152
+msgid " s   change number of sectors/track"
+msgstr ""
+
+#: src/fdisk.c:2160 src/fdisk.c:2270
+msgid " v   verify the partition table"
+msgstr ""
+
+#: src/fdisk.c:2167 src/fdisk.c:2277
+msgid " w   write table to disk and exit"
+msgstr ""
+
+#: src/fdisk.c:2178
+msgid "a"
+msgstr ""
+
+#: src/fdisk.c:2181
+msgid " a   toggle bootable flag"
+msgstr ""
+
+#: src/fdisk.c:2188
+msgid " b   edit bsd disklabel"
+msgstr ""
+
+#: src/fdisk.c:2195
+msgid " d   delete a partition"
+msgstr ""
+
+#: src/fdisk.c:2204
+msgid " l   list known partition types"
+msgstr ""
+
+#: src/fdisk.c:2218
+msgid " n   add a new partition"
+msgstr ""
+
+#: src/fdisk.c:2222
+msgid "o"
+msgstr ""
+
+#: src/fdisk.c:2225
+msgid " o   create a new empty DOS partition table"
+msgstr ""
+
+#: src/fdisk.c:2246
+msgid " s   create a new empty Sun disklabel"
+msgstr ""
+
+#: src/fdisk.c:2255
+msgid " t   change a partition's system id"
+msgstr ""
+
+#: src/fdisk.c:2281
+msgid "x"
+msgstr ""
+
+#: src/fdisk.c:2284
+msgid " x   extra functionality (experts only)"
+msgstr ""
+
+#: src/fdisk.c:2358
+msgid "dynamic memory allocation failure"
+msgstr ""
+
+#: src/fdisk.c:2457
+#, c-format
+msgid ""
+"Warning: alignment option is ignored in util-linux compatibile mode. Switch "
+"to cylinder alignment.\n"
+msgstr ""
+
+#: src/fdisk.c:2486 src/fdisk.c:2532
+#, c-format
+msgid "Unable to open %s\n"
+msgstr ""
+
+#: src/strlist.c:140 src/strlist.c:187
+msgid "Error during translation"
+msgstr ""

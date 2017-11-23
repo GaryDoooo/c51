@@ -1,0 +1,437 @@
+BL51 BANKED LINKER/LOCATER V5.03                                                        05/14/2014  22:39:12  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V5.03, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE STARTUP.obj, PWM.obj TO PWM脉宽调制 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  PWM.obj (PWM)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  PWM脉宽调制 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            REG     0008H     0008H     ABSOLUTE     "REG BANK 1"
+                    0010H     0010H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?PWM
+                    0020H.1   0000H.7                *** GAP ***
+            DATA    0021H     0017H     UNIT         ?DT?PWM
+            IDATA   0038H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0014H     UNIT         ?PR?_DELAY1US?PWM
+                    0022H     0001H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00B2H     006EH     UNIT         ?PR?MAIN?PWM
+            CODE    0120H     0040H     UNIT         ?PR?_SENDBYTE?PWM
+            CODE    0160H     0025H     UNIT         ?PR?RS232INIT?PWM
+            CODE    0185H     0025H     UNIT         ?PR?SER_INT?PWM
+            CODE    01AAH     0024H     UNIT         ?PR?SYSTEM_INI?PWM
+            CODE    01CEH     0024H     UNIT         ?PR?BUFFER_SEND?PWM
+            CODE    01F2H     001EH     UNIT         ?PR?_SWITCH2MODE?PWM
+            CODE    0210H     001CH     UNIT         ?PR?T1ZD?PWM
+            CODE    022CH     0014H     UNIT         ?PR?_ISENDSTR?PWM
+            CODE    0240H     0011H     UNIT         ?PR?START_I2C?PWM
+            CODE    0251H     000DH     UNIT         ?C_INITSEG
+            CODE    025EH     000CH     UNIT         ?PR?_SEND232?PWM
+            CODE    026AH     000BH     UNIT         ?PR?STOP_I2C?PWM
+
+
+
+OVERLAY MAP OF MODULE:   PWM脉宽调制 (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 2
+
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?PWM
+  +--> ?C_INITSEG
+
+?PR?MAIN?PWM
+  +--> ?PR?SYSTEM_INI?PWM
+  +--> ?PR?RS232INIT?PWM
+  +--> ?PR?_SWITCH2MODE?PWM
+  +--> ?PR?BUFFER_SEND?PWM
+
+?PR?_SWITCH2MODE?PWM
+  +--> ?PR?_ISENDSTR?PWM
+  +--> ?PR?_SEND232?PWM
+
+?PR?_ISENDSTR?PWM
+  +--> ?PR?START_I2C?PWM
+  +--> ?PR?_SENDBYTE?PWM
+  +--> ?PR?STOP_I2C?PWM
+
+?PR?START_I2C?PWM
+  +--> ?PR?_DELAY1US?PWM
+
+?PR?_SENDBYTE?PWM
+  +--> ?PR?_DELAY1US?PWM
+
+?PR?STOP_I2C?PWM
+  +--> ?PR?_DELAY1US?PWM
+
+*** NEW ROOT ***************************************************
+
+?PR?SER_INT?PWM
+  +--> ?PR?_SEND232?PWM
+
+
+
+SYMBOL TABLE OF MODULE:  PWM脉宽调制 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0026H         SEGMENT       ?C_C51STARTUP
+  I:0038H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0029H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0000H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 3
+
+
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0026H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         92
+  C:0026H         LINE#         99
+  C:0028H         LINE#         100
+  C:0029H         LINE#         101
+  C:002AH         LINE#         102
+  C:002CH         LINE#         151
+  C:002FH         LINE#         155
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        PWM
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0091H         PUBLIC        P1M0
+  D:0093H         PUBLIC        P0M1
+  D:0092H         PUBLIC        P1M1
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:0021H         PUBLIC        timer2_4switch
+  C:0120H         PUBLIC        _SendByte
+  D:00B0H         PUBLIC        P3
+  D:0022H         PUBLIC        time_out232
+  B:00A8H.7       PUBLIC        EA
+  C:01CEH         PUBLIC        buffer_send
+  D:00A8H         PUBLIC        IE
+  D:0024H         PUBLIC        current_mode
+  B:00A8H.4       PUBLIC        ES
+  D:0025H         PUBLIC        duty4modes
+  D:00B8H         PUBLIC        IP
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  B:0080H.7       PUBLIC        GoClear
+  B:00B8H.4       PUBLIC        PS
+  C:025EH         PUBLIC        _send232
+  D:0029H         PUBLIC        SenData
+  B:0080H.1       PUBLIC        PWM1
+  C:00B2H         PUBLIC        main
+  B:0080H.2       PUBLIC        PWM2
+  C:01AAH         PUBLIC        system_Ini
+  B:0020H.0       PUBLIC        ack
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:002AH         PUBLIC        ReData
+  D:0098H         PUBLIC        SCON
+  C:0160H         PUBLIC        rs232init
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:002BH         PUBLIC        I2C_mode_codes
+  B:0080H.6       PUBLIC        GoHaze
+  D:002FH         PUBLIC        duty
+  B:00A8H.1       PUBLIC        ET0
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 4
+
+
+  D:008CH         PUBLIC        TH0
+  D:008DH         PUBLIC        TH1
+  C:01F2H         PUBLIC        _switch2mode
+  C:0240H         PUBLIC        Start_I2c
+  D:008AH         PUBLIC        TL0
+  D:008BH         PUBLIC        TL1
+  D:0030H         PUBLIC        timer1
+  D:0031H         PUBLIC        timer2
+  D:0032H         PUBLIC        switching
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:0090H.6       PUBLIC        SDA
+  D:0033H         PUBLIC        timer2_goal
+  B:0090H.7       PUBLIC        SCL
+  C:0210H         PUBLIC        T1zd
+  D:0034H         PUBLIC        received232
+  D:0035H         PUBLIC        buffer_pointer
+  C:026AH         PUBLIC        Stop_I2c
+  D:00C8H         PUBLIC        T2CON
+  D:0036H         PUBLIC        sending_data
+  C:0017H         PUBLIC        _Delay1us
+  C:022CH         PUBLIC        _ISendStr
+  C:0185H         PUBLIC        ser_int
+  D:0037H         PUBLIC        have232connected
+  D:00D0H         PUBLIC        PSW
+  D:0094H         PUBLIC        P0M0
+  C:000EH         SYMBOL        L?0046
+  -------         PROC          L?0045
+  -------         ENDPROC       L?0045
+  C:000EH         SYMBOL        L?0046
+  -------         PROC          _DELAY1US
+  D:0007H         SYMBOL        time_length
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:0017H         LINE#         42
+  C:0017H         LINE#         43
+  C:0017H         LINE#         45
+  C:0021H         LINE#         46
+  -------         ENDPROC       _DELAY1US
+  -------         PROC          START_I2C
+  C:0240H         LINE#         53
+  C:0240H         LINE#         54
+  C:0240H         LINE#         55
+  C:0242H         LINE#         56
+  C:0242H         LINE#         57
+  C:0242H         LINE#         58
+  C:0245H         LINE#         60
+  C:0247H         LINE#         61
+  C:024AH         LINE#         63
+  C:024CH         LINE#         64
+  -------         ENDPROC       START_I2C
+  -------         PROC          STOP_I2C
+  C:026AH         LINE#         72
+  C:026AH         LINE#         73
+  C:026AH         LINE#         74
+  C:026CH         LINE#         75
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 5
+
+
+  C:026CH         LINE#         76
+  C:026CH         LINE#         77
+  C:026FH         LINE#         79
+  C:0271H         LINE#         80
+  -------         ENDPROC       STOP_I2C
+  -------         PROC          _SENDBYTE
+  D:0005H         SYMBOL        c
+  -------         DO            
+  D:0004H         SYMBOL        BitCnt
+  -------         ENDDO         
+  C:0120H         LINE#         90
+  C:0122H         LINE#         91
+  C:0122H         LINE#         94
+  C:0124H         LINE#         95
+  C:0124H         LINE#         96
+  C:0135H         LINE#         97
+  C:0137H         LINE#         98
+  C:0137H         LINE#         100
+  C:0137H         LINE#         101
+  C:013AH         LINE#         103
+  C:013CH         LINE#         104
+  C:0140H         LINE#         106
+  C:0145H         LINE#         107
+  C:0147H         LINE#         108
+  C:014AH         LINE#         109
+  C:014CH         LINE#         110
+  C:0150H         LINE#         111
+  C:0157H         LINE#         112
+  C:0159H         LINE#         113
+  C:015BH         LINE#         114
+  -------         ENDPROC       _SENDBYTE
+  -------         PROC          _ISENDSTR
+  D:0003H         SYMBOL        s
+  C:022CH         LINE#         127
+  C:022EH         LINE#         128
+  C:022EH         LINE#         130
+  C:0231H         LINE#         131
+  C:0236H         LINE#         133
+  C:023BH         LINE#         137
+  C:023EH         LINE#         139
+  C:023FH         LINE#         140
+  -------         ENDPROC       _ISENDSTR
+  -------         PROC          SYSTEM_INI
+  C:01AAH         LINE#         143
+  C:01AAH         LINE#         144
+  C:01AAH         LINE#         146
+  C:01ADH         LINE#         147
+  C:01B0H         LINE#         148
+  C:01B2H         LINE#         149
+  C:01B4H         LINE#         150
+  C:01B6H         LINE#         151
+  C:01B8H         LINE#         152
+  C:01BAH         LINE#         154
+  C:01BDH         LINE#         156
+  C:01C1H         LINE#         157
+  C:01C3H         LINE#         158
+  C:01C5H         LINE#         162
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 6
+
+
+  C:01C7H         LINE#         163
+  C:01C9H         LINE#         164
+  C:01CBH         LINE#         165
+  C:01CDH         LINE#         170
+  -------         ENDPROC       SYSTEM_INI
+  -------         PROC          RS232INIT
+  C:0160H         LINE#         172
+  C:0160H         LINE#         173
+  C:0160H         LINE#         193
+  C:0163H         LINE#         194
+  C:0166H         LINE#         195
+  C:0169H         LINE#         196
+  C:016CH         LINE#         198
+  C:016FH         LINE#         211
+  C:0172H         LINE#         212
+  C:0175H         LINE#         213
+  C:0178H         LINE#         214
+  C:017AH         LINE#         217
+  C:017CH         LINE#         218
+  C:017EH         LINE#         219
+  C:0180H         LINE#         221
+  C:0182H         LINE#         223
+  C:0184H         LINE#         227
+  -------         ENDPROC       RS232INIT
+  -------         PROC          _SEND232
+  D:0007H         SYMBOL        send_number
+  C:025EH         LINE#         229
+  C:025EH         LINE#         230
+  C:025EH         LINE#         231
+  C:0267H         LINE#         234
+  C:0269H         LINE#         235
+  -------         ENDPROC       _SEND232
+  -------         PROC          BUFFER_SEND
+  C:01CEH         LINE#         237
+  C:01CEH         LINE#         238
+  C:01CEH         LINE#         239
+  C:01DCH         LINE#         240
+  C:01DCH         LINE#         242
+  C:01DFH         LINE#         243
+  C:01E2H         LINE#         244
+  C:01E4H         LINE#         248
+  C:01E4H         LINE#         250
+  C:01ECH         LINE#         251
+  C:01F1H         LINE#         252
+  -------         ENDPROC       BUFFER_SEND
+  -------         PROC          _SWITCH2MODE
+  D:0002H         SYMBOL        to_mode
+  C:01F2H         LINE#         254
+  C:01F4H         LINE#         255
+  C:01F4H         LINE#         256
+  C:01F7H         LINE#         257
+  C:01FAH         LINE#         258
+  C:01FDH         LINE#         260
+  C:0200H         LINE#         261
+  C:0209H         LINE#         262
+  C:020BH         LINE#         263
+  -------         ENDPROC       _SWITCH2MODE
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 7
+
+
+  -------         PROC          MAIN
+  C:00B2H         LINE#         266
+  C:00B2H         LINE#         267
+  C:00B2H         LINE#         270
+  C:00B5H         LINE#         274
+  C:00B8H         LINE#         276
+  C:00BDH         LINE#         278
+  C:00BDH         LINE#         279
+  C:00BDH         LINE#         283
+  C:00C4H         LINE#         284
+  C:00C4H         LINE#         285
+  C:00C7H         LINE#         286
+  C:00C9H         LINE#         287
+  C:00C9H         LINE#         288
+  C:00D0H         LINE#         289
+  C:00D0H         LINE#         290
+  C:00D2H         LINE#         291
+  C:00D4H         LINE#         292
+  C:00D6H         LINE#         293
+  C:00DAH         LINE#         296
+  C:00DFH         LINE#         297
+  C:00DFH         LINE#         298
+  C:00E6H         LINE#         299
+  C:00E6H         LINE#         300
+  C:00E9H         LINE#         301
+  C:00F1H         LINE#         302
+  C:00F1H         LINE#         303
+  C:00F3H         LINE#         305
+  C:00F3H         LINE#         306
+  C:00F6H         LINE#         307
+  C:00F6H         LINE#         308
+  C:00F8H         LINE#         309
+  C:00FAH         LINE#         310
+  C:00FDH         LINE#         311
+  C:00FDH         LINE#         312
+  C:0102H         LINE#         313
+  C:0102H         LINE#         315
+  C:0102H         LINE#         317
+  C:0105H         LINE#         318
+  C:0116H         LINE#         319
+  C:011BH         LINE#         320
+  C:011EH         LINE#         321
+  C:011EH         LINE#         322
+  -------         ENDPROC       MAIN
+  -------         PROC          T1ZD
+  C:0210H         LINE#         330
+  C:0212H         LINE#         341
+  C:0215H         LINE#         342
+  C:0218H         LINE#         345
+  C:021AH         LINE#         346
+  C:0226H         LINE#         347
+  C:0229H         LINE#         349
+  -------         ENDPROC       T1ZD
+  -------         PROC          SER_INT
+  C:0185H         LINE#         354
+  C:018CH         LINE#         359
+  C:018FH         LINE#         360
+BL51 BANKED LINKER/LOCATER V5.03                                                      05/14/2014  22:39:12  PAGE 8
+
+
+  C:018FH         LINE#         361
+  C:0191H         LINE#         362
+  C:0194H         LINE#         365
+  C:0199H         LINE#         366
+  C:019CH         LINE#         367
+  C:01A2H         LINE#         368
+  C:01A5H         LINE#         369
+  C:01A5H         LINE#         370
+  -------         ENDPROC       SER_INT
+  -------         ENDMOD        PWM
+
+Program Size: data=40.1 xdata=0 code=620
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

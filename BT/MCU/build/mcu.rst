@@ -1,0 +1,514 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.1.0 #7066 (Jun 14 2012) (Linux)
+                              4 ; This file was generated Sun May 18 01:36:03 2014
+                              5 ;--------------------------------------------------------
+                              6 	.module mcu
+                              7 	.optsdcc -mmcs51 --model-small
+                              8 	
+                              9 ;--------------------------------------------------------
+                             10 ; Public variables in this module
+                             11 ;--------------------------------------------------------
+                             12 	.globl _ser_int
+                             13 	.globl _main
+                             14 	.globl _buffer_send
+                             15 	.globl _send232
+                             16 	.globl _rs232init
+                             17 	.globl _CY
+                             18 	.globl _AC
+                             19 	.globl _F0
+                             20 	.globl _RS1
+                             21 	.globl _RS0
+                             22 	.globl _OV
+                             23 	.globl _F1
+                             24 	.globl _P
+                             25 	.globl _PS
+                             26 	.globl _PT1
+                             27 	.globl _PX1
+                             28 	.globl _PT0
+                             29 	.globl _PX0
+                             30 	.globl _RD
+                             31 	.globl _WR
+                             32 	.globl _T1
+                             33 	.globl _T0
+                             34 	.globl _INT1
+                             35 	.globl _INT0
+                             36 	.globl _TXD
+                             37 	.globl _RXD
+                             38 	.globl _P3_7
+                             39 	.globl _P3_6
+                             40 	.globl _P3_5
+                             41 	.globl _P3_4
+                             42 	.globl _P3_3
+                             43 	.globl _P3_2
+                             44 	.globl _P3_1
+                             45 	.globl _P3_0
+                             46 	.globl _EA
+                             47 	.globl _ES
+                             48 	.globl _ET1
+                             49 	.globl _EX1
+                             50 	.globl _ET0
+                             51 	.globl _EX0
+                             52 	.globl _P2_7
+                             53 	.globl _P2_6
+                             54 	.globl _P2_5
+                             55 	.globl _P2_4
+                             56 	.globl _P2_3
+                             57 	.globl _P2_2
+                             58 	.globl _P2_1
+                             59 	.globl _P2_0
+                             60 	.globl _SM0
+                             61 	.globl _SM1
+                             62 	.globl _SM2
+                             63 	.globl _REN
+                             64 	.globl _TB8
+                             65 	.globl _RB8
+                             66 	.globl _TI
+                             67 	.globl _RI
+                             68 	.globl _P1_7
+                             69 	.globl _P1_6
+                             70 	.globl _P1_5
+                             71 	.globl _P1_4
+                             72 	.globl _P1_3
+                             73 	.globl _P1_2
+                             74 	.globl _P1_1
+                             75 	.globl _P1_0
+                             76 	.globl _TF1
+                             77 	.globl _TR1
+                             78 	.globl _TF0
+                             79 	.globl _TR0
+                             80 	.globl _IE1
+                             81 	.globl _IT1
+                             82 	.globl _IE0
+                             83 	.globl _IT0
+                             84 	.globl _P0_7
+                             85 	.globl _P0_6
+                             86 	.globl _P0_5
+                             87 	.globl _P0_4
+                             88 	.globl _P0_3
+                             89 	.globl _P0_2
+                             90 	.globl _P0_1
+                             91 	.globl _P0_0
+                             92 	.globl _B
+                             93 	.globl _ACC
+                             94 	.globl _PSW
+                             95 	.globl _IP
+                             96 	.globl _P3
+                             97 	.globl _IE
+                             98 	.globl _P2
+                             99 	.globl _SBUF
+                            100 	.globl _SCON
+                            101 	.globl _P1
+                            102 	.globl _TH1
+                            103 	.globl _TH0
+                            104 	.globl _TL1
+                            105 	.globl _TL0
+                            106 	.globl _TMOD
+                            107 	.globl _TCON
+                            108 	.globl _PCON
+                            109 	.globl _DPH
+                            110 	.globl _DPL
+                            111 	.globl _SP
+                            112 	.globl _P0
+                            113 	.globl _sending_data
+                            114 	.globl _SenData
+                            115 	.globl _ReData
+                            116 	.globl _buffer_pointer
+                            117 ;--------------------------------------------------------
+                            118 ; special function registers
+                            119 ;--------------------------------------------------------
+                            120 	.area RSEG    (ABS,DATA)
+   0000                     121 	.org 0x0000
+                    0080    122 _P0	=	0x0080
+                    0081    123 _SP	=	0x0081
+                    0082    124 _DPL	=	0x0082
+                    0083    125 _DPH	=	0x0083
+                    0087    126 _PCON	=	0x0087
+                    0088    127 _TCON	=	0x0088
+                    0089    128 _TMOD	=	0x0089
+                    008A    129 _TL0	=	0x008a
+                    008B    130 _TL1	=	0x008b
+                    008C    131 _TH0	=	0x008c
+                    008D    132 _TH1	=	0x008d
+                    0090    133 _P1	=	0x0090
+                    0098    134 _SCON	=	0x0098
+                    0099    135 _SBUF	=	0x0099
+                    00A0    136 _P2	=	0x00a0
+                    00A8    137 _IE	=	0x00a8
+                    00B0    138 _P3	=	0x00b0
+                    00B8    139 _IP	=	0x00b8
+                    00D0    140 _PSW	=	0x00d0
+                    00E0    141 _ACC	=	0x00e0
+                    00F0    142 _B	=	0x00f0
+                            143 ;--------------------------------------------------------
+                            144 ; special function bits
+                            145 ;--------------------------------------------------------
+                            146 	.area RSEG    (ABS,DATA)
+   0000                     147 	.org 0x0000
+                    0080    148 _P0_0	=	0x0080
+                    0081    149 _P0_1	=	0x0081
+                    0082    150 _P0_2	=	0x0082
+                    0083    151 _P0_3	=	0x0083
+                    0084    152 _P0_4	=	0x0084
+                    0085    153 _P0_5	=	0x0085
+                    0086    154 _P0_6	=	0x0086
+                    0087    155 _P0_7	=	0x0087
+                    0088    156 _IT0	=	0x0088
+                    0089    157 _IE0	=	0x0089
+                    008A    158 _IT1	=	0x008a
+                    008B    159 _IE1	=	0x008b
+                    008C    160 _TR0	=	0x008c
+                    008D    161 _TF0	=	0x008d
+                    008E    162 _TR1	=	0x008e
+                    008F    163 _TF1	=	0x008f
+                    0090    164 _P1_0	=	0x0090
+                    0091    165 _P1_1	=	0x0091
+                    0092    166 _P1_2	=	0x0092
+                    0093    167 _P1_3	=	0x0093
+                    0094    168 _P1_4	=	0x0094
+                    0095    169 _P1_5	=	0x0095
+                    0096    170 _P1_6	=	0x0096
+                    0097    171 _P1_7	=	0x0097
+                    0098    172 _RI	=	0x0098
+                    0099    173 _TI	=	0x0099
+                    009A    174 _RB8	=	0x009a
+                    009B    175 _TB8	=	0x009b
+                    009C    176 _REN	=	0x009c
+                    009D    177 _SM2	=	0x009d
+                    009E    178 _SM1	=	0x009e
+                    009F    179 _SM0	=	0x009f
+                    00A0    180 _P2_0	=	0x00a0
+                    00A1    181 _P2_1	=	0x00a1
+                    00A2    182 _P2_2	=	0x00a2
+                    00A3    183 _P2_3	=	0x00a3
+                    00A4    184 _P2_4	=	0x00a4
+                    00A5    185 _P2_5	=	0x00a5
+                    00A6    186 _P2_6	=	0x00a6
+                    00A7    187 _P2_7	=	0x00a7
+                    00A8    188 _EX0	=	0x00a8
+                    00A9    189 _ET0	=	0x00a9
+                    00AA    190 _EX1	=	0x00aa
+                    00AB    191 _ET1	=	0x00ab
+                    00AC    192 _ES	=	0x00ac
+                    00AF    193 _EA	=	0x00af
+                    00B0    194 _P3_0	=	0x00b0
+                    00B1    195 _P3_1	=	0x00b1
+                    00B2    196 _P3_2	=	0x00b2
+                    00B3    197 _P3_3	=	0x00b3
+                    00B4    198 _P3_4	=	0x00b4
+                    00B5    199 _P3_5	=	0x00b5
+                    00B6    200 _P3_6	=	0x00b6
+                    00B7    201 _P3_7	=	0x00b7
+                    00B0    202 _RXD	=	0x00b0
+                    00B1    203 _TXD	=	0x00b1
+                    00B2    204 _INT0	=	0x00b2
+                    00B3    205 _INT1	=	0x00b3
+                    00B4    206 _T0	=	0x00b4
+                    00B5    207 _T1	=	0x00b5
+                    00B6    208 _WR	=	0x00b6
+                    00B7    209 _RD	=	0x00b7
+                    00B8    210 _PX0	=	0x00b8
+                    00B9    211 _PT0	=	0x00b9
+                    00BA    212 _PX1	=	0x00ba
+                    00BB    213 _PT1	=	0x00bb
+                    00BC    214 _PS	=	0x00bc
+                    00D0    215 _P	=	0x00d0
+                    00D1    216 _F1	=	0x00d1
+                    00D2    217 _OV	=	0x00d2
+                    00D3    218 _RS0	=	0x00d3
+                    00D4    219 _RS1	=	0x00d4
+                    00D5    220 _F0	=	0x00d5
+                    00D6    221 _AC	=	0x00d6
+                    00D7    222 _CY	=	0x00d7
+                            223 ;--------------------------------------------------------
+                            224 ; overlayable register banks
+                            225 ;--------------------------------------------------------
+                            226 	.area REG_BANK_0	(REL,OVR,DATA)
+   0000                     227 	.ds 8
+                            228 	.area REG_BANK_1	(REL,OVR,DATA)
+   0008                     229 	.ds 8
+                            230 ;--------------------------------------------------------
+                            231 ; overlayable bit register bank
+                            232 ;--------------------------------------------------------
+                            233 	.area BIT_BANK	(REL,OVR,DATA)
+   0020                     234 bits:
+   0020                     235 	.ds 1
+                    8000    236 	b0 = bits[0]
+                    8100    237 	b1 = bits[1]
+                    8200    238 	b2 = bits[2]
+                    8300    239 	b3 = bits[3]
+                    8400    240 	b4 = bits[4]
+                    8500    241 	b5 = bits[5]
+                    8600    242 	b6 = bits[6]
+                    8700    243 	b7 = bits[7]
+                            244 ;--------------------------------------------------------
+                            245 ; internal ram data
+                            246 ;--------------------------------------------------------
+                            247 	.area DSEG    (DATA)
+   0010                     248 _buffer_pointer::
+   0010                     249 	.ds 1
+   0011                     250 _ReData::
+   0011                     251 	.ds 1
+   0012                     252 _SenData::
+   0012                     253 	.ds 1
+   0013                     254 _sending_data::
+   0013                     255 	.ds 1
+                            256 ;--------------------------------------------------------
+                            257 ; overlayable items in internal ram 
+                            258 ;--------------------------------------------------------
+                            259 	.area	OSEG    (OVR,DATA)
+                            260 ;--------------------------------------------------------
+                            261 ; Stack segment in internal ram 
+                            262 ;--------------------------------------------------------
+                            263 	.area	SSEG	(DATA)
+   0021                     264 __start__stack:
+   0021                     265 	.ds	1
+                            266 
+                            267 ;--------------------------------------------------------
+                            268 ; indirectly addressable internal ram data
+                            269 ;--------------------------------------------------------
+                            270 	.area ISEG    (DATA)
+                            271 ;--------------------------------------------------------
+                            272 ; absolute internal ram data
+                            273 ;--------------------------------------------------------
+                            274 	.area IABS    (ABS,DATA)
+                            275 	.area IABS    (ABS,DATA)
+                            276 ;--------------------------------------------------------
+                            277 ; bit data
+                            278 ;--------------------------------------------------------
+                            279 	.area BSEG    (BIT)
+                            280 ;--------------------------------------------------------
+                            281 ; paged external ram data
+                            282 ;--------------------------------------------------------
+                            283 	.area PSEG    (PAG,XDATA)
+                            284 ;--------------------------------------------------------
+                            285 ; external ram data
+                            286 ;--------------------------------------------------------
+                            287 	.area XSEG    (XDATA)
+                            288 ;--------------------------------------------------------
+                            289 ; absolute external ram data
+                            290 ;--------------------------------------------------------
+                            291 	.area XABS    (ABS,XDATA)
+                            292 ;--------------------------------------------------------
+                            293 ; external initialized ram data
+                            294 ;--------------------------------------------------------
+                            295 	.area XISEG   (XDATA)
+                            296 	.area HOME    (CODE)
+                            297 	.area GSINIT0 (CODE)
+                            298 	.area GSINIT1 (CODE)
+                            299 	.area GSINIT2 (CODE)
+                            300 	.area GSINIT3 (CODE)
+                            301 	.area GSINIT4 (CODE)
+                            302 	.area GSINIT5 (CODE)
+                            303 	.area GSINIT  (CODE)
+                            304 	.area GSFINAL (CODE)
+                            305 	.area CSEG    (CODE)
+                            306 ;--------------------------------------------------------
+                            307 ; interrupt vector 
+                            308 ;--------------------------------------------------------
+                            309 	.area HOME    (CODE)
+   0000                     310 __interrupt_vect:
+   0000 02 00 2B            311 	ljmp	__sdcc_gsinit_startup
+   0003 32                  312 	reti
+   0004                     313 	.ds	7
+   000B 32                  314 	reti
+   000C                     315 	.ds	7
+   0013 32                  316 	reti
+   0014                     317 	.ds	7
+   001B 32                  318 	reti
+   001C                     319 	.ds	7
+   0023 02 00 D7            320 	ljmp	_ser_int
+                            321 ;--------------------------------------------------------
+                            322 ; global & static initialisations
+                            323 ;--------------------------------------------------------
+                            324 	.area HOME    (CODE)
+                            325 	.area GSINIT  (CODE)
+                            326 	.area GSFINAL (CODE)
+                            327 	.area GSINIT  (CODE)
+                            328 	.globl __sdcc_gsinit_startup
+                            329 	.globl __sdcc_program_startup
+                            330 	.globl __start__stack
+                            331 	.globl __mcs51_genXINIT
+                            332 	.globl __mcs51_genXRAMCLEAR
+                            333 	.globl __mcs51_genRAMCLEAR
+                            334 	.area GSFINAL (CODE)
+   0084 02 00 26            335 	ljmp	__sdcc_program_startup
+                            336 ;--------------------------------------------------------
+                            337 ; Home
+                            338 ;--------------------------------------------------------
+                            339 	.area HOME    (CODE)
+                            340 	.area HOME    (CODE)
+   0026                     341 __sdcc_program_startup:
+   0026 12 00 CF            342 	lcall	_main
+                            343 ;	return from main will lock up
+   0029 80 FE               344 	sjmp .
+                            345 ;--------------------------------------------------------
+                            346 ; code
+                            347 ;--------------------------------------------------------
+                            348 	.area CSEG    (CODE)
+                            349 ;------------------------------------------------------------
+                            350 ;Allocation info for local variables in function 'rs232init'
+                            351 ;------------------------------------------------------------
+                            352 ;	/home/du/download/c51/BT/MCU/mcu.c:10: void rs232init()
+                            353 ;	-----------------------------------------
+                            354 ;	 function rs232init
+                            355 ;	-----------------------------------------
+   0087                     356 _rs232init:
+                    0007    357 	ar7 = 0x07
+                    0006    358 	ar6 = 0x06
+                    0005    359 	ar5 = 0x05
+                    0004    360 	ar4 = 0x04
+                    0003    361 	ar3 = 0x03
+                    0002    362 	ar2 = 0x02
+                    0001    363 	ar1 = 0x01
+                    0000    364 	ar0 = 0x00
+                            365 ;	/home/du/download/c51/BT/MCU/mcu.c:12: SCON = 0x50;      //REN=1Աʱб���бнӽʽܽ״̬�����ڹ� �ģʽ1 
+   0087 75 98 50            366 	mov	_SCON,#0x50
+                            367 ;	/home/du/download/c51/BT/MCU/mcu.c:13: TMOD|= 0x20;      //��ʱƱ���ױ���ʽ2
+   008A 43 89 20            368 	orl	_TMOD,#0x20
+                            369 ;	/home/du/download/c51/BT/MCU/mcu.c:14: PCON|= 0x80;
+   008D 43 87 80            370 	orl	_PCON,#0x80
+                            371 ;	/home/du/download/c51/BT/MCU/mcu.c:15: TH1  = 0xFD;   
+   0090 75 8D FD            372 	mov	_TH1,#0xFD
+                            373 ;	/home/du/download/c51/BT/MCU/mcu.c:16: TL1 = 0xF3;    
+   0093 75 8B F3            374 	mov	_TL1,#0xF3
+                            375 ;	/home/du/download/c51/BT/MCU/mcu.c:17: ES   = 1;        //�������ж϶                  
+   0096 D2 AC               376 	setb	_ES
+                            377 ;	/home/du/download/c51/BT/MCU/mcu.c:18: EA   = 1;        // �����ж϶
+   0098 D2 AF               378 	setb	_EA
+                            379 ;	/home/du/download/c51/BT/MCU/mcu.c:19: PS = 8; //serial port priority =1
+   009A D2 BC               380 	setb	_PS
+                            381 ;	/home/du/download/c51/BT/MCU/mcu.c:20: TR1  = 1;
+   009C D2 8E               382 	setb	_TR1
+   009E 22                  383 	ret
+                            384 ;------------------------------------------------------------
+                            385 ;Allocation info for local variables in function 'send232'
+                            386 ;------------------------------------------------------------
+                            387 ;send_number               Allocated to registers r7 
+                            388 ;------------------------------------------------------------
+                            389 ;	/home/du/download/c51/BT/MCU/mcu.c:22: void send232(uchar send_number)
+                            390 ;	-----------------------------------------
+                            391 ;	 function send232
+                            392 ;	-----------------------------------------
+   009F                     393 _send232:
+   009F AF 82               394 	mov	r7,dpl
+                            395 ;	/home/du/download/c51/BT/MCU/mcu.c:24: if(buffer_pointer<32) buffer_pointer++;
+   00A1 74 E0               396 	mov	a,#0x100 - 0x20
+   00A3 25 10               397 	add	a,_buffer_pointer
+   00A5 40 02               398 	jc	00102$
+   00A7 05 10               399 	inc	_buffer_pointer
+   00A9                     400 00102$:
+                            401 ;	/home/du/download/c51/BT/MCU/mcu.c:26: SenData = send_number;
+   00A9 8F 12               402 	mov	_SenData,r7
+   00AB 22                  403 	ret
+                            404 ;------------------------------------------------------------
+                            405 ;Allocation info for local variables in function 'buffer_send'
+                            406 ;------------------------------------------------------------
+                            407 ;	/home/du/download/c51/BT/MCU/mcu.c:29: void buffer_send()
+                            408 ;	-----------------------------------------
+                            409 ;	 function buffer_send
+                            410 ;	-----------------------------------------
+   00AC                     411 _buffer_send:
+                            412 ;	/home/du/download/c51/BT/MCU/mcu.c:31: if ((buffer_pointer>=1) && (sending_data ==0) &&(TI==0) )
+   00AC 74 FF               413 	mov	a,#0x100 - 0x01
+   00AE 25 10               414 	add	a,_buffer_pointer
+   00B0 50 0F               415 	jnc	00102$
+   00B2 E5 13               416 	mov	a,_sending_data
+   00B4 70 0B               417 	jnz	00102$
+   00B6 20 99 08            418 	jb	_TI,00102$
+                            419 ;	/home/du/download/c51/BT/MCU/mcu.c:34: SBUF = SenData;
+   00B9 85 12 99            420 	mov	_SBUF,_SenData
+                            421 ;	/home/du/download/c51/BT/MCU/mcu.c:35: sending_data=1;
+   00BC 75 13 01            422 	mov	_sending_data,#0x01
+                            423 ;	/home/du/download/c51/BT/MCU/mcu.c:36: buffer_pointer--;
+   00BF 15 10               424 	dec	_buffer_pointer
+   00C1                     425 00102$:
+                            426 ;	/home/du/download/c51/BT/MCU/mcu.c:42: if( (sending_data==1)&&(TI!=0)) 
+   00C1 74 01               427 	mov	a,#0x01
+   00C3 B5 13 08            428 	cjne	a,_sending_data,00108$
+   00C6 30 99 05            429 	jnb	_TI,00108$
+                            430 ;	/home/du/download/c51/BT/MCU/mcu.c:43: {sending_data=0; TI=0;}  //check if data sent, init the status
+   00C9 75 13 00            431 	mov	_sending_data,#0x00
+   00CC C2 99               432 	clr	_TI
+   00CE                     433 00108$:
+   00CE 22                  434 	ret
+                            435 ;------------------------------------------------------------
+                            436 ;Allocation info for local variables in function 'main'
+                            437 ;------------------------------------------------------------
+                            438 ;	/home/du/download/c51/BT/MCU/mcu.c:46: main()
+                            439 ;	-----------------------------------------
+                            440 ;	 function main
+                            441 ;	-----------------------------------------
+   00CF                     442 _main:
+                            443 ;	/home/du/download/c51/BT/MCU/mcu.c:49: rs232init();
+   00CF 12 00 87            444 	lcall	_rs232init
+                            445 ;	/home/du/download/c51/BT/MCU/mcu.c:51: while(1)
+   00D2                     446 00102$:
+                            447 ;	/home/du/download/c51/BT/MCU/mcu.c:54: buffer_send(); //send the data in rs232 buffer out.     
+   00D2 12 00 AC            448 	lcall	_buffer_send
+   00D5 80 FB               449 	sjmp	00102$
+                            450 ;------------------------------------------------------------
+                            451 ;Allocation info for local variables in function 'ser_int'
+                            452 ;------------------------------------------------------------
+                            453 ;	/home/du/download/c51/BT/MCU/mcu.c:61: void ser_int (void) __interrupt 4 __using 1
+                            454 ;	-----------------------------------------
+                            455 ;	 function ser_int
+                            456 ;	-----------------------------------------
+   00D7                     457 _ser_int:
+                    000F    458 	ar7 = 0x0F
+                    000E    459 	ar6 = 0x0E
+                    000D    460 	ar5 = 0x0D
+                    000C    461 	ar4 = 0x0C
+                    000B    462 	ar3 = 0x0B
+                    000A    463 	ar2 = 0x0A
+                    0009    464 	ar1 = 0x09
+                    0008    465 	ar0 = 0x08
+   00D7 C0 20               466 	push	bits
+   00D9 C0 E0               467 	push	acc
+   00DB C0 F0               468 	push	b
+   00DD C0 82               469 	push	dpl
+   00DF C0 83               470 	push	dph
+   00E1 C0 07               471 	push	(0+7)
+   00E3 C0 06               472 	push	(0+6)
+   00E5 C0 05               473 	push	(0+5)
+   00E7 C0 04               474 	push	(0+4)
+   00E9 C0 03               475 	push	(0+3)
+   00EB C0 02               476 	push	(0+2)
+   00ED C0 01               477 	push	(0+1)
+   00EF C0 00               478 	push	(0+0)
+   00F1 C0 D0               479 	push	psw
+                            480 ;	/home/du/download/c51/BT/MCU/mcu.c:63: if(RI == 1)        //RI�����жϱ�־
+                            481 ;	/home/du/download/c51/BT/MCU/mcu.c:65: RI = 0;             //����RI�����жϱ�־
+   00F3 10 98 02            482 	jbc	_RI,00106$
+   00F6 80 12               483 	sjmp	00103$
+   00F8                     484 00106$:
+                            485 ;	/home/du/download/c51/BT/MCU/mcu.c:66: ReData = SBUF;  //SUBF����/���ͻ���ƻ�
+   00F8 85 99 11            486 	mov	_ReData,_SBUF
+                            487 ;	/home/du/download/c51/BT/MCU/mcu.c:69: send232(ReData);
+   00FB 85 11 82            488 	mov	dpl,_ReData
+   00FE 75 D0 00            489 	mov	psw,#0x00
+   0101 12 00 9F            490 	lcall	_send232
+   0104 75 D0 08            491 	mov	psw,#0x08
+                            492 ;	/home/du/download/c51/BT/MCU/mcu.c:70: P1=ReData;
+   0107 85 11 90            493 	mov	_P1,_ReData
+   010A                     494 00103$:
+   010A D0 D0               495 	pop	psw
+   010C D0 00               496 	pop	(0+0)
+   010E D0 01               497 	pop	(0+1)
+   0110 D0 02               498 	pop	(0+2)
+   0112 D0 03               499 	pop	(0+3)
+   0114 D0 04               500 	pop	(0+4)
+   0116 D0 05               501 	pop	(0+5)
+   0118 D0 06               502 	pop	(0+6)
+   011A D0 07               503 	pop	(0+7)
+   011C D0 83               504 	pop	dph
+   011E D0 82               505 	pop	dpl
+   0120 D0 F0               506 	pop	b
+   0122 D0 E0               507 	pop	acc
+   0124 D0 20               508 	pop	bits
+   0126 32                  509 	reti
+                            510 ;	eliminated unneeded mov psw,# (no regs used in bank)
+                            511 	.area CSEG    (CODE)
+                            512 	.area CONST   (CODE)
+                            513 	.area XINIT   (CODE)
+                            514 	.area CABS    (ABS,CODE)

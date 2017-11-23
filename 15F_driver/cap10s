@@ -1,0 +1,24 @@
+#!/bin/sh
+
+minimumsize=900000
+resolution="1280x720"
+resolution2="854x480"
+
+ffmpeg -f v4l2 -video_size $resolution -i /dev/video1 -an -vcodec wmv2 -y -t 00:00:15 -ss 00:00:02 -threads 0 -q:v 3 output.wmv
+
+actualsize=$(wc -c output.wmv | cut -f 1 -d ' ')
+
+if [ $actualsize -le $minimumsize ]; then
+ffmpeg -f v4l2 -video_size $resolution -i /dev/video1 -an -vcodec wmv2 -y -t 00:00:15 -ss 00:00:02 -threads 0 -q:v 3 output.wmv
+fi
+
+actualsize=$(wc -c output.wmv | cut -f 1 -d ' ')
+
+if [ $actualsize -le $minimumsize ]; then
+ffmpeg -f v4l2 -video_size $resolution -i /dev/video1 -an -vcodec wmv2 -y -t 00:00:15 -ss 00:00:02 -threads 0 -q:v 3 output.wmv
+fi
+
+ffmpeg -threads 2 -i output.wmv -an -vcodec libx264 -q:v 10 -s $resolution2 -y $1
+
+rm output.wmv
+
