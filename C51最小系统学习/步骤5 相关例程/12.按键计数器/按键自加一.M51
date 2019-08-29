@@ -1,0 +1,138 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        05/28/2011  10:13:07  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 按键自加一.obj TO 按键自加一
+
+
+INPUT MODULES INCLUDED:
+  按键自加一.obj (_醇_加一)
+
+
+LINK MAP OF MODULE:  按键自加一 (_醇_加一)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     00DEH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  按键自加一 (_醇_加一)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        _醇_加一
+  D:00F0H         SYMBOL        B
+  C:008EH         SYMBOL        DISPLAY
+  C:0048H         SYMBOL        DISPLAY_OFF
+  C:00C4H         SYMBOL        DL1
+  C:00CBH         SYMBOL        DL10MS
+  C:00C6H         SYMBOL        DL2
+  C:00C2H         SYMBOL        DL2MS
+  C:00CDH         SYMBOL        DL3
+  C:00CFH         SYMBOL        DL4
+  B:00A0H.6       SYMBOL        KEY
+  B:00A0H.7       SYMBOL        KEY1
+  C:0060H         SYMBOL        KEY_PRO
+  C:0050H         SYMBOL        KEY_PRO_1
+  C:0066H         SYMBOL        KEY_REPAT
+  C:0056H         SYMBOL        KEY_REPAT_1
+  C:0042H         SYMBOL        MAIN
+  C:0078H         SYMBOL        OUT
+  D:0080H         SYMBOL        P0
+  D:00A0H         SYMBOL        P2
+  C:0030H         SYMBOL        START
+  C:00D4H         SYMBOL        TAB
+  C:0000H         LINE#         10
+  C:0030H         LINE#         14
+  C:0033H         LINE#         15
+  C:0036H         LINE#         16
+  C:0039H         LINE#         17
+  C:003CH         LINE#         18
+  C:003EH         LINE#         19
+  C:0040H         LINE#         20
+  C:0042H         LINE#         24
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/28/2011  10:13:07  PAGE 2
+
+
+  C:0045H         LINE#         26
+  C:0048H         LINE#         28
+  C:004BH         LINE#         29
+  C:004EH         LINE#         30
+  C:0050H         LINE#         33
+  C:0053H         LINE#         34
+  C:0056H         LINE#         36
+  C:0059H         LINE#         37
+  C:005CH         LINE#         39
+  C:005EH         LINE#         40
+  C:0060H         LINE#         50
+  C:0063H         LINE#         51
+  C:0066H         LINE#         54
+  C:0069H         LINE#         55
+  C:006CH         LINE#         57
+  C:006DH         LINE#         58
+  C:0070H         LINE#         59
+  C:0072H         LINE#         61
+  C:0073H         LINE#         62
+  C:0076H         LINE#         63
+  C:0078H         LINE#         68
+  C:0079H         LINE#         69
+  C:007CH         LINE#         70
+  C:007DH         LINE#         71
+  C:007FH         LINE#         72
+  C:0082H         LINE#         74
+  C:0083H         LINE#         75
+  C:0086H         LINE#         76
+  C:0087H         LINE#         77
+  C:0089H         LINE#         78
+  C:008CH         LINE#         81
+  C:008EH         LINE#         86
+  C:0091H         LINE#         87
+  C:0093H         LINE#         88
+  C:0094H         LINE#         89
+  C:0096H         LINE#         90
+  C:0098H         LINE#         91
+  C:009BH         LINE#         92
+  C:009DH         LINE#         94
+  C:009FH         LINE#         95
+  C:00A0H         LINE#         96
+  C:00A2H         LINE#         97
+  C:00A4H         LINE#         98
+  C:00A7H         LINE#         99
+  C:00A9H         LINE#         101
+  C:00ABH         LINE#         102
+  C:00ACH         LINE#         103
+  C:00AEH         LINE#         105
+  C:00B0H         LINE#         106
+  C:00B3H         LINE#         107
+  C:00B5H         LINE#         109
+  C:00B7H         LINE#         110
+  C:00B8H         LINE#         111
+  C:00BAH         LINE#         112
+  C:00BCH         LINE#         113
+  C:00BFH         LINE#         114
+  C:00C1H         LINE#         116
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/28/2011  10:13:07  PAGE 3
+
+
+  C:00C2H         LINE#         118
+  C:00C4H         LINE#         119
+  C:00C6H         LINE#         120
+  C:00C8H         LINE#         121
+  C:00CAH         LINE#         122
+  C:00CBH         LINE#         124
+  C:00CDH         LINE#         125
+  C:00CFH         LINE#         126
+  C:00D1H         LINE#         127
+  C:00D3H         LINE#         128
+  -------         ENDMOD        _醇_加一
+
+Program Size: data=8.0 xdata=0 code=222
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,53 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        12/24/2007  19:49:16  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 信号发生器.obj TO 信号发生器
+
+
+INPUT MODULES INCLUDED:
+  信号发生器.obj (_藕欧_蒧芲)
+
+
+LINK MAP OF MODULE:  信号发生器 (_藕欧_蒧芲)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0044H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  信号发生器 (_藕欧_蒧芲)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        _藕欧_蒧芲
+  D:00A8H         SYMBOL        IE
+  C:0041H         SYMBOL        INTT0
+  D:0090H         SYMBOL        P1
+  C:0030H         SYMBOL        START
+  D:0088H         SYMBOL        TCON
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  C:0000H         LINE#         2
+  C:000BH         LINE#         4
+  C:0030H         LINE#         8
+  C:0033H         LINE#         9
+  C:0036H         LINE#         10
+  C:0039H         LINE#         11
+  C:003CH         LINE#         12
+  C:003FH         LINE#         14
+  C:0041H         LINE#         18
+  C:0043H         LINE#         19
+  -------         ENDMOD        _藕欧_蒧芲
+
+Program Size: data=8.0 xdata=0 code=68
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

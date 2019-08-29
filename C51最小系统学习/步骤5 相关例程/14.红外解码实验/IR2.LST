@@ -1,0 +1,172 @@
+C51 COMPILER V6.12  IR2                                                                    10/08/2010 22:36:30 PAGE 1   
+
+
+C51 COMPILER V6.12, COMPILATION OF MODULE IR2
+OBJECT MODULE PLACED IN .\IR2.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE .\IR2.C BROWSE DEBUG OBJECTEXTEND
+
+stmt level    source
+
+   1          /*程序说明： 
+   2          51单片机红外遥控解码程序
+   3          单片机采用外部中断INTI管脚和红外接收头的信号线相连，
+   4          中断方式为边沿触发方式。并用定时器0计算中断的间隔时间，
+   5          来区分前导码、二进制的1,0;8位操作码提取出来在数码管上显示。
+   6           
+   7          解码值在Im[2]中，当IrOK=1时解码有效。 
+   8          用遥控器对准红外接收头，按下遥控器按键，在数码管的两位上就会显示对应按键的编码
+   9          */
+  10          #include <reg52.h>
+  11          #define uchar unsigned char 
+  12          sbit P2_0 = P2^0;
+  13          sbit P2_1 = P2^1;
+  14          sbit P2_2 = P2^2;
+  15          sbit P2_3 = P2^3;
+  16          //sbit dula=P2^6;
+  17          //sbit wela=P2^7;
+  18          /*uchar code table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,
+  19                                  0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};*/
+  20          uchar code table[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,
+  21                                  0xf8,0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e};
+  22          uchar f;
+  23          
+  24          #define Imax 14000    //此处为晶振为11.0592时的取值, 
+  25          #define Imin 8000    //如用其它频率的晶振时,
+  26          #define Inum1 1450    //要改变相应的取值。
+  27          #define Inum2 700 
+  28          #define Inum3 3000 
+  29          
+  30          unsigned char Im[4]={0x00,0x00,0x00,0x00};
+  31          uchar show[2]={0,0};
+  32          unsigned long m,Tc;
+  33          unsigned char IrOK;
+  34          
+  35          
+  36          void delay(uchar i)
+  37          {
+  38   1        uchar j,k; 
+  39   1        for(j=i;j>0;j--)
+  40   1          for(k=125;k>0;k--);
+  41   1      }
+  42          
+  43          void display()
+  44          {
+  45   1         P2_0 = 0;P2_1 = 1;P2_2 = 1;P2_3 = 1;
+  46   1         P0=table[show[0]];
+  47   1         delay(2);
+  48   1      
+  49   1         P2_0 = 1;P2_1 = 0;P2_2 = 1;P2_3 = 1;
+  50   1         P0=table[show[1]];
+  51   1         delay(2);
+  52   1      
+  53   1        /* dula=0;
+  54   1         P0=table[show[1]];
+  55   1         dula=1;
+C51 COMPILER V6.12  IR2                                                                    10/08/2010 22:36:30 PAGE 2   
+
+  56   1         dula=0;
+  57   1         
+  58   1         wela=0;
+  59   1         P0=0xfd;
+  60   1         wela=1;
+  61   1         wela=0;
+  62   1         delay(5);
+  63   1         
+  64   1         P0=table[show[0]];
+  65   1         dula=1;
+  66   1         dula=0;
+  67   1         
+  68   1         P0=0xfe;
+  69   1         wela=1;
+  70   1         wela=0;
+  71   1         delay(5);*/
+  72   1      }
+  73          
+  74          
+  75          //外部中断解码程序
+  76          void intersvr1(void) interrupt 2 using 1
+  77          {
+  78   1       Tc=TH0*256+TL0;                                               //提取中断时间间隔时长
+  79   1       TH0=0; 
+  80   1          TL0=0;              //定时中断重新置零
+  81   1       if((Tc>Imin)&&(Tc<Imax))
+  82   1            { 
+  83   2        m=0;
+  84   2              f=1;
+  85   2        return;
+  86   2            }       //找到启始码
+  87   1         if(f==1)
+  88   1            {
+  89   2              if(Tc>Inum1&&Tc<Inum3) 
+  90   2          {
+  91   3         Im[m/8]=Im[m/8]>>1|0x80; m++; 
+  92   3             }
+  93   2            if(Tc>Inum2&&Tc<Inum1) 
+  94   2              {
+  95   3               Im[m/8]=Im[m/8]>>1; m++; //取码
+  96   3        }
+  97   2        if(m==32) 
+  98   2         {
+  99   3               m=0;  
+ 100   3               f=0;
+ 101   3               if(Im[2]==~Im[3]) 
+ 102   3            {
+ 103   4                 IrOK=1; 
+ 104   4         }
+ 105   3              else IrOK=0;   //取码完成后判断读码是否正确
+ 106   3           }
+ 107   2                     //准备读下一码
+ 108   2         }
+ 109   1       
+ 110   1      }
+ 111          
+ 112          
+ 113          /*演示主程序*/
+ 114          void main(void)
+ 115          {
+ 116   1          unsigned int  a;
+ 117   1         
+C51 COMPILER V6.12  IR2                                                                    10/08/2010 22:36:30 PAGE 3   
+
+ 118   1       m=0;
+ 119   1          f=0;
+ 120   1       EA=1;
+ 121   1       
+ 122   1       IT1=1;EX1=1;
+ 123   1       
+ 124   1       TMOD=0x11;  
+ 125   1       TH0=0;TL0=0;
+ 126   1       TR0=1;//ET0=1;
+ 127   1      
+ 128   1       while(1)
+ 129   1       {
+ 130   2       
+ 131   2             if(IrOK==1) 
+ 132   2        {
+ 133   3            show[1]=Im[2] & 0x0F;     //取键码的低四位
+ 134   3                 show[0]=Im[2] >> 4;  
+ 135   3                 IrOK=0;
+ 136   3           
+ 137   3        }
+ 138   2                 for(a=100;a>0;a--)
+ 139   2                {
+ 140   3          display();
+ 141   3         }
+ 142   2       
+ 143   2       }
+ 144   1      }
+ 145          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    456    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

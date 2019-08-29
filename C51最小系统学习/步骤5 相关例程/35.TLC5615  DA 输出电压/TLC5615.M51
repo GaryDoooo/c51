@@ -1,0 +1,216 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        06/14/2009  21:45:50  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE TLC5615.obj TO TLC5615
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  TLC5615.obj (TLC5615)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  TLC5615 (TLC5615)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?TLC5615
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     008CH     UNIT         ?C_C51STARTUP
+            CODE    008FH     0055H     UNIT         ?C?LIB_CODE
+            CODE    00E4H     004DH     UNIT         ?PR?VOLT_TO_LED?TLC5615
+            CODE    0131H     0049H     UNIT         ?PR?MAIN?TLC5615
+            CODE    017AH     003AH     UNIT         ?PR?DISPLAY?TLC5615
+            CODE    01B4H     0022H     UNIT         ?PR?_DA5615?TLC5615
+            CODE    01D6H     000FH     UNIT         ?PR?_DELAY?TLC5615
+            CODE    01E5H     000AH     UNIT         ?CO?TLC5615
+            CODE    01EFH     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   TLC5615 (TLC5615)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TLC5615
+  +--> ?C_INITSEG
+
+?PR?MAIN?TLC5615
+  +--> ?PR?VOLT_TO_LED?TLC5615
+  +--> ?PR?_DELAY?TLC5615
+  +--> ?PR?DISPLAY?TLC5615
+
+?PR?VOLT_TO_LED?TLC5615
+  +--> ?PR?_DA5615?TLC5615
+
+?PR?DISPLAY?TLC5615
+BL51 BANKED LINKER/LOCATER V6.00                                                      06/14/2009  21:45:50  PAGE 2
+
+
+  +--> ?CO?TLC5615
+  +--> ?PR?_DELAY?TLC5615
+
+
+
+SYMBOL TABLE OF MODULE:  TLC5615 (TLC5615)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TLC5615
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  C:00EEH         PUBLIC        Volt_To_LED
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  C:01E5H         PUBLIC        LEDData1
+  B:00A0H.4       PUBLIC        LED1
+  B:00A0H.5       PUBLIC        LED2
+  B:00A0H.6       PUBLIC        LED3
+  B:00A0H.7       PUBLIC        LED4
+  B:00B0H.4       PUBLIC        KEY1
+  B:00B0H.5       PUBLIC        KEY2
+  C:0131H         PUBLIC        main
+  D:0008H         PUBLIC        Volt
+  B:0090H.7       PUBLIC        SPI_CLK
+  C:01DAH         PUBLIC        _Delay
+  D:000AH         PUBLIC        LED
+  C:017AH         PUBLIC        Display
+  B:0090H.5       PUBLIC        SPI_DATA
+  C:01B4H         PUBLIC        _da5615
+  B:0090H.4       PUBLIC        CS_DA
+  -------         PROC          _DA5615
+  D:0006H         SYMBOL        da
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:01B4H         LINE#         56
+  C:01B4H         LINE#         57
+  C:01B4H         LINE#         78
+  C:01B6H         LINE#         79
+  C:01B8H         LINE#         80
+  C:01BAH         LINE#         81
+  C:01BAH         LINE#         82
+  C:01C2H         LINE#         83
+  C:01C4H         LINE#         84
+  C:01C6H         LINE#         85
+  C:01CDH         LINE#         86
+  C:01CFH         LINE#         87
+  C:01D3H         LINE#         88
+  C:01D5H         LINE#         89
+  -------         ENDPROC       _DA5615
+  C:00E9H         SYMBOL        L?0028
+  -------         PROC          L?0027
+  -------         ENDPROC       L?0027
+  C:00E9H         SYMBOL        L?0028
+BL51 BANKED LINKER/LOCATER V6.00                                                      06/14/2009  21:45:50  PAGE 3
+
+
+  -------         PROC          VOLT_TO_LED
+  C:00EEH         LINE#         96
+  C:00EEH         LINE#         97
+  C:00EEH         LINE#         99
+  C:00FBH         LINE#         100
+  C:010FH         LINE#         101
+  C:0123H         LINE#         102
+  C:0130H         LINE#         103
+  -------         ENDPROC       VOLT_TO_LED
+  C:01D6H         SYMBOL        L?0030
+  -------         PROC          L?0029
+  -------         ENDPROC       L?0029
+  C:01D6H         SYMBOL        L?0030
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        num
+  C:01DAH         LINE#         107
+  C:01DAH         LINE#         108
+  C:01DAH         LINE#         109
+  C:01E4H         LINE#         110
+  -------         ENDPROC       _DELAY
+  -------         PROC          DISPLAY
+  -------         DO            
+  D:0005H         SYMBOL        k
+  -------         ENDDO         
+  C:017AH         LINE#         113
+  C:017AH         LINE#         114
+  C:017AH         LINE#         116
+  C:017CH         LINE#         117
+  C:017CH         LINE#         118
+  C:0184H         LINE#         119
+  C:0186H         LINE#         120
+  C:0189H         LINE#         121
+  C:018BH         LINE#         123
+  C:0190H         LINE#         124
+  C:0192H         LINE#         125
+  C:0195H         LINE#         126
+  C:0197H         LINE#         128
+  C:019CH         LINE#         129
+  C:019EH         LINE#         130
+  C:01A1H         LINE#         131
+  C:01A3H         LINE#         133
+  C:01A8H         LINE#         134
+  C:01AAH         LINE#         135
+  C:01ADH         LINE#         136
+  C:01AFH         LINE#         137
+  C:01B3H         LINE#         138
+  -------         ENDPROC       DISPLAY
+  -------         PROC          MAIN
+  C:0131H         LINE#         140
+  C:0131H         LINE#         141
+  C:0131H         LINE#         142
+  C:0133H         LINE#         143
+  C:0136H         LINE#         146
+  C:0136H         LINE#         147
+  C:0136H         LINE#         149
+  C:0139H         LINE#         150
+  C:0139H         LINE#         151
+BL51 BANKED LINKER/LOCATER V6.00                                                      06/14/2009  21:45:50  PAGE 4
+
+
+  C:0140H         LINE#         152
+  C:0143H         LINE#         153
+  C:0143H         LINE#         154
+  C:0146H         LINE#         155
+  C:014BH         LINE#         157
+  C:0152H         LINE#         158
+  C:0152H         LINE#         159
+  C:0155H         LINE#         160
+  C:0155H         LINE#         161
+  C:0155H         LINE#         163
+  C:0158H         LINE#         164
+  C:0158H         LINE#         165
+  C:015FH         LINE#         166
+  C:0162H         LINE#         167
+  C:0162H         LINE#         168
+  C:0165H         LINE#         169
+  C:016AH         LINE#         171
+  C:0172H         LINE#         172
+  C:0172H         LINE#         173
+  C:0175H         LINE#         175
+  C:0175H         LINE#         176
+  C:0175H         LINE#         178
+  C:0178H         LINE#         179
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TLC5615
+
+  -------         MODULE        ?C?UIDIV
+  C:008FH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=15.0 xdata=0 code=500
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

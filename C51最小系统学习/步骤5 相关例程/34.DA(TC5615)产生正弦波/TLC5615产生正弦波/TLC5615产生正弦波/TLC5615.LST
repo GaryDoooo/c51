@@ -1,0 +1,119 @@
+C51 COMPILER V8.02   TLC5615                                                               09/15/2009 22:53:43 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE TLC5615
+OBJECT MODULE PLACED IN TLC5615.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE TLC5615.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          
+   3          
+   4          
+   5          
+   6          #include <intrins.h>
+   7          #include <reg51.h>
+   8          
+   9          
+  10          
+  11          /************定义接口总线**************/
+  12          //TLC5615管脚定义 与开发板硬件对应
+  13          sbit SPI_CLK   = P1^7;    //时钟
+  14          sbit SPI_DATA  = P1^5;     //数据输出
+  15          sbit CS_DA     = P1^4;      //片选
+  16          
+  17          sbit LED1       = P2 ^ 4;
+  18          sbit LED2       = P2 ^ 5;
+  19          sbit LED3       = P2 ^ 6;
+  20          sbit LED4       = P2 ^ 7;
+  21          
+  22          sbit KEY1       = P3 ^ 4;
+  23          sbit KEY2       = P3 ^ 5;
+  24          
+  25          /*-------------------------------------------------------------*/
+  26          //数据定义
+  27          
+  28          
+  29          
+  30           
+  31          
+  32          /*-------------------------------------------------------------*/
+  33          //函数声明                                      
+  34          void da5615(unsigned int da);   //DA数据 SPI发送函数
+  35          /************接口总线定义结束**********/
+  36          
+  37          code unsigned  int DA_data[260]={
+  38                               0x200,0x20C,0x219,0x225,0x232,0x23E,0x24B,0x257,0x263,0x270,
+  39                               0x27C,0x288,0x294,0x2A0,0x2AC,0x2B8,0x2C3,0x2CF,0x2DA,0x2E6,
+  40                               0x2F1,0x2FC,0x307,0x311,0x31C,0x326,0x330,0x33A,0x344,0x34E,
+  41                               0x357,0x361,0x36A,0x372,0x37B,0x383,0x38B,0x393,0x39B,0x3A2,
+  42                               0x3A9,0x3B0,0x3B7,0x3BD,0x3C3,0x3C9,0x3CE,0x3D4,0x3D9,0x3DD,
+  43                               0x3E2,0x3E6,0x3E9,0x3ED,0x3F0,0x3F3,0x3F6,0x3F8,0x3FA,0x3FC,
+  44                               0x3FD,0x3FE,0x3FF,0x3FF,0x3FF,0x3FF,0x3FF,0x3FE,0x3FD,0x3FC,
+  45                               0x3FA,0x3F8,0x3F6,0x3F3,0x3F0,0x3ED,0x3E9,0x3E6,0x3E2,0x3DD,
+  46                               0x3D9,0x3D4,0x3CE,0x3C9,0x3C3,0x3BD,0x3B7,0x3B0,0x3A9,0x3A2,
+  47                                                   0x39B,0x393,0x38B,0x383,0x37B,0x372,0x36A,0x361,0x357,0x34E,
+  48                                                   0x344,0x33A,0x330,0x326,0x31C,0x311,0x307,0x2FC,0x2F1,0x2E6,
+  49                                                   0x2DA,0x2CF,0x2C3,0x2B8,0x2AC,0x2A0,0x294,0x288,0x27C,0x270,
+  50                                                   0x263,0x257,0x24B,0x23E,0x232,0x225,0x219,0x20C,0x200,0x1F3,
+  51                                                   0x1E6,0x1DA,0x1CD,0x1C1,0x1B4,0x1A8,0x19C,0x18F,0x183,0x177,
+  52                                                   0x16B,0x15F,0x153,0x147,0x13C,0x130,0x125,0x119,0x10E,0x103,
+  53                                                   0xF8,0xEE,0xE3,0xD9,0xCF,0xC5,0xBB,0xB1,0xA8,0x9E,0x95,0x8D,
+  54                                                   0x84,0x7C,0x74,0x6C,0x64,0x5D,0x56,0x4F,0x48,0x42,0x3C,0x36,
+  55                                                   0x31,0x2B,0x26,0x22,0x1D,0x19,0x16,0x12,0xF,0xC,0x9,0x7,0x5,
+C51 COMPILER V8.02   TLC5615                                                               09/15/2009 22:53:43 PAGE 2   
+
+  56                                                   0x3,0x2,0x1,0x0,0x0,0x0,0x0,0x0,0x1,0x2,0x3,0x5,0x7,0x9,0xC,
+  57                                                   0xF,0x12,0x16,0x19,0x1D,0x22,0x26,0x2B,0x31,0x36,0x3C,0x42,
+  58                                                   0x48,0x4F,0x56,0x5D,0x64,0x6C,0x74,0x7C,0x84,0x8D,0x95,0x9E,
+  59                                                   0xA8,0xB1,0xBB,0xC5,0xCF,0xD9,0xE3,0xEE,0xF8,0x103,0x10E,
+  60                                                   0x119,0x125,0x130,0x13C,0x147,0x153,0x15F,0x16B,0x177,0x183,
+  61                                                   0x18F,0x19C,0x1A8,0x1B4,0x1C1,0x1CD,0x1DA,0x1E6,0x1F3,0x1FF
+  62                                                   };
+  63          
+  64          
+  65              void da5615(unsigned int da)
+  66          {
+  67   1      
+  68   1        unsigned char i;
+  69   1        SPI_CLK=0;//时钟低
+  70   1        CS_DA=0;//片选有效
+  71   1      for (i=0;i<12;i++)
+  72   1      {
+  73   2          if((da&0x800)==0){SPI_DATA=0;}
+  74   2          else SPI_DATA=1;
+  75   2          SPI_CLK=1;//时钟高
+  76   2          da=da<<1;//左移一位
+  77   2          SPI_CLK=0;//时钟低
+  78   2      }
+  79   1      CS_DA=1;//
+  80   1      } 
+  81          
+  82          
+  83           
+  84          
+  85                void   main (void)
+  86          {
+  87   1                unsigned int  k;
+  88   1                while(1)
+  89   1                {
+  90   2                  k++;
+  91   2                      if(k>=256)  k=0;
+  92   2                  da5615(DA_data[k]);
+  93   2                }
+  94   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     77    ----
+   CONSTANT SIZE    =    520    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

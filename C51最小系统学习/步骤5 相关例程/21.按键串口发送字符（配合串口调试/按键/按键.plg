@@ -1,0 +1,112 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+F:\51最小系统板自已\51 最小系统板资料自\51最小系统板资料\相关例程\按键串口发送字符（配合串口调试\按键\按键.uv2
+Project File Date:  12/11/2006
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=148
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling 按键.c...
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SEND_CHAR
+    MODULE:  按键.obj (按键)
+    ADDRESS: 004CH
+Program Size: data=11.0 xdata=0 code=153
+creating hex file from "按键"...
+"按键" - 0 Error(s), 2 Warning(s).

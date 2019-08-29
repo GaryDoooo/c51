@@ -1,0 +1,90 @@
+C51 COMPILER V8.02   按键                                                                  05/22/2011 23:53:37 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 按键
+OBJECT MODULE PLACED IN 按键.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 按键.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1               #include <reg51.h>
+   2               #include <intrins.h>
+   3          
+   4               unsigned  tmp;
+   5               char code str[] = "www.mucstudio.com.cn\n";
+   6               void send_str();
+   7               void delayms(unsigned char ms);
+   8               void send_char(unsigned char txd);
+   9               sbit       K1 = P2^7;
+  10                   void  main(void)
+  11          {
+  12   1              TMOD = 0x20;                    // 定时器1工作于8位自动重载模式, 用于产生波特率
+  13   1              TH1 = 0xF3;                             // 波特率2400
+  14   1              TL1 = 0xF3;     
+  15   1              SCON = 0x50;                    // 设定串行口工作方式
+  16   1              PCON |= 0x80;                   // 波特率倍增     4800
+  17   1              TR1 = 1;                                // 启动定时器1
+  18   1              IE = 0x0;                               // 禁止任何中断
+  19   1              while(1)
+  20   1              {
+  21   2                      if(!K1)         // 扫描按键
+  22   2                      {
+  23   3                              delayms(10);                    // 延时去抖动
+  24   3                              if(K1)break;
+  25   3                              while(!K1)
+  26   3                              {delayms(10);
+  27   4                              }
+  28   3                              
+  29   3                               send_str();    
+  30   3                              
+  31   3                      }
+  32   2                      if(RI)                                          // 是否有数据到来
+  33   2                      {
+  34   3                              RI = 0;
+  35   3                              tmp = SBUF;                             // 暂存接收到的数据
+  36   3                              tmp=255-tmp;
+  37   3                              P1 = tmp;                               // 数据传送到P1口
+  38   3                              send_char(tmp);                 // 回传接收到的数据
+  39   3                      }               
+  40   2              }
+  41   1      }
+  42          
+  43                    void send_str()
+  44                             // 传送字串
+  45              {
+  46   1                  unsigned char i = 0;
+  47   1                  while(str[i] != '\0')
+  48   1                 {
+  49   2                      SBUF = str[i];
+  50   2                      while(!TI);                             // 等特数据传送
+  51   2                      TI = 0;                                 // 清除数据传送标志
+  52   2                      i++;                                    // 下一个字符
+  53   2                 }    
+  54   1          }
+  55          
+C51 COMPILER V8.02   按键                                                                  05/22/2011 23:53:37 PAGE 2   
+
+  56               void delayms(unsigned char ms)     
+  57                                    // 延时子程序
+  58                {                                         
+  59   1                   unsigned char i;
+  60   1                    while(ms--)
+  61   1                    {
+  62   2                           for(i = 0; i < 120; i++);
+  63   2                    }
+  64   1            }
+  65              
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    116    ----
+   CONSTANT SIZE    =     22    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

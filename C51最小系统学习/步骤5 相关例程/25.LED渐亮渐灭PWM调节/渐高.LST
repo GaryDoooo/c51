@@ -1,0 +1,101 @@
+A51 MACRO ASSEMBLER  絖高                                                                 05/22/2011 23:45:52 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN 渐高.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 渐高.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+0000                   3     ORG 00H
+0000 802E              4     JMP MAIN
+0030                   5     ORG 30H
+                       6     
+0030                   7     MAIN:
+0030 7400              8     MOV A,#0
+0032 1140              9     CALL LOOP ;由暗变亮子程序
+0034 7590FF           10     MOV P1,#0FFH ;关灯,全暗
+0037 7400             11     MOV A,#0
+0039 115F             12     CALL LOOP2 ;由亮变暗子程序
+003B 759000           13     MOV P1,#0 ;开灯,全亮
+003E 80F0             14     JMP MAIN
+                      15     
+                      16     
+0040                  17     LOOP:
+                      18     ;这一段为点亮灯的延时
+0040 759000           19     MOV P1,#0 ;把灯点亮
+0043 04               20     INC A  ;A的值加1
+0044 B4FF02           21     CJNE A,#0FFH,E2 ;A还没有加到FF,跳转E2
+0047 8015             22     E1:JMP OVER ;A加到了FF,结束返回
+0049 FF               23     E2:MOV R7,A ;A的值存入R7
+004A 7E1E             24     D1:MOV R6,#30 ;延时子程序
+004C DEFE             25     DJNZ R6,$ 
+004E DFFA             26     DJNZ R7,D1 ;R7-1不为零就转D1,这里R7即上面预置的A值,用在这里,就是每次延时时间不同,有255级
+0050 7590FF           27     MOV P1,#0FFH ;延时时间到,送所有灯
+                      28     
+                      29     ;这一段为关掉灯的延时,两段相加,组成占空比可变的方波输出控制灯由暗到亮
+0053 F4               30     CPL A  ;A的值取反,
+0054 FF               31     MOV R7,A 
+0055 7E1E             32     D2:MOV R6,#30 ;延时子程序
+0057 DEFE             33     DJNZ R6,$
+0059 DFFA             34     DJNZ R7,D2
+005B F4               35     CPL A  ;再取反,恢复原来的值
+005C 80E2             36     JMP LOOP ;跳回循环
+005E 22               37     OVER:RET
+                      38     
+                      39     
+                      40     ;以下为由亮变暗子程序,原理与上面一样.
+005F                  41     LOOP2:
+005F 7590FF           42     MOV P1,#0FFH 
+0062 04               43     INC A  ;程序运行到此,A的值为0,经这一步后为1
+0063 B4FF02           44     CJNE A,#0FFH,W2
+0066 8015             45     W1:JMP OVER2
+0068                  46     W2:
+0068 FF               47     MOV R7,A
+0069 7E1E             48     D11:MOV R6,#30
+006B DEFE             49     DJNZ R6,$
+006D DFFA             50     DJNZ R7,D11
+006F 759000           51     MOV P1,#0
+                      52     
+0072 F4               53     CPL A
+0073 FF               54     MOV R7,A
+0074 7E1E             55     D22:MOV R6,#30
+0076 DEFE             56     DJNZ R6,$
+0078 DFFA             57     DJNZ R7,D22
+007A F4               58     CPL A
+A51 MACRO ASSEMBLER  絖高                                                                 05/22/2011 23:45:52 PAGE     2
+
+007B 80E2             59     JMP LOOP2
+007D 22               60     OVER2:RET
+                      61     
+                      62     END
+A51 MACRO ASSEMBLER  絖高                                                                 05/22/2011 23:45:52 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   004AH   A   
+D11. . . . . . . .  C ADDR   0069H   A   
+D2 . . . . . . . .  C ADDR   0055H   A   
+D22. . . . . . . .  C ADDR   0074H   A   
+E1 . . . . . . . .  C ADDR   0047H   A   
+E2 . . . . . . . .  C ADDR   0049H   A   
+LOOP . . . . . . .  C ADDR   0040H   A   
+LOOP2. . . . . . .  C ADDR   005FH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+OVER . . . . . . .  C ADDR   005EH   A   
+OVER2. . . . . . .  C ADDR   007DH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+W1 . . . . . . . .  C ADDR   0066H   A   
+W2 . . . . . . . .  C ADDR   0068H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,312 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        05/29/2011  14:51:34  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE TLC1549.obj TO TLC1549
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  TLC1549.obj (TLC1549)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?SIDIV)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  TLC1549 (TLC1549)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0012H     UNIT         ?DT?TLC1549
+            IDATA   001AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     00AEH     UNIT         ?PR?TEST?TLC1549
+            CODE    00B1H     009DH     UNIT         ?C?LIB_CODE
+            CODE    014EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    01DAH     0076H     UNIT         ?PR?_DELAY?TLC1549
+            CODE    0250H     005FH     UNIT         ?PR?INIT?TLC1549
+            CODE    02AFH     004FH     UNIT         ?PR?SCAN1?TLC1549
+            CODE    02FEH     003AH     UNIT         ?CO?TLC1549
+            CODE    0338H     0026H     UNIT         ?PR?_WRITE_SG?TLC1549
+            CODE    035EH     000BH     UNIT         ?PR?MAIN?TLC1549
+            CODE    0369H     000BH     UNIT         ?C_INITSEG
+            CODE    0374H     0008H     UNIT         ?PR?_WRITE_COM?TLC1549
+            CODE    037CH     0008H     UNIT         ?PR?_WRITE_DATA?TLC1549
+
+
+
+OVERLAY MAP OF MODULE:   TLC1549 (TLC1549)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TLC1549
+  +--> ?C_INITSEG
+
+?PR?MAIN?TLC1549
+  +--> ?PR?INIT?TLC1549
+  +--> ?PR?SCAN1?TLC1549
+  +--> ?PR?TEST?TLC1549
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/29/2011  14:51:34  PAGE 2
+
+
+
+?PR?INIT?TLC1549
+  +--> ?PR?_WRITE_COM?TLC1549
+  +--> ?CO?TLC1549
+  +--> ?PR?_WRITE_DATA?TLC1549
+  +--> ?PR?_DELAY?TLC1549
+
+?PR?_WRITE_COM?TLC1549
+  +--> ?PR?_DELAY?TLC1549
+
+?PR?_WRITE_DATA?TLC1549
+  +--> ?PR?_DELAY?TLC1549
+
+?PR?SCAN1?TLC1549
+  +--> ?PR?_WRITE_COM?TLC1549
+  +--> ?CO?TLC1549
+  +--> ?PR?_WRITE_DATA?TLC1549
+  +--> ?PR?_DELAY?TLC1549
+  +--> ?PR?_WRITE_SG?TLC1549
+
+?PR?_WRITE_SG?TLC1549
+  +--> ?PR?_WRITE_COM?TLC1549
+  +--> ?PR?_WRITE_DATA?TLC1549
+
+?PR?TEST?TLC1549
+  +--> ?PR?_DELAY?TLC1549
+  +--> ?PR?_WRITE_SG?TLC1549
+
+
+
+SYMBOL TABLE OF MODULE:  TLC1549 (TLC1549)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TLC1549
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:0008H         PUBLIC        num1
+  D:00B0H         PUBLIC        P3
+  D:0009H         PUBLIC        num2
+  D:000AH         PUBLIC        num3
+  D:000BH         PUBLIC        num4
+  D:000CH         PUBLIC        num5
+  B:00A0H.5       PUBLIC        lcden
+  C:037CH         PUBLIC        _write_data
+  C:02FEH         PUBLIC        table
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:00A0H.3       PUBLIC        lcdrs
+  D:000DH         PUBLIC        result
+  C:035EH         PUBLIC        main
+  C:0374H         PUBLIC        _write_com
+  D:000FH         PUBLIC        shii
+  D:0098H         PUBLIC        SCON
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/29/2011  14:51:34  PAGE 3
+
+
+  D:0088H         PUBLIC        TCON
+  C:0250H         PUBLIC        init
+  D:0010H         PUBLIC        gei
+  B:0090H.7       PUBLIC        clk
+  C:030FH         PUBLIC        table1
+  C:0327H         PUBLIC        table2
+  B:0090H.6       PUBLIC        dout
+  C:031DH         PUBLIC        table3
+  D:0011H         PUBLIC        dis
+  C:0003H         PUBLIC        test
+  C:033CH         PUBLIC        _write_sg
+  D:0019H         PUBLIC        num
+  C:02AFH         PUBLIC        scan1
+  D:00C8H         PUBLIC        T2CON
+  B:00A0H.4       PUBLIC        rw
+  C:0232H         PUBLIC        _delay
+  D:00D0H         PUBLIC        PSW
+  B:0090H.3       PUBLIC        cs_ad
+  C:022EH         SYMBOL        L?0037
+  -------         PROC          L?0036
+  -------         ENDPROC       L?0036
+  C:022EH         SYMBOL        L?0037
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0006H         SYMBOL        x
+  D:0004H         SYMBOL        y
+  -------         ENDDO         
+  C:0232H         LINE#         31
+  C:0232H         LINE#         32
+  C:0232H         LINE#         34
+  C:023BH         LINE#         35
+  C:024FH         LINE#         36
+  -------         ENDPROC       _DELAY
+  -------         PROC          _WRITE_COM
+  D:0007H         SYMBOL        com
+  C:0374H         LINE#         39
+  C:0374H         LINE#         40
+  C:0374H         LINE#         41
+  C:0376H         LINE#         42
+  C:0376H         LINE#         43
+  C:0376H         LINE#         44
+  C:0376H         LINE#         45
+  C:0379H         LINE#         46
+  C:037BH         LINE#         47
+  -------         ENDPROC       _WRITE_COM
+  -------         PROC          _WRITE_DATA
+  D:0007H         SYMBOL        date
+  C:037CH         LINE#         48
+  C:037CH         LINE#         49
+  C:037CH         LINE#         50
+  C:037EH         LINE#         51
+  C:037EH         LINE#         52
+  C:037EH         LINE#         53
+  C:037EH         LINE#         54
+  C:0381H         LINE#         55
+  C:0383H         LINE#         56
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/29/2011  14:51:34  PAGE 4
+
+
+  -------         ENDPROC       _WRITE_DATA
+  C:0338H         SYMBOL        L?0039
+  -------         PROC          L?0038
+  -------         ENDPROC       L?0038
+  C:0338H         SYMBOL        L?0039
+  -------         PROC          _WRITE_SG
+  D:0007H         SYMBOL        add
+  D:0005H         SYMBOL        date
+  -------         DO            
+  D:0003H         SYMBOL        shi
+  D:0002H         SYMBOL        ge
+  -------         ENDDO         
+  C:033CH         LINE#         57
+  C:033CH         LINE#         58
+  C:033CH         LINE#         60
+  C:0342H         LINE#         61
+  C:0349H         LINE#         62
+  C:0350H         LINE#         63
+  C:0357H         LINE#         64
+  -------         ENDPROC       _WRITE_SG
+  -------         PROC          INIT
+  C:0250H         LINE#         67
+  C:0250H         LINE#         68
+  C:0250H         LINE#         69
+  C:0252H         LINE#         70
+  C:0254H         LINE#         71
+  C:0257H         LINE#         72
+  C:0259H         LINE#         73
+  C:025EH         LINE#         74
+  C:0263H         LINE#         75
+  C:0268H         LINE#         76
+  C:026DH         LINE#         77
+  C:0272H         LINE#         79
+  C:0275H         LINE#         80
+  C:0275H         LINE#         81
+  C:027FH         LINE#         82
+  C:0282H         LINE#         83
+  C:028BH         LINE#         84
+  C:0290H         LINE#         85
+  C:0297H         LINE#         86
+  C:0297H         LINE#         87
+  C:02A1H         LINE#         88
+  C:02A4H         LINE#         89
+  C:02A8H         LINE#         90
+  -------         ENDPROC       INIT
+  -------         PROC          SCAN1
+  C:02AFH         LINE#         95
+  C:02AFH         LINE#         96
+  C:02AFH         LINE#         97
+  C:02B4H         LINE#         98
+  C:02B7H         LINE#         99
+  C:02B7H         LINE#         100
+  C:02C1H         LINE#         101
+  C:02C4H         LINE#         102
+  C:02CDH         LINE#         103
+  C:02D0H         LINE#         104
+  C:02D7H         LINE#         105
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/29/2011  14:51:34  PAGE 5
+
+
+  C:02DCH         LINE#         106
+  C:02E3H         LINE#         107
+  C:02E3H         LINE#         108
+  C:02EDH         LINE#         109
+  C:02F0H         LINE#         110
+  C:02F4H         LINE#         111
+  C:02F7H         LINE#         112
+  -------         ENDPROC       SCAN1
+  -------         PROC          TEST
+  -------         DO            
+  D:0005H         SYMBOL        i
+  -------         ENDDO         
+  C:0003H         LINE#         117
+  C:0003H         LINE#         119
+  C:0003H         LINE#         121
+  C:0005H         LINE#         122
+  C:0007H         LINE#         123
+  C:000CH         LINE#         124
+  C:000DH         LINE#         125
+  C:000DH         LINE#         126
+  C:000FH         LINE#         127
+  C:001AH         LINE#         128
+  C:0025H         LINE#         129
+  C:0027H         LINE#         130
+  C:002BH         LINE#         131
+  C:0032H         LINE#         132
+  C:0034H         LINE#         134
+  C:0043H         LINE#         135
+  C:004CH         LINE#         136
+  C:005BH         LINE#         137
+  C:006AH         LINE#         138
+  C:0073H         LINE#         139
+  C:0082H         LINE#         140
+  C:0091H         LINE#         141
+  C:009AH         LINE#         142
+  C:009DH         LINE#         143
+  C:00A7H         LINE#         144
+  C:00AAH         LINE#         145
+  -------         ENDPROC       TEST
+  -------         PROC          MAIN
+  C:035EH         LINE#         148
+  C:035EH         LINE#         149
+  C:035EH         LINE#         150
+  C:0361H         LINE#         151
+  C:0364H         LINE#         152
+  C:0364H         LINE#         153
+  C:0364H         LINE#         154
+  C:0367H         LINE#         155
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TLC1549
+
+  -------         MODULE        ?C?IMUL
+  C:00B1H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?UIDIV
+  C:00C3H         PUBLIC        ?C?UIDIV
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/29/2011  14:51:34  PAGE 6
+
+
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?SIDIV
+  C:0118H         PUBLIC        ?C?SIDIV
+  -------         ENDMOD        ?C?SIDIV
+
+Program Size: data=27.0 xdata=0 code=900
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

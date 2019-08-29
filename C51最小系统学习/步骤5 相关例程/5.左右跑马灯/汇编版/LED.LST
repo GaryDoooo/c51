@@ -1,0 +1,64 @@
+A51 MACRO ASSEMBLER  LED                                                                  05/22/2011 20:43:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN LED.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE LED.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;********************************************************************************
+                       2     ;*                         跑马灯实验                                               *
+                       3     ;                                                                                          
+                                                                                                  *
+                       4     ;     延时实现LED流水灯效果   p1口八个灯作跑马灯。采用了寄存器存中间数          *
+                       5     ;********************************************************************************
+                       6     
+                       7     
+0000                   8             ORG     0000h
+0000 0130              9             AJMP    start
+0030                  10             ORG     0030h
+0030                  11     start:
+0030 74FF             12             MOV A,#0ffh     
+0032 C3               13             CLR C           
+0033 7A08             14             MOV R2,#08h     ;循环八次。
+0035 33               15     loop:   RLC A           ;带进位左移。
+0036 F590             16             MOV P1,A        ;输出到P1口。
+0038 1147             17             CALL delay      ;延时一段时间
+003A DAF9             18             DJNZ R2,loop    ;反复循环
+003C 7A07             19             MOV R2,#07h     ;再往回循环。
+003E 13               20     loop1:  RRC a           ;带进位右移
+003F F590             21             MOV P1,a        ;输出到P1口。
+0041 1147             22             CALL delay      ;延时一段时间
+0043 DAF9             23             DJNZ R2,loop1   ;反复循环
+0045 80E9             24             JMP start       ;重新开始
+0047 7B14             25     delay:  MOV R3,#20      ;延时子程序
+0049 7C14             26     d1:     MOV R4,#20
+004B 7DF8             27     d2:     MOV R5,#248
+004D DDFE             28             DJNZ R5,$
+004F DCFA             29             DJNZ R4,d2
+0051 DBF6             30             DJNZ R3,d1
+0053 22               31             RET
+                      32     END
+                             
+A51 MACRO ASSEMBLER  LED                                                                  05/22/2011 20:43:10 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   0049H   A   
+D2 . . . . . . . .  C ADDR   004BH   A   
+DELAY. . . . . . .  C ADDR   0047H   A   
+LOOP . . . . . . .  C ADDR   0035H   A   
+LOOP1. . . . . . .  C ADDR   003EH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0030H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

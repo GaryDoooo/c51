@@ -1,0 +1,294 @@
+A51 MACRO ASSEMBLER  DS18B20                                                              05/29/2011 14:46:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN ds18b20.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE ds18b20.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;这是关于单个DS18B20的测温程序,数据脚为P3.7,晶振是11.059MHZ
+                       2     ;温度传感器18B20采用器件默认的12位转化,最大转化时间要750毫秒
+                       3     ;用1602液晶屏显示,显示温度从00到99度,精确到0.0625度
+                       4     ;内存分配声明
+  0029                 5     TEMPER_L EQU 29H;用于保存读出温度的低字节
+  0028                 6     TEMPER_H EQU 28H;用于保存读出温度的高字节
+  0027                 7     T_DF EQU 27H ;FORMAT后的小数部分(decimal fraction)，半字节的温度小数(存在低四位)
+  0026                 8     T_INTEGER EQU 26H ;FORMAT后的整数部分(integer),将两字节的温度整合成1字节
+  0050                 9     FLAG1 BIT 50H;位地址50H是字节2AH的最低位，用作是否检测到DS18B20的标志位
+                      10     
+  0020                11     A_BIT EQU 20h ;液晶十位数存放内存位置
+  0021                12     B_BIT EQU 21h ;液晶个位数存放内存位置
+  0022                13     C_BIT EQU 22H ;个位小数
+  0023                14     D_BIT EQU 23H ;十位小数
+  0024                15     E_BIT EQU 24H ;百位小数
+  0025                16     F_BIT EQU 25H ;千位小数
+                      17     
+                      18     
+                      19     
+0000                  20     ORG 0000H
+0000 020100           21                 LJMP MAIN
+0100                  22     ORG 0100H
+0100                  23     MAIN:   
+0100 120223           24                LCALL   INIT_RS232
+                      25               
+0103 120112           26                LCALL T_CONVERSION;调用读温度子程序
+0106 12019C           27                LCALL T_FORMAT;将读出的2字节温度格式化
+0109 1201B0           28                LCALL DISPLAY;调用液晶显示子程序
+010C 120217           29                LCALL D1S;延时1秒后再测
+010F 020100           30                LJMP MAIN
+                      31     
+                      32     ;--------------DS18B20的温度转换子程序,具体时序请参考资料-------------------
+0112 120137           33     T_CONVERSION:        LCALL INIT_1820;先复位DS18B20
+0115 205001           34                          JB FLAG1,T_C0
+0118 22               35                          RET ; 判断DS1820是否存在  若DS18B20不存在则返回
+                      36     
+0119 74CC             37     T_C0:                MOV A,#0CCH ; 跳过ROM匹配
+011B 120162           38                          LCALL WRITE_1820
+011E 7444             39                          MOV A,#44H ; 发出温度转换命令
+0120 120162           40                          LCALL WRITE_1820
+0123 120217           41                          LCALL D1S   ;这里等待AD转换结束,12位的话要延时750m秒
+0126 120137           42                          LCALL INIT_1820;准备读温度前先复位
+0129 74CC             43                          MOV A,#0CCH ; 跳过ROM匹配
+012B 120162           44                          LCALL WRITE_1820
+012E 74BE             45                          MOV A,#0BEH ; 发出读温度命令
+0130 120162           46                          LCALL WRITE_1820
+0133 12017A           47                          LCALL READ_1820; 将读出的温度数据保存到28H(TEMPER_H)和29H(TEMPER_L)处
+0136 22               48                          RET
+                      49     
+                      50     ;------DS18B20复位初始化程序-----------------------------------------
+0137 D2B7             51     INIT_1820:   SETB P3.7
+0139 00               52                        NOP
+013A C2B7             53                        CLR P3.7
+013C 7802             54                        MOV R0,#2 ;主机发出延时500微秒的复位低脉冲
+013E 79FA             55     INIT0:         MOV R1,#250
+0140 D9FE             56                        DJNZ R1,$
+0142 D8FA             57                        DJNZ R0,INIT0
+                      58     
+A51 MACRO ASSEMBLER  DS18B20                                                              05/29/2011 14:46:36 PAGE     2
+
+0144 D2B7             59                        SETB P3.7;然后拉高数据线
+0146 00               60                        NOP
+                      61     
+0147 780F             62                        MOV R0, #15
+0149 30B705           63     INIT1:         JNB P3.7, INIT3;延时60us等待DS18B20回应
+014C D8FB             64                        DJNZ R0, INIT1
+014E 020156           65                        LJMP INIT4 ; 超时而没有响应
+0151 D250             66     INIT3:         SETB FLAG1 ; 置标志位,表示DS1820存在
+0153 02015B           67                        LJMP INIT5
+0156 C250             68     INIT4:         CLR FLAG1 ; 清标志位,表示DS1820不存在
+0158 02015F           69                        LJMP INIT6
+015B 7878             70     INIT5:         MOV R0, #120
+015D D8FE             71                        DJNZ R0, $ ; 延时240us
+015F D2B7             72     INIT6:         SETB P3.7
+0161 22               73                        RET
+                      74     
+                      75     ;---------写DS18B20的子程序(有具体的时序要求)-------------------------------------
+0162 7A08             76     WRITE_1820:   MOV R2,#8;一共8位数据
+0164 C2B7             77     WR0:              CLR P3.7
+0166 7B06             78                          MOV R3,#6
+0168 DBFE             79                          DJNZ R3,$
+016A 13               80                          RRC A
+016B 92B7             81                          MOV P3.7,C
+016D 7B14             82                          MOV R3,#20
+016F DBFE             83                          DJNZ R3,$
+0171 D2B7             84                          SETB P3.7
+0173 00               85                          NOP
+0174 00               86                          NOP
+0175 DAED             87                          DJNZ R2,WR0
+0177 D2B7             88                          SETB P3.7
+0179 22               89                          RET
+                      90     
+                      91     ;------读DS18B20的程序,从DS18B20中读出两个字节的温度数据--------------------------
+017A 7C02             92     READ_1820:      MOV R4,#2 ; 将温度高位和低位从DS18B20中读出
+017C 7929             93                     MOV R1,#TEMPER_L ; 低位存入29H(TEMPER_L)
+017E 7A08             94     RE0:            MOV R2,#8
+0180 D2B7             95     RE1:            SETB P3.7
+0182 00               96                        NOP
+0183 00               97                        NOP
+0184 C2B7             98                        CLR P3.7
+0186 00               99                        NOP
+0187 00              100                        NOP
+0188 D2B7            101                        SETB P3.7
+018A 7B05            102                        MOV R3,#5
+018C DBFE            103                        DJNZ R3, $
+018E A2B7            104                        MOV C,P3.7
+0190 7B14            105                        MOV R3,#20
+0192 DBFE            106                        DJNZ R3, $
+0194 13              107                        RRC A
+0195 DAE9            108                        DJNZ R2,RE1
+0197 F7              109                        MOV @R1,A
+0198 19              110                        DEC R1            ; 高位存入28H(TEMPER_H)
+0199 DCE3            111                        DJNZ R4,RE0
+019B 22              112                        RET
+                     113     
+                     114     ;-----整合读出的两字节温度(关于DS18B20读出的2字节温度格式请参考资料)----------
+019C 740F            115     T_FORMAT:         MOV A, #0FH
+019E 5529            116                       ANL A, TEMPER_L
+01A0 F527            117                       MOV T_DF, A           ;获得小数部分(4位)
+                     118     
+01A2 E529            119                       MOV A, TEMPER_L
+01A4 C4              120                       SWAP A
+01A5 F529            121                       MOV TEMPER_L, A
+                     122     
+01A7 E528            123                       MOV A, TEMPER_H
+01A9 C4              124                       SWAP A
+A51 MACRO ASSEMBLER  DS18B20                                                              05/29/2011 14:46:36 PAGE     3
+
+01AA 7829            125                       MOV R0, #TEMPER_L
+01AC D6              126                       XCHD A, @R0
+                     127     
+01AD F526            128                       MOV T_INTEGER, A       ;获得整数部分(1字节)
+01AF 22              129                       RET
+                     130     
+                     131     ;-------液晶显示的子程序(显示前先格式转换)---------------------------------------
+01B0 E526            132     DISPLAY:             mov a, T_INTEGER
+01B2 75F00A          133                          mov b,#10
+01B5 84              134                          div ab
+01B6 F520            135                          mov A_BIT,a ;十位存在A_BIT
+01B8 85F021          136                                                   mov B_BIT,b ;个位存在B_BIT
+01BB E527            137                          MOV A, T_DF
+01BD 7822            138                          MOV R0, #C_BIT
+01BF 7A04            139                         MOV R2, #4
+01C1 75F00A          140                     D0: MOV B, #10
+01C4 A4              141                          MUL AB
+01C5 75F010          142                          MOV B, #16
+01C8 84              143                          DIV AB
+01C9 F6              144                          MOV @R0, A      ;从个位小数C_BIT,到十位D_BIT,百位E_BIT,千位F_BIT
+01CA 08              145                          INC R0
+01CB E5F0            146                          MOV A, B
+01CD DAF2            147                          DJNZ R2, D0
+                     148                          ;----二进制到ASCII码转换--------------
+01CF 7430            149                          MOV A, #30H
+01D1 4220            150                          ORL A_BIT, A
+01D3 4221            151                          ORL B_BIT, A
+01D5 4222            152                          ORL C_BIT, A
+01D7 4223            153                          ORL D_BIT, A
+01D9 4224            154                          ORL E_BIT, A
+01DB 4225            155                          ORL F_BIT, A
+                     156                          ;-------------------------------------
+                     157                      
+                     158                          
+01DD E520            159                          MOV A, A_BIT
+01DF 120231          160                          LCALL TX_CHAR
+                     161        
+01E2 E521            162                          MOV A, B_BIT
+01E4 120231          163                                    LCALL TX_CHAR
+                     164                        
+01E7 742E            165                          MOV A, #2EH
+01E9 120231          166                          LCALL TX_CHAR;'.'字符
+                     167                        
+01EC E522            168                          MOV A, C_BIT
+01EE 120231          169                                    LCALL TX_CHAR
+                     170                        
+01F1 E523            171                          MOV A, D_BIT
+01F3 120231          172                                    LCALL TX_CHAR
+                     173                         
+01F6 E524            174                          MOV A, E_BIT
+01F8 120231          175                                    LCALL TX_CHAR
+                     176                         
+01FB E525            177                          MOV A, F_BIT
+01FD 120231          178                                    LCALL TX_CHAR
+                     179                         
+0200 74DF            180                          MOV A, #0DFH                        ;下面两个是摄氏度的数字符号
+0202 120231          181                                    LCALL TX_CHAR
+                     182                        
+0205 7443            183                          MOV A, #43H
+0207 120231          184                                    LCALL TX_CHAR
+                     185                        
+020A 740A            186                          MOV A, #0AH
+020C 120231          187                                    LCALL TX_CHAR
+                     188                          
+                     189                         
+020F 22              190                          RET
+A51 MACRO ASSEMBLER  DS18B20                                                              05/29/2011 14:46:36 PAGE     4
+
+                     191     
+                     192     
+                     193     ;---1mS延时(按12MHZ算)-----------------------------------------------------------------
+0210 7FFA            194     D1mS:      MOV R7,#250
+0212 00              195     LOOP0:    NOP
+0213 00              196                   NOP
+0214 DFFC            197                   DJNZ R7,LOOP0
+0216 22              198                   RET
+                     199     ;----1S延时(按12MHZ算)-----------------------------------------------------------------
+0217 7E04            200     D1S:       Mov R6,#4
+0219 7DFA            201     LOOP2:    mov R5,#250
+021B 120210          202     LOOP1:    LCALL D1mS
+021E DDFB            203                   DJNZ R5,LOOP1
+0220 DEF7            204                   DJNZ R6,LOOP2
+0222 22              205                   RET
+0223                 206     INIT_RS232:
+0223 759850          207             MOV SCON,#50H
+0226 758920          208             MOV TMOD,#20H
+0229 758DFD          209             MOV TH1,#0FDH
+022C D28E            210             SETB TR1
+022E D299            211             SETB TI
+0230 22              212             RET
+                     213     ;-----------------------
+0231                 214     TX_CHAR:
+0231 3099FD          215             JNB TI,$
+0234 C299            216             CLR TI
+0236 F599            217             MOV SBUF, A
+0238 22              218             RET
+                     219     ;--------------------------------------------------------------------------------------
+                     220     
+                     221     END
+A51 MACRO ASSEMBLER  DS18B20                                                              05/29/2011 14:46:36 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+A_BIT. . . . . . .  N NUMB   0020H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+B_BIT. . . . . . .  N NUMB   0021H   A   
+C_BIT. . . . . . .  N NUMB   0022H   A   
+D0 . . . . . . . .  C ADDR   01C1H   A   
+D1MS . . . . . . .  C ADDR   0210H   A   
+D1S. . . . . . . .  C ADDR   0217H   A   
+DISPLAY. . . . . .  C ADDR   01B0H   A   
+D_BIT. . . . . . .  N NUMB   0023H   A   
+E_BIT. . . . . . .  N NUMB   0024H   A   
+FLAG1. . . . . . .  B ADDR   002AH.0 A   
+F_BIT. . . . . . .  N NUMB   0025H   A   
+INIT0. . . . . . .  C ADDR   013EH   A   
+INIT1. . . . . . .  C ADDR   0149H   A   
+INIT3. . . . . . .  C ADDR   0151H   A   
+INIT4. . . . . . .  C ADDR   0156H   A   
+INIT5. . . . . . .  C ADDR   015BH   A   
+INIT6. . . . . . .  C ADDR   015FH   A   
+INIT_1820. . . . .  C ADDR   0137H   A   
+INIT_RS232 . . . .  C ADDR   0223H   A   
+LOOP0. . . . . . .  C ADDR   0212H   A   
+LOOP1. . . . . . .  C ADDR   021BH   A   
+LOOP2. . . . . . .  C ADDR   0219H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RE0. . . . . . . .  C ADDR   017EH   A   
+RE1. . . . . . . .  C ADDR   0180H   A   
+READ_1820. . . . .  C ADDR   017AH   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
+TEMPER_H . . . . .  N NUMB   0028H   A   
+TEMPER_L . . . . .  N NUMB   0029H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+TX_CHAR. . . . . .  C ADDR   0231H   A   
+T_C0 . . . . . . .  C ADDR   0119H   A   
+T_CONVERSION . . .  C ADDR   0112H   A   
+T_DF . . . . . . .  N NUMB   0027H   A   
+T_FORMAT . . . . .  C ADDR   019CH   A   
+T_INTEGER. . . . .  N NUMB   0026H   A   
+WR0. . . . . . . .  C ADDR   0164H   A   
+WRITE_1820 . . . .  C ADDR   0162H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

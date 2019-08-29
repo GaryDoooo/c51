@@ -1,0 +1,72 @@
+A51 MACRO ASSEMBLER  LED_2                                                                05/22/2011 20:39:29 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN LED_2.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE LED_2.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;********************************************************************************
+                       2     ;                       跑马灯试验                                                         
+                                                          *
+                       3     ;                                                                                          
+                                                                                                  *
+                       4     ;       开机8个灯循环点亮。                                                     *
+                       5     ;       硬件连接：p1口8路指示灯，                                                          
+                                                                  *
+                       6     
+                       7     ;********************************************************************************
+                       8     
+0000                   9             ORG 0000H         ;程序0000起始地址
+0000 0130             10             AJMP MAIN         ;跳转到MAIN
+                      11     
+0030                  12             ORG 030H      ;MAIN 程序起始地址
+0030 7590FE           13     MAIN:   MOV P1,#0FEH
+0033 115D             14             ACALL DEL           ;调用子程序
+0035 7590FD           15             MOV P1,#0FDH    ;将立即数传给P2
+0038 115D             16             ACALL DEL
+003A 7590FB           17             MOV P1,#0FBH
+003D 115D             18             ACALL DEL
+003F 7590F7           19             MOV P1,#0F7H
+0042 115D             20             ACALL DEL
+0044 7590EF           21             MOV P1,#0EFH
+0047 115D             22             ACALL DEL
+0049 7590DF           23             MOV P1,#0DFH
+004C 115D             24             ACALL DEL
+004E 7590BF           25             MOV P1,#0BFH
+0051 115D             26             ACALL DEL
+0053 75907F           27             MOV P1,#07FH
+0056 115D             28             ACALL DEL
+0058 7590FF           29             MOV P1,#0FFH
+005B 0130             30             AJMP MAIN 
+                      31     
+                      32     ;延时子程序
+005D 7D04             33     DEL:    MOV R5,#04H
+005F 7EFF             34     DEL1:   MOV R6,#0FFH
+0061 7FFF             35     DEL2:   MOV R7,#0FFH
+0063 DFFE             36     DEL3:   DJNZ R7, DEL3
+0065 DEFA             37             DJNZ R6, DEL2
+0067 DDF6             38             DJNZ R5, DEL1
+0069 22               39             RET
+                      40             END
+A51 MACRO ASSEMBLER  LED_2                                                                05/22/2011 20:39:29 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DEL. . . . . . . .  C ADDR   005DH   A   
+DEL1 . . . . . . .  C ADDR   005FH   A   
+DEL2 . . . . . . .  C ADDR   0061H   A   
+DEL3 . . . . . . .  C ADDR   0063H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

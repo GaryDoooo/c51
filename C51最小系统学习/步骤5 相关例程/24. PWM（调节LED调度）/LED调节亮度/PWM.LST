@@ -1,0 +1,79 @@
+C51 COMPILER V8.02   PWM                                                                   05/22/2011 23:40:04 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN PWM.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE PWM.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /********************************************************************************
+   2          *  ±ÍÃ‚: ∫„ÀŸ‘À––                                                               *
+   3          *                                                                                                                                                               *
+   4          *********************************************************************************
+   5          * Õ®π˝±æ¿˝≥Ã¡ÀΩ‚PWM µƒª˘±æ‘≠¿Ì∫Õ π”√                                                                                    *
+   6          *                                                                                                                                                               *
+   7          *                                                                                   *
+   8          * «Î—ß‘±»œ’Êœ˚ªØ±æ¿˝≥Ã                                                              *
+   9          *********************************************************************************/
+  10          
+  11          
+  12          
+  13          #include <reg52.h>
+  14          
+  15          unsigned char timer1; 
+  16          sbit PWM=P1^1;
+  17          
+  18          void system_Ini()
+  19          {
+  20   1          TMOD|= 0x11;
+  21   1              //PWM  
+  22   1              TH1 = 0xfe; //11.0592
+  23   1              TL1 = 0x33;
+  24   1              TR1  = 1; 
+  25   1          IE =0x8A;   
+  26   1      }
+  27          
+  28           main()
+  29          {
+  30   1        system_Ini();
+  31   1        while(1)               
+  32   1        { if(timer1>100) timer1=0;
+  33   2          if(timer1<30) PWM=0;
+  34   2          else PWM=1;
+  35   2      
+  36   2         }
+  37   1      
+  38   1      
+  39   1       }
+  40          
+  41          /*************************************
+  42           [ t1 (0.5ms)÷–∂œ] ÷–∂œ÷–◊ˆ PWM  ‰≥ˆ
+  43            ------------1000/(0.02ms*250)=200Hz
+  44          *************************************/
+  45          void T1zd(void) interrupt 3    //3 Œ™∂® ±∆˜1µƒ÷–∂œ∫≈  1 ∂® ±∆˜0µƒ÷–∂œ∫≈ 0 Õ‚≤ø÷–∂œ1 2 Õ‚≤ø÷–∂œ2  4 ¥Æø⁄÷–∂
+             -œ
+  46          {
+  47   1              TH1 = 0xfe; //11.0592
+  48   1              TL1 = 0x33;
+  49   1               timer1++;
+  50   1          
+  51   1      }
+  52          
+  53          
+
+C51 COMPILER V8.02   PWM                                                                   05/22/2011 23:40:04 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     52    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,231 @@
+BL51 BANKED LINKER/LOCATER V4.13                                                        12/22/2011  18:11:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V4.13, INVOKED BY:
+C:\PROGRAM FILES\KEIL\C51\BIN\BL51.EXE LCD1602.obj TO LCD1602 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  LCD1602.obj (LCD1602)
+  C:\PROGRAM FILES\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  LCD1602 (LCD1602)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0056H     UNIT         ?PR?_LCDWRDATA?LCD1602
+            CODE    0059H     0056H     UNIT         ?PR?_LCDWRCOM?LCD1602
+            CODE    00AFH     0040H     UNIT         ?PR?MAIN?LCD1602
+            CODE    00EFH     0024H     UNIT         ?PR?_DELAY?LCD1602
+            CODE    0113H     0022H     UNIT         ?CO?LCD1602
+            CODE    0135H     0014H     UNIT         ?PR?LCD_INIT?LCD1602
+            CODE    0149H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   LCD1602 (LCD1602)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LCD1602
+
+?PR?MAIN?LCD1602
+  +--> ?PR?_DELAY?LCD1602
+  +--> ?PR?LCD_INIT?LCD1602
+  +--> ?PR?_LCDWRCOM?LCD1602
+  +--> ?CO?LCD1602
+  +--> ?PR?_LCDWRDATA?LCD1602
+
+?PR?LCD_INIT?LCD1602
+  +--> ?PR?_LCDWRCOM?LCD1602
+
+?PR?_LCDWRCOM?LCD1602
+  +--> ?PR?_DELAY?LCD1602
+
+?PR?_LCDWRDATA?LCD1602
+  +--> ?PR?_DELAY?LCD1602
+BL51 BANKED LINKER/LOCATER V4.13                                                      12/22/2011  18:11:00  PAGE 2
+
+
+
+
+
+SYMBOL TABLE OF MODULE:  LCD1602 (LCD1602)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LCD1602
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00B0H.4       PUBLIC        T0
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.5       PUBLIC        T1
+  B:0090H.0       PUBLIC        T2
+  B:00A8H.7       PUBLIC        EA
+  B:00A0H.5       PUBLIC        lcden
+  C:0113H         PUBLIC        table
+  D:00A8H         PUBLIC        IE
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+  B:00A8H.4       PUBLIC        ES
+  D:00B8H         PUBLIC        IP
+  B:0098H.0       PUBLIC        RI
+  C:0003H         PUBLIC        _lcdwrdata
+  B:00B0H.2       PUBLIC        INT0
+  B:00D0H.7       PUBLIC        CY
+  B:0098H.1       PUBLIC        TI
+  B:00B0H.3       PUBLIC        INT1
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  C:00AFH         PUBLIC        main
+  B:00C8H.1       PUBLIC        C_T2
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00C8H.4       PUBLIC        TCLK
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0124H         PUBLIC        table1
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  C:0059H         PUBLIC        _lcdwrcom
+  B:00C8H.0       PUBLIC        CP_RL2
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  C:0135H         PUBLIC        lcd_init
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+BL51 BANKED LINKER/LOCATER V4.13                                                      12/22/2011  18:11:00  PAGE 3
+
+
+  B:0098H.3       PUBLIC        TB8
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00B8H.3       PUBLIC        PT1
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+  B:00D0H.4       PUBLIC        RS1
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00C8H.3       PUBLIC        EXEN2
+  B:00A0H.3       PUBLIC        rs
+  B:0098H.4       PUBLIC        REN
+  D:00C8H         PUBLIC        T2CON
+  B:00A0H.4       PUBLIC        rw
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  C:00FCH         PUBLIC        _delay
+  B:00D0H.5       PUBLIC        F0
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0021
+  -------         ENDPROC       L?0021
+  -------         PROC          _DELAY
+  D:0007H         SYMBOL        x
+  -------         DO            x
+  D:0004H         SYMBOL        y
+  -------         ENDDO         y
+  C:00FCH         LINE#         11
+  C:00FCH         LINE#         12
+  C:00FCH         LINE#         13
+  C:0102H         LINE#         14
+  C:0102H         LINE#         15
+  C:0106H         LINE#         16
+  C:010FH         LINE#         17
+  C:0112H         LINE#         18
+  -------         ENDPROC       _DELAY
+  -------         PROC          _LCDWRDATA
+  D:0007H         SYMBOL        dat
+  C:0003H         LINE#         19
+  C:0003H         LINE#         20
+  C:0003H         LINE#         21
+  C:0054H         LINE#         22
+  C:0056H         LINE#         23
+  C:0056H         LINE#         24
+  C:0056H         LINE#         25
+  C:0056H         LINE#         26
+  C:0056H         LINE#         27
+  -------         ENDPROC       _LCDWRDATA
+  -------         PROC          _LCDWRCOM
+  D:0007H         SYMBOL        cdat
+BL51 BANKED LINKER/LOCATER V4.13                                                      12/22/2011  18:11:00  PAGE 4
+
+
+  C:0059H         LINE#         29
+  C:0059H         LINE#         30
+  C:0059H         LINE#         31
+  C:00AAH         LINE#         32
+  C:00ACH         LINE#         33
+  C:00ACH         LINE#         34
+  C:00ACH         LINE#         35
+  C:00ACH         LINE#         36
+  C:00ACH         LINE#         37
+  -------         ENDPROC       _LCDWRCOM
+  -------         PROC          LCD_INIT
+  C:0135H         LINE#         39
+  C:0135H         LINE#         40
+  C:0135H         LINE#         41
+  C:013AH         LINE#         42
+  C:013FH         LINE#         43
+  C:0144H         LINE#         44
+  -------         ENDPROC       LCD_INIT
+  -------         PROC          MAIN
+  -------         DO            MAIN
+  D:0003H         SYMBOL        n
+  -------         ENDDO         n
+  C:00AFH         LINE#         46
+  C:00AFH         LINE#         47
+  C:00AFH         LINE#         48
+  C:00B1H         LINE#         49
+  C:00B6H         LINE#         50
+  C:00B8H         LINE#         51
+  C:00BBH         LINE#         52
+  C:00C0H         LINE#         53
+  C:00C2H         LINE#         54
+  C:00C2H         LINE#         55
+  C:00CBH         LINE#         56
+  C:00D0H         LINE#         57
+  C:00D4H         LINE#         59
+  C:00D9H         LINE#         60
+  C:00DBH         LINE#         61
+  C:00DBH         LINE#         62
+  C:00E4H         LINE#         63
+  C:00E9H         LINE#         64
+  C:00EDH         LINE#         65
+  C:00EDH         LINE#         66
+  C:00EDH         LINE#         67
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LCD1602
+
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

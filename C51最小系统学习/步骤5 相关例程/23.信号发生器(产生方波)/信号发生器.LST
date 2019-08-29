@@ -1,0 +1,52 @@
+A51 MACRO ASSEMBLER  _藕欧_蒧芲                                                           12/24/2007 19:49:16 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN 信号发生器.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 信号发生器.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1            ORG 00H
+0000 020030            2                LJMP START
+000B                   3                ORG 0BH
+000B 020041            4                LJMP INTT0
+0030                   5                ORG 30H
+0030                   6     START:  
+                       7     
+0030 758902            8            MOV  TMOD,#00000010B
+0033 758810            9                MOV  TCON,#00010000B
+0036 75A882           10                MOV  IE  ,#10000010B
+0039 758CD2           11                MOV  TH0,#0D2H     
+003C 758AD2           12                MOV  TL0,#0D2H          
+                      13     
+003F 013F             14                AJMP $
+                      15     
+0041                  16     INTT0: 
+                      17     
+0041 B290             18               CPL  P1.0 
+0043 32               19           RETI
+                      20     
+                      21               END
+A51 MACRO ASSEMBLER  _藕欧_蒧芲                                                           12/24/2007 19:49:16 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+IE . . . . . . . .  D ADDR   00A8H   A   
+INTT0. . . . . . .  C ADDR   0041H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0030H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

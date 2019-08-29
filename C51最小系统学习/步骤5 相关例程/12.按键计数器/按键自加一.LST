@@ -1,0 +1,194 @@
+A51 MACRO ASSEMBLER  _醇_加一                                                           05/28/2011 10:13:07 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN 按键自加一.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE 按键自加一.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1      
+                       2     
+                       3     
+                       4     
+                       5                      
+  00A6                 6                        KEY  BIT  P2.6                
+  00A7                 7                        KEY1 BIT  P2.7                
+                       8                       
+0000                   9                        ORG 00H
+0000 020030           10                        LJMP START
+0030                  11                        ORG 30H
+                      12     
+0030                  13     START: 
+0030 753000           14               MOV   30H,#0
+0033 753100           15                       MOV   31H,#0
+0036 753200           16                       MOV   32H,#0
+0039 753300           17                       MOV   33H,#0 
+003C 7B00             18                       MOV   R3, #0 
+003E 7C00             19                       MOV   R4, #0
+0040 C200             20                       CLR   20H.0
+                      21     
+0042                  22     MAIN:
+                      23     
+0042 200003           24                       JB    20H.0,DISPLAY_OFF
+                      25     
+0045 12008E           26                   LCALL DISPLAY       
+0048                  27     DISPLAY_OFF:
+0048 30A615           28                       JNB   KEY, KEY_PRO 
+004B 30A702           29                       JNB   KEY1,KEY_PRO_1
+004E 0142             30                       AJMP MAIN
+                      31     
+0050                  32     KEY_PRO_1:
+0050 1200CB           33               LCALL DL10MS
+0053 20A7EC           34                       JB    KEY1,MAIN
+0056                  35     KEY_REPAT_1:
+0056 1200CB           36               LCALL DL10MS
+0059 30A7FA           37                       JNB   KEY1,KEY_REPAT_1
+                      38     
+005C B200             39                       CPL   20H.0
+005E 0142             40                       AJMP  MAIN
+                      41     
+                      42     
+                      43     
+                      44     
+                      45     
+                      46     
+                      47     
+0060                  48     KEY_PRO:  
+                      49               
+0060 12008E           50                       LCALL DISPLAY
+0063 20A6DC           51                       JB    KEY,MAIN
+                      52     
+0066                  53     KEY_REPAT:
+0066 12008E           54               LCALL DISPLAY
+0069 30A6FA           55                       JNB   KEY,KEY_REPAT
+                      56     
+006C 0B               57                       INC   R3         
+006D BB3C08           58                       CJNE  R3,#60,OUT
+A51 MACRO ASSEMBLER  _醇_加一                                                           05/28/2011 10:13:07 PAGE     2
+
+0070 7B00             59                       MOV   R3,#0
+                      60     
+0072 0C               61                       INC   R4        
+0073 BC3C02           62               CJNE  R4,#60,OUT
+0076 7C00             63                       MOV   R4,#0
+                      64     
+                      65     
+                      66     
+0078                  67     OUT:
+0078 EB               68               MOV   A,R3
+0079 75F00A           69                       MOV   B,#10
+007C 84               70                       DIV   AB
+007D F532             71                       MOV   32H,A
+007F 85F033           72                       MOV   33H,B
+                      73     
+0082 EC               74                       MOV   A,R4
+0083 75F00A           75                       MOV   B,#10
+0086 84               76                       DIV   AB
+0087 F530             77                       MOV   30H,A
+0089 85F031           78                       MOV   31H,B
+                      79     
+                      80     
+008C 0142             81               AJMP MAIN
+                      82     
+                      83     
+                      84     
+                      85     
+008E 9000D4           86     DISPLAY:  MOV   DPTR,#TAB
+0091 E533             87                     MOV  A,33H
+0093 93               88                                 MOVC A,@A+DPTR
+0094 F580             89                                 MOV  P0,A
+0096 C2A3             90                                 CLR  P2.3
+0098 1200C2           91                                 LCALL DL2MS
+009B D2A3             92                                 SETB P2.3
+                      93     
+009D E532             94                                 MOV  A,32H
+009F 93               95                                 MOVC A,@A+DPTR
+00A0 F580             96                                     MOV  P0,A
+00A2 C2A2             97                                 CLR  P2.2
+00A4 1200C2           98                                 LCALL DL2MS
+00A7 D2A2             99                                 SETB P2.2
+                     100     
+00A9 E531            101                             MOV  A,31H       
+00AB 93              102                                 MOVC A,@A+DPTR
+00AC F580            103                                 MOV  P0,A
+                     104     
+00AE C2A1            105                                 CLR  P2.1
+00B0 1200C2          106                                 LCALL DL2MS
+00B3 D2A1            107                                 SETB P2.1
+                     108                         
+00B5 E530            109                                 MOV  A,30H
+00B7 93              110                                 MOVC A,@A+DPTR
+00B8 F580            111                                 MOV  P0,A
+00BA C2A0            112                                 CLR  P2.0
+00BC 1200C2          113                                 LCALL DL2MS
+00BF D2A0            114                                 SETB P2.0
+                     115             
+00C1 22              116                       RET
+                     117     
+00C2 7814            118     DL2MS:    MOV   R0,#20
+00C4 7928            119     DL1:      MOV   R1,#40
+00C6 D9FE            120     DL2:      DJNZ  R1,DL2
+00C8 D8FA            121               DJNZ  R0,DL1
+00CA 22              122                       RET
+                     123     
+00CB 7D64            124     DL10MS:   MOV   R5,#100
+A51 MACRO ASSEMBLER  _醇_加一                                                           05/28/2011 10:13:07 PAGE     3
+
+00CD 7E30            125     DL3:      MOV   R6,#48
+00CF DEFE            126     DL4:      DJNZ  R6,DL4
+00D1 DDFA            127               DJNZ  R5,DL3
+00D3 22              128                       RET
+                     129     
+                     130              
+00D4 C0              131     TAB:            DB        0C0H;0
+00D5 F9              132                     DB        0F9H;1
+00D6 A4              133                     DB        0A4H;2
+00D7 B0              134                     DB        0B0H;3
+00D8 99              135                     DB        099H;4
+00D9 92              136                     DB        092H;5
+00DA 82              137                     DB        082H;6
+00DB F8              138                     DB        0F8H;7
+00DC 80              139                     DB        080H;8
+00DD 90              140                     DB        090H;9 ;013456789字形码
+                     141     
+                     142                       END
+                              
+                             
+                             
+                              
+A51 MACRO ASSEMBLER  _醇_加一                                                           05/28/2011 10:13:07 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DISPLAY. . . . . .  C ADDR   008EH   A   
+DISPLAY_OFF. . . .  C ADDR   0048H   A   
+DL1. . . . . . . .  C ADDR   00C4H   A   
+DL10MS . . . . . .  C ADDR   00CBH   A   
+DL2. . . . . . . .  C ADDR   00C6H   A   
+DL2MS. . . . . . .  C ADDR   00C2H   A   
+DL3. . . . . . . .  C ADDR   00CDH   A   
+DL4. . . . . . . .  C ADDR   00CFH   A   
+KEY. . . . . . . .  B ADDR   00A0H.6 A   
+KEY1 . . . . . . .  B ADDR   00A0H.7 A   
+KEY_PRO. . . . . .  C ADDR   0060H   A   
+KEY_PRO_1. . . . .  C ADDR   0050H   A   
+KEY_REPAT. . . . .  C ADDR   0066H   A   
+KEY_REPAT_1. . . .  C ADDR   0056H   A   
+MAIN . . . . . . .  C ADDR   0042H   A   
+OUT. . . . . . . .  C ADDR   0078H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0030H   A   
+TAB. . . . . . . .  C ADDR   00D4H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

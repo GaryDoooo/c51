@@ -1,0 +1,19 @@
+<html>
+<body>
+<pre>
+<h1>µVision3 Build Log</h1>
+<h2>Project:</h2>
+F:\AD9850\AD9850_1_V3_TB\AD9850_1_V3_C³ÌÐò\AD9851-´®ÐÐ\ad9851.uv2
+Project File Date:  12/19/2008
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling ad9851.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?AD9851_RESET?AD9851
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_AD9851_WR_PARREL?AD9851
+Program Size: data=35.0 xdata=0 code=1081
+creating hex file from "ad9851"...
+"ad9851" - 0 Error(s), 2 Warning(s).

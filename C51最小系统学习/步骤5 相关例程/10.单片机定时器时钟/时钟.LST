@@ -1,0 +1,209 @@
+A51 MACRO ASSEMBLER   _÷”                                                                 05/28/2011 09:56:25 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN  ±÷”.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE  ±÷”.asm SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+  00A5                 1                     KEY_HH BIT P2.5            
+  00A6                 2                                     KEY_MM BIT P2.6
+0000                   3                                     ORG   00H
+0000 020030            4                                     LJMP  START
+000B                   5                                     ORG   0BH
+000B 0200B9            6                                     LJMP  INTT0
+0030                   7                                     ORG   30H
+0030                   8                     START: 
+0030 753000            9                             MOV   30H,#0
+0033 753100           10                                     MOV   31H,#0
+0036 753200           11                                     MOV   32H,#0
+0039 753300           12                                     MOV   33H,#0
+                      13     
+003C 758C4C           14                                     MOV   TH0,#4CH
+003F 758A00           15                                     MOV   TL0,#00H
+0042 758901           16                                     MOV   TMOD,#01H
+0045 758810           17                                     MOV   TCON,#10H
+0048 75A882           18                                     MOV   IE,  #82H
+                      19     
+004B 780A             20                                     MOV   R0,#10
+                      21     
+004D 7932             22                                     MOV   R1,#50   
+004F 7A00             23                                     MOV   R2,#00   
+0051 7B05             24                                     MOV   R3,#05   
+                      25      
+                      26     
+                      27     
+0053 120081           28                      MAIN:  LCALL DISPLAY
+0056 30A505           29                             JNB   KEY_HH,SETHH
+0059 30A623           30                                     JNB   KEY_MM,SETMM
+005C 0153             31                             AJMP  MAIN
+                      32      
+                      33      
+                      34     
+005E 120081           35       SETHH:                LCALL DISPLAY
+0061 120081           36                     LCALL DISPLAY
+0064 20A5EC           37                                     JB    KEY_HH,MAIN
+                      38     
+                      39                                 
+0067 120081           40      KEY_REPAT:     LCALL DISPLAY
+006A 30A5FA           41                     JNB   KEY_HH,KEY_REPAT
+                      42     
+006D 0B               43                                     INC   R3
+006E BB1802           44                                     CJNE  R3,#24,MAIN_OUT
+0071 7B00             45                                     MOV   R3,#0
+0073                  46             MAIN_OUT:
+0073 EB               47                         MOV   A,R3
+0074 75F00A           48                                     MOV   B,#10
+0077 84               49                                     DIV   AB
+0078 F530             50                                     MOV   30H,A
+007A 85F031           51                                     MOV   31H,B
+007D 0153             52                     AJMP  MAIN
+                      53     
+                      54     
+                      55     
+007F                  56       SETMM:       
+007F 0153             57                             AJMP  MAIN
+                      58     
+A51 MACRO ASSEMBLER   _÷”                                                                 05/28/2011 09:56:25 PAGE     2
+
+                      59     
+                      60     
+0081                  61     DISPLAY: 
+0081 900107           62                         MOV  DPTR,#TAB
+                      63     
+0084 E533             64                                 MOV  A,33H
+0086 93               65                                 MOVC A,@A+DPTR
+0087 F580             66                                 MOV  P0,A
+0089 C2A3             67                                 CLR  P2.3
+008B 1200FA           68                                 LCALL DL2MS
+008E D2A3             69                                 SETB P2.3
+                      70     
+0090 E532             71                                 MOV  A,32H
+0092 93               72                                 MOVC A,@A+DPTR
+0093 F580             73                                     MOV  P0,A
+0095 C2A2             74                                 CLR  P2.2
+0097 1200FA           75                                 LCALL DL2MS
+009A D2A2             76                                 SETB P2.2
+                      77     
+009C E531             78                             MOV  A,31H       
+009E 93               79                                 MOVC A,@A+DPTR
+009F A200             80                                 MOV  C, 20H.0
+00A1 92E7             81                                     MOV  ACC.7,C
+00A3 F580             82                                 MOV  P0,A
+00A5 C2A1             83                                 CLR  P2.1
+00A7 1200FA           84                                 LCALL DL2MS
+00AA D2A1             85                                 SETB P2.1
+                      86                         
+00AC E530             87                                 MOV  A,30H
+00AE 93               88                                 MOVC A,@A+DPTR
+00AF F580             89                                 MOV  P0,A
+00B1 C2A0             90                                 CLR  P2.0
+00B3 1200FA           91                                 LCALL DL2MS
+00B6 D2A0             92                                 SETB P2.0
+00B8 22               93                                 RET
+                      94     
+00B9 758C4C           95     INTT0:                  MOV  TH0,#4CH
+00BC 758A00           96                     MOV  TL0,#00H
+00BF D838             97                                     DJNZ R0,INTTOUT
+00C1 780A             98                                     MOV  R0,#10
+00C3 B200             99                                     CPL  20H.0 
+00C5 300031          100                     JNB  20H.0,INTTOUT
+                     101     
+00C8 B90008          102                     CJNE R1,#00,INTTOUT_1
+00CB BA0005          103                                     CJNE R2,#00,INTTOUT_1
+00CE BB0602          104                                     CJNE R3,#06,INTTOUT_1
+00D1 C2A0            105                                     CLR  P2.0
+                     106     
+                     107     
+                     108     
+00D3                 109        INTTOUT_1:             
+00D3 EA              110                                     MOV  A,R2
+00D4 75F00A          111                                     MOV  B,#10
+00D7 84              112                                     DIV  AB
+00D8 F532            113                                     MOV  32H,A
+00DA 85F033          114                                     MOV  33H,B
+                     115     
+00DD EB              116                                     MOV  A,R3
+00DE 75F00A          117                                     MOV  B,#10
+00E1 84              118                                     DIV  AB
+00E2 F530            119                                     MOV  30H,A
+00E4 85F031          120                                     MOV  31H,B
+                     121     
+                     122     
+00E7 09              123                     INC  R1
+00E8 B93C0E          124                                     CJNE R1,#60,INTTOUT
+A51 MACRO ASSEMBLER   _÷”                                                                 05/28/2011 09:56:25 PAGE     3
+
+00EB 7900            125                                     MOV  R1,#0
+00ED 0A              126                                     INC  R2
+00EE BA3C08          127                                     CJNE R2,#60,INTTOUT
+00F1 7A00            128                                     MOV  R2,#0
+00F3 0B              129                                     INC  R3
+00F4 BB1802          130                                     CJNE R3,#24,INTTOUT
+00F7 7B00            131                                     MOV  R3,#0
+                     132     
+                     133     
+                     134     
+00F9                 135     INTTOUT:
+00F9 32              136                     RETI
+                     137     
+00FA 753414          138     DL2MS:          MOV  34H,#20
+00FD 75351E          139     DL1:            MOV  35H,#30
+0100 D535FD          140     DL2:            DJNZ 35H,DL2
+0103 D534F7          141                     DJNZ 34H,DL1
+0106 22              142                                 RET
+                     143     
+                     144     
+0107 C0              145     TAB:            DB        0C0H;0
+0108 F9              146                     DB        0F9H;1
+0109 A4              147                     DB        0A4H;2
+010A B0              148                     DB        0B0H;3
+010B 99              149                     DB        099H;4
+010C 92              150                     DB        092H;5
+010D 82              151                     DB        082H;6
+010E F8              152                     DB        0F8H;7
+010F 80              153                     DB        080H;8
+0110 90              154                     DB        090H;9 ;013456789◊÷–Œ¬Î
+                     155     
+                     156     
+                     157                                     END
+A51 MACRO ASSEMBLER   _÷”                                                                 05/28/2011 09:56:25 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+DISPLAY. . . . . .  C ADDR   0081H   A   
+DL1. . . . . . . .  C ADDR   00FDH   A   
+DL2. . . . . . . .  C ADDR   0100H   A   
+DL2MS. . . . . . .  C ADDR   00FAH   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+INTT0. . . . . . .  C ADDR   00B9H   A   
+INTTOUT. . . . . .  C ADDR   00F9H   A   
+INTTOUT_1. . . . .  C ADDR   00D3H   A   
+KEY_HH . . . . . .  B ADDR   00A0H.5 A   
+KEY_MM . . . . . .  B ADDR   00A0H.6 A   
+KEY_REPAT. . . . .  C ADDR   0067H   A   
+MAIN . . . . . . .  C ADDR   0053H   A   
+MAIN_OUT . . . . .  C ADDR   0073H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+SETHH. . . . . . .  C ADDR   005EH   A   
+SETMM. . . . . . .  C ADDR   007FH   A   
+START. . . . . . .  C ADDR   0030H   A   
+TAB. . . . . . . .  C ADDR   0107H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

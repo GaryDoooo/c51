@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+F:\51最小系统板自已\51 最小系统板资料自\51最小系统板资料\相关例程\普中例程\1 LED灯\跑马灯\汇编版2\LED.uv2
+Project File Date:  10/28/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling LED_2.ASM...
+linking...
+Program Size: data=8.0 xdata=0 code=106
+creating hex file from "LED"...
+"LED" - 0 Error(s), 0 Warning(s).

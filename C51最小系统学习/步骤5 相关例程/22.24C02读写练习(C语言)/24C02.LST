@@ -1,0 +1,198 @@
+C51 COMPILER V8.02   24C02                                                                 06/21/2009 21:29:16 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 24C02
+OBJECT MODULE PLACED IN 24C02.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 24C02.C DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          
+   3          #include <reg51.h>
+   4          #include <intrins.h>
+   5          
+   6          #define OP_READ 0xa1            // 器件地址以及读取操作
+   7          #define OP_WRITE 0xa0           // 器件地址以及写入操作
+   8          #define MAX_ADDR 0x7f           // AT24C02最大地址
+   9          
+  10          unsigned char code dis_code[] = {0x7e,0xbd,0xdb,0xe7,0xdb,0xbd,0x7e,0xff};
+  11                                          // 写入到AT24C01的数据串
+  12          
+  13          sbit SDA = P2^2;
+  14          sbit SCL = P2^1;
+  15          
+  16          
+  17          void start();
+  18          void stop();
+  19          unsigned char shin();
+  20          bit shout(unsigned char write_data);
+  21          unsigned char read_random(unsigned char random_addr);
+  22          void write_byte( unsigned char addr, unsigned char write_data);
+  23          void fill_byte(unsigned char fill_data);
+  24          void delayms(unsigned char ms);
+  25          
+  26          main(void)
+  27          {
+  28   1              unsigned char i;
+  29   1              SDA = 1;
+  30   1              SCL = 1;
+  31   1              fill_byte(0xff);                // 全部填充0xff
+  32   1      
+  33   1              for(i = 0 ; i < 8; i++)         //写入显示代码到AT24Cxx
+  34   1              {
+  35   2                      write_byte(i, dis_code[i]);
+  36   2              }
+  37   1      
+  38   1              i = 0;
+  39   1              while(1)
+  40   1              {
+  41   2      
+  42   2                      P0 = read_random(i);    // 循环读取24Cxx内容，并输出到P0口
+  43   2                      i++;
+  44   2                      i &= 0x07;              // 循环读取范围为0x00～0x07
+  45   2                      delayms(250);
+  46   2              }
+  47   1      }
+  48          
+  49          void start()
+  50          // 开始位
+  51          {
+  52   1              SDA = 1;
+  53   1              SCL = 1;
+  54   1              _nop_();
+  55   1              _nop_();
+C51 COMPILER V8.02   24C02                                                                 06/21/2009 21:29:16 PAGE 2   
+
+  56   1              SDA = 0;
+  57   1              _nop_();
+  58   1              _nop_();
+  59   1              _nop_();
+  60   1              _nop_();
+  61   1              SCL = 0;
+  62   1      }
+  63          
+  64          void stop()
+  65          // 停止位
+  66          {
+  67   1              SDA = 0;
+  68   1              _nop_();
+  69   1              _nop_();
+  70   1              SCL = 1;
+  71   1              _nop_();
+  72   1              _nop_();
+  73   1              _nop_();
+  74   1              _nop_();
+  75   1              SDA = 1;
+  76   1      }
+  77          
+  78          unsigned char shin()
+  79          // 从AT24Cxx移入数据到MCU
+  80          {
+  81   1              unsigned char i,read_data;
+  82   1              for(i = 0; i < 8; i++)
+  83   1              {
+  84   2                      SCL = 1;
+  85   2                      read_data <<= 1;
+  86   2                      read_data |= (unsigned char)SDA;
+  87   2                      SCL = 0;
+  88   2              }
+  89   1              return(read_data);
+  90   1      }
+  91          bit shout(unsigned char write_data)
+  92          // 从MCU移出数据到AT24Cxx
+  93          {
+  94   1              unsigned char i;
+  95   1              bit ack_bit;
+  96   1              for(i = 0; i < 8; i++)          // 循环移入8个位
+  97   1              {
+  98   2                      SDA = (bit)(write_data & 0x80);
+  99   2                      _nop_();
+ 100   2                      SCL = 1;
+ 101   2                      _nop_();
+ 102   2                      _nop_();
+ 103   2                      SCL = 0;
+ 104   2                      write_data <<= 1;
+ 105   2              }
+ 106   1              SDA = 1;                        // 读取应答
+ 107   1              _nop_();
+ 108   1              _nop_();
+ 109   1              SCL = 1;
+ 110   1              _nop_();
+ 111   1              _nop_();
+ 112   1              _nop_();
+ 113   1              _nop_();
+ 114   1              ack_bit = SDA;
+ 115   1              SCL = 0;
+ 116   1              return ack_bit;                 // 返回AT24Cxx应答位
+ 117   1      }
+C51 COMPILER V8.02   24C02                                                                 06/21/2009 21:29:16 PAGE 3   
+
+ 118          
+ 119          void write_byte(unsigned char addr, unsigned char write_data)
+ 120          // 在指定地址addr处写入数据write_data
+ 121          {
+ 122   1              start();
+ 123   1              shout(OP_WRITE);
+ 124   1              shout(addr);
+ 125   1              shout(write_data);
+ 126   1              stop();
+ 127   1              delayms(10);            // 写入周期
+ 128   1      }
+ 129          
+ 130          void fill_byte(unsigned char fill_data)
+ 131          // 填充数据fill_data到EEPROM内
+ 132          {
+ 133   1              unsigned char i;
+ 134   1              for(i = 0; i < MAX_ADDR; i++)
+ 135   1              {
+ 136   2                      write_byte(i, fill_data);
+ 137   2              }
+ 138   1      
+ 139   1      }
+ 140          
+ 141          unsigned char read_current()
+ 142          // 在当前地址读取
+ 143          {
+ 144   1              unsigned char read_data;
+ 145   1              start();
+ 146   1              shout(OP_READ);
+ 147   1              read_data = shin();
+ 148   1              stop();
+ 149   1              return read_data;
+ 150   1      }
+ 151          
+ 152          unsigned char read_random(unsigned char random_addr)
+ 153          // 在指定地址读取
+ 154          {
+ 155   1              start();
+ 156   1              shout(OP_WRITE);
+ 157   1              shout(random_addr);
+ 158   1              return(read_current());
+ 159   1      }
+ 160          
+ 161          void delayms(unsigned char ms)  
+ 162          // 延时子程序
+ 163          {
+ 164   1              unsigned char i;
+ 165   1              while(ms--)
+ 166   1              {
+ 167   2                      for(i = 0; i < 120; i++);
+ 168   2              }
+ 169   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    246    ----
+   CONSTANT SIZE    =      8    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+C51 COMPILER V8.02   24C02                                                                 06/21/2009 21:29:16 PAGE 4   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

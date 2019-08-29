@@ -1,0 +1,289 @@
+C51 COMPILER V8.02   1602                                                                  05/22/2011 22:31:12 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 1602
+OBJECT MODULE PLACED IN 1602.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 1602.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1           
+   2          
+   3          /*============================================================== 
+   4          SMC1602A(16*2)模拟口线接线方式
+   5          连接线图: 
+   6          ---------------------------------------------------
+   7          |LCM-----51 　| LCM-----51　　|　LCM------51 |
+   8          ---------------------------------------------|
+   9          |DB0-----P1.0 | DB4-----P1.4 | RW-------P2.0 |
+  10          |DB1-----P1.1 | DB5-----P1.5 | RS-------P2.1 |
+  11          |DB2-----P1.2 | DB6-----P1.6 | E--------P2.2 |
+  12          |DB3-----P1.3 | DB7-----P1.7 | VLCD接1K电阻到GND|
+  13          ---------------------------------------------------
+  14          
+  15          
+  16          [注:AT89S51使用12M晶振]
+  17          =============================================================*/
+  18          
+  19          #define LCM_RW   P2_4 //定义引脚
+  20          #define LCM_RS   P2_3
+  21          #define LCM_E    P2_5
+  22          #define LCM_Data P0
+  23          #define Busy 0x01 //用于检测LCM状态字中的Busy标识
+  24          #include <at89x51.h>
+  25          void WriteDataLCM    (unsigned char WDLCM);
+  26          void WriteCommandLCM (unsigned char WCLCM,BuysC);
+  27          void DisplayOneChar  (unsigned char X, unsigned char Y, unsigned char DData);
+  28          void DisplayListChar (unsigned char X, unsigned char Y, unsigned char code *DData);
+  29          unsigned char ReadDataLCM(void);
+  30          unsigned char ReadStatusLCM(void);
+  31          
+  32          void pro_timedate(void);
+  33          bit leap_year(); //判断是否为闰年
+  34          unsigned char data year=11,month=5,date=22;//年、月、日、星期
+  35          unsigned char disbuf[16];
+  36          unsigned char data hour=23,min=59,sec=55,sec20=0; //时、分、秒、百分之一秒
+  37          unsigned char code email[] = {"YEA:MON:DAT:TIME"};
+  38          void updatetime (void);
+  39          void LCMInit    (void);
+  40          void pro_display(void);
+  41          void Delay400Ms (void);
+  42          void Delay5Ms   (void);
+  43          void main(void)
+  44          {
+  45   1           Delay400Ms(); //启动等待，等LCM讲入工作状态
+  46   1           LCMInit(); //LCM初始化
+  47   1               DisplayListChar(0, 1, email);
+  48   1           TMOD=0X01;
+  49   1           TH0=0X4C;
+  50   1           TL0=0X00;
+  51   1           TR0=1;
+  52   1           ET0=1;
+  53   1           EA=1;
+  54   1           while(1);
+  55   1      }
+C51 COMPILER V8.02   1602                                                                  05/22/2011 22:31:12 PAGE 2   
+
+  56          
+  57          void pro_timedate()
+  58               {
+  59   1             sec++;
+  60   1              if(sec > 59)
+  61   1                     {sec = 0;
+  62   2                           min++;
+  63   2                              if(min>59)
+  64   2                                    {min=0;
+  65   3                                        hour++;
+  66   3                                          if(hour>23)
+  67   3                                               {hour=0;
+  68   4                                                   date++;
+  69   4               if (month==1||month==3||month==5||month==7||month==8||month==10||month==12)
+  70   4               if (date>31)
+  71   4                                {date=1;month++;} //大月31 天
+  72   4               if (month==4||month==6||month==9||month==11)
+  73   4               if (date>30) 
+  74   4                                {date=1;month++;} //小月30 天
+  75   4               if (month==2)
+  76   4                         {if( leap_year()) //闰年的条件
+  77   5                         {if (date>29) {date=1;month++;}} //闰年2 月为29 天
+  78   5                           else
+  79   5                         {if (date>28) {date=1;month++;}} //平年2 月为28 天
+  80   5                         }
+  81   4                  if (month>12) {month=1;year++;}
+  82   4                  if (year>99) year=0;
+  83   4                                              }
+  84   3                                   }
+  85   2                     }
+  86   1      
+  87   1               }
+  88          
+  89          bit leap_year()
+  90          {
+  91   1             bit leap;
+  92   1             if((year%4==0&&year%100!=0)||year%400==0)//闰年的条件
+  93   1             leap=1;
+  94   1             else
+  95   1             leap=0;
+  96   1             return leap;
+  97   1      }
+  98          //Timer0 中断处理程序,秒的产生
+  99          void timer0() interrupt 1
+ 100          {
+ 101   1           TH0=0x4C; //Timer0 置10ms 定时初值dc00H(2^16=65536D,dc00H=56320D)
+ 102   1           TL0=0x00; //定时时间=(65536-56320)*(1/11.0592)*12=10ms (f0=11.0592Mhz)
+ 103   1           sec20++;      
+ 104   1           if(sec20 >= 20) //1 秒时间 (100*10ms=1000ms=1s)
+ 105   1                { sec20=0;
+ 106   2                          updatetime  ();     
+ 107   2                          pro_timedate(); 
+ 108   2                          pro_display ();
+ 109   2                              if(sec&0x01)
+ 110   2                          disbuf[13]=' ';
+ 111   2                              else disbuf[13]=':';
+ 112   2                        }
+ 113   1      }
+ 114          
+ 115          
+ 116          
+ 117          void updatetime(void)
+C51 COMPILER V8.02   1602                                                                  05/22/2011 22:31:12 PAGE 3   
+
+ 118              {   disbuf[0] ='2';
+ 119   1                      disbuf[1] ='0';
+ 120   1                      disbuf[2] =year/10+48;
+ 121   1                      disbuf[3] =year%10+48;
+ 122   1                      disbuf[4] =' ';
+ 123   1                      disbuf[5] =month/10+48;
+ 124   1                      disbuf[6] =month%10+48;
+ 125   1                      disbuf[7] ='.';
+ 126   1                      disbuf[8] =date/10+48;
+ 127   1                      disbuf[9] =date%10+48;
+ 128   1                      disbuf[10] =' ';
+ 129   1              disbuf[11]=hour/10+48;
+ 130   1              disbuf[12]=hour%10+48;
+ 131   1                      //disbuf[13]=' ';
+ 132   1              disbuf[14]=min/10+48;
+ 133   1              disbuf[15]=min%10+48;
+ 134   1              }
+ 135          //显示处理程序
+ 136          void pro_display()
+ 137          { unsigned char f;
+ 138   1         for (f=0;f<=15;f++)
+ 139   1         {DisplayOneChar( f,  0,  disbuf[f]);}
+ 140   1         
+ 141   1      }
+ 142          //写数据
+ 143          void WriteDataLCM(unsigned char WDLCM)
+ 144          {
+ 145   1      ReadStatusLCM(); //检测忙
+ 146   1      WDLCM = ((WDLCM&0x01)<<7)|((WDLCM&0x02)<<5)|((WDLCM&0x04)<<3)|((WDLCM&0x08)<<1)|((WDLCM&0x10)>>1)|((WDLCM&
+             -0x20)>>3)|((WDLCM&0x40)>>5)|((WDLCM&0x80)>>7);
+ 147   1      LCM_Data = WDLCM;
+ 148   1      LCM_RS = 1;
+ 149   1      LCM_RW = 0;
+ 150   1      LCM_E = 0; //若晶振速度太高可以在这后加小的延时
+ 151   1      LCM_E = 0; //延时
+ 152   1      LCM_E = 1;
+ 153   1      }
+ 154          
+ 155          //写指令
+ 156          void WriteCommandLCM(unsigned char WCLCM,BuysC) //BuysC为0时忽略忙检测
+ 157          {
+ 158   1      if (BuysC) ReadStatusLCM(); //根据需要检测忙
+ 159   1      WCLCM = ((WCLCM&0x01)<<7)|((WCLCM&0x02)<<5)|((WCLCM&0x04)<<3)|((WCLCM&0x08)<<1)|((WCLCM&0x10)>>1)|((WCLCM&
+             -0x20)>>3)|((WCLCM&0x40)>>5)|((WCLCM&0x80)>>7);
+ 160   1      LCM_Data = WCLCM;
+ 161   1      
+ 162   1      LCM_RS = 0;
+ 163   1      LCM_RW = 0; 
+ 164   1      LCM_E = 0;
+ 165   1      LCM_E = 0;
+ 166   1      LCM_E = 1; 
+ 167   1      }
+ 168          
+ 169          //读数据
+ 170          unsigned char ReadDataLCM(void)
+ 171          {
+ 172   1      LCM_RS = 1; 
+ 173   1      LCM_RW = 1;
+ 174   1      LCM_E = 0;
+ 175   1      LCM_E = 0;
+ 176   1      LCM_E = 1;
+ 177   1      return(LCM_Data);
+C51 COMPILER V8.02   1602                                                                  05/22/2011 22:31:12 PAGE 4   
+
+ 178   1      }
+ 179          
+ 180          //读状态
+ 181          unsigned char ReadStatusLCM(void)
+ 182          {
+ 183   1      LCM_Data = 0xFF; 
+ 184   1      LCM_RS = 0;
+ 185   1      LCM_RW = 1;
+ 186   1      LCM_E = 0;
+ 187   1      LCM_E = 0;
+ 188   1      LCM_E = 1;
+ 189   1      while (LCM_Data & Busy); //检测忙信号
+ 190   1      return(LCM_Data);
+ 191   1      }
+ 192          
+ 193          void LCMInit(void) //LCM初始化
+ 194          {
+ 195   1      LCM_Data = 0;
+ 196   1      WriteCommandLCM(0x38,0); //三次显示模式设置，不检测忙信号
+ 197   1      Delay5Ms(); 
+ 198   1      WriteCommandLCM(0x38,0);
+ 199   1      Delay5Ms(); 
+ 200   1      WriteCommandLCM(0x38,0);
+ 201   1      Delay5Ms(); 
+ 202   1      
+ 203   1      WriteCommandLCM(0x38,1); //显示模式设置,开始要求每次检测忙信号
+ 204   1      WriteCommandLCM(0x08,1); //关闭显示
+ 205   1      WriteCommandLCM(0x01,1); //显示清屏
+ 206   1      WriteCommandLCM(0x06,1); // 显示光标移动设置
+ 207   1      WriteCommandLCM(0x0C,1); // 显示开及光标设置
+ 208   1      }
+ 209          
+ 210          //按指定位置显示一个字符
+ 211          void DisplayOneChar(unsigned char X, unsigned char Y, unsigned char DData)
+ 212          {
+ 213   1      Y &= 0x1;
+ 214   1      X &= 0xF; //限制X不能大于15，Y不能大于1
+ 215   1      if (Y) X |= 0x40; //当要显示第二行时地址码+0x40;
+ 216   1      X |= 0x80; //算出指令码
+ 217   1      WriteCommandLCM(X, 0); //这里不检测忙信号，发送地址码
+ 218   1      WriteDataLCM(DData);
+ 219   1      }
+ 220          //按指定位置显示一串字符
+ 221          void DisplayListChar(unsigned char X, unsigned char Y, unsigned char code *DData)
+ 222          {
+ 223   1      unsigned char ListLength;
+ 224   1      ListLength = 0;
+ 225   1      Y &= 0x1;
+ 226   1      X &= 0xF;         //限制X不能大于15，Y不能大于1
+ 227   1      while (DData[ListLength]>0x20) //若到达字串尾则退出
+ 228   1      {
+ 229   2      if (X <= 0xF) //X坐标应小于0xF
+ 230   2      {
+ 231   3      DisplayOneChar(X, Y, DData[ListLength]); //显示单个字符
+ 232   3      ListLength++;
+ 233   3      X++;
+ 234   3      }
+ 235   2      }
+ 236   1      }
+ 237          //50ms延时
+ 238          void Delay5Ms(void)
+ 239          {
+C51 COMPILER V8.02   1602                                                                  05/22/2011 22:31:12 PAGE 5   
+
+ 240   1      unsigned int TempCyc = 5552;
+ 241   1      while(TempCyc--);
+ 242   1      }
+ 243          
+ 244          //400ms延时
+ 245          void Delay400Ms(void)
+ 246          {
+ 247   1      unsigned char TempCycA = 5;
+ 248   1      unsigned int TempCycB;
+ 249   1      while(TempCycA--)
+ 250   1      {
+ 251   2      TempCycB=7269;
+ 252   2      while(TempCycB--);
+ 253   2      };
+ 254   1      }
+ 255           
+ 256           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    950    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     23       9
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

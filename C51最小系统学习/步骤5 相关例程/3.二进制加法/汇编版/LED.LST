@@ -1,0 +1,56 @@
+A51 MACRO ASSEMBLER  LED                                                                  05/22/2011 20:34:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00
+OBJECT MODULE PLACED IN LED.OBJ
+ASSEMBLER INVOKED BY: C:\Keil\C51\BIN\A51.EXE LED.ASM SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;********************************************************************************
+                       2     ;                  二进制加法试验                                                          
+                                                                  *
+                       3     ; p1口八个灯作二进制加法。理解二进值的计算                                      *
+                       4     ; 硬件连接：p1口8路指示灯                                                                  
+                                                                          *
+                       5     ;                                                                                          
+                                                                                                  *                 *
+                       6     ;********************************************************************************
+                       7     
+0000                   8             ORG     0000h    ;程序从0000开始运行
+0000 0130              9             AJMP    main
+0030                  10                 ORG     0030h
+0030 74FF             11     main:   MOV     A  ,#0ffh
+0032 F590             12     loop:   MOV     p1,A    ;全不亮
+0034 1139             13             CALL    delay   ;延时。
+0036 14               14                 DEC     A       ;每次减一。
+0037 80F9             15                 JMP     loop
+                      16     
+0039 7D32             17     delay:  MOV r5,#50      ;延时。
+003B 7E28             18     d1:     MOV r6,#40
+003D 7FF8             19     d2:     MOV r7,#248
+003F DFFE             20             DJNZ r7,$
+0041 DEFA             21             DJNZ r6,d2
+0043 DDF6             22             DJNZ r5,d1
+0045 22               23             RET
+                      24     END
+A51 MACRO ASSEMBLER  LED                                                                  05/22/2011 20:34:01 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   003BH   A   
+D2 . . . . . . . .  C ADDR   003DH   A   
+DELAY. . . . . . .  C ADDR   0039H   A   
+LOOP . . . . . . .  C ADDR   0032H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

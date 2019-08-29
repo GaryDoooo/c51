@@ -1,0 +1,209 @@
+C51 COMPILER V8.02   TLC5615                                                               06/14/2009 21:45:50 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE TLC5615
+OBJECT MODULE PLACED IN TLC5615.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE TLC5615.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          
+   3          
+   4          
+   5          
+   6          #include <intrins.h>
+   7          #include <reg51.h>
+   8          
+   9          
+  10          
+  11          /************定义接口总线**************/
+  12          //TLC5615管脚定义 与开发板硬件对应
+  13          sbit SPI_CLK   = P1^7;    //时钟
+  14          sbit SPI_DATA  = P1^5;     //数据输出
+  15          sbit CS_DA     = P1^4;      //片选
+  16          
+  17          sbit LED1       = P2 ^ 4;
+  18          sbit LED2       = P2 ^ 5;
+  19          sbit LED3       = P2 ^ 6;
+  20          sbit LED4       = P2 ^ 7;
+  21          
+  22          sbit KEY1       = P3 ^ 4;
+  23          sbit KEY2       = P3 ^ 5;
+  24          
+  25          /*-------------------------------------------------------------*/
+  26          //数据定义
+  27          
+  28          
+  29          unsigned char LED[4];     //电压数据转换成数码管数字
+  30          unsigned int  Volt=200;
+  31          
+  32           
+  33          
+  34          /*-------------------------------------------------------------*/
+  35          //函数声明                                      
+  36          void da5615(unsigned int da);   //DA数据 SPI发送函数
+  37          void Volt_To_LED(void);        //数据转换成数码管显示数字
+  38          
+  39          /************接口总线定义结束**********/
+  40          unsigned char code LEDData1 [ ] = {                
+  41                                              0x03,/*0*/
+  42                                              0x9F,/*1*/
+  43                                              0x25,/*2*/
+  44                                              0x0D,/*3*/
+  45                                              0x99,/*4*/
+  46                                              0x49,/*5*/
+  47                                              0x41,/*6*/
+  48                                              0x1F,/*7*/
+  49                                              0x01,/*8*/
+  50                                              0x09,/*9*/
+  51                                            }; //0-9LED数值
+  52          
+  53          
+  54          
+  55          
+C51 COMPILER V8.02   TLC5615                                                               06/14/2009 21:45:50 PAGE 2   
+
+  56              void da5615(unsigned int da)
+  57          {
+  58   1      /******************************************
+  59   1         unsigned char i;
+  60   1         da<<=6;
+  61   1         CS_DA=0;
+  62   1         SPI_CLK=0;
+  63   1      
+  64   1         for (i=0;i<12;i++)
+  65   1         {
+  66   1         SPI_DATA=(bit)(da&0x8000);
+  67   1         SPI_CLK=1;
+  68   1         da<<=1;
+  69   1         SPI_CLK=0;
+  70   1         }
+  71   1      
+  72   1         CS_DA=1;
+  73   1         SPI_CLK=0;
+  74   1         for (i=0;i<12;i++);
+  75   1      }
+  76   1      ***********************************************/
+  77   1      unsigned char i;
+  78   1      SPI_CLK=0;//时钟低
+  79   1      CS_DA=0;//片选有效
+  80   1      for (i=0;i<12;i++)
+  81   1      {
+  82   2          if((da&0x800)==0){SPI_DATA=0;}
+  83   2          else SPI_DATA=1;
+  84   2          SPI_CLK=1;//时钟高
+  85   2          da=da<<1;//左移一位
+  86   2          SPI_CLK=0;//时钟低
+  87   2      }
+  88   1      CS_DA=1;//
+  89   1      } 
+  90          
+  91          
+  92          
+  93          
+  94          /*-------------------------------------------------------------*/
+  95          //数据转换成数码管显示数字
+  96          void Volt_To_LED(void)
+  97          {
+  98   1       //da5615(100);              //电压换算并扩大1000倍
+  99   1       LED[0] = Volt / 1000 ;//& 0x7f;   //千位加小数点
+ 100   1       LED[1] = Volt / 100 % 10;           //百位
+ 101   1       LED[2] = Volt / 10 % 10;             //十位
+ 102   1       LED[3] = Volt % 10;                    //个位 
+ 103   1      }
+ 104          
+ 105          
+ 106          
+ 107               void Delay(int num)//延时函数
+ 108          {
+ 109   1               while(num--) ;
+ 110   1      }
+ 111          
+ 112          
+ 113                void   Display(void)                        
+ 114          {
+ 115   1            unsigned char k;
+ 116   1                for(k=0;k<20;k++)
+ 117   1                {
+C51 COMPILER V8.02   TLC5615                                                               06/14/2009 21:45:50 PAGE 3   
+
+ 118   2            P0=LEDData1[ LED[0]];
+ 119   2                LED1=0;
+ 120   2                Delay(255);
+ 121   2                LED1=1;
+ 122   2      
+ 123   2                P0=LEDData1[ LED[1]];
+ 124   2                LED2=0;
+ 125   2                Delay(255);
+ 126   2                LED2=1;
+ 127   2      
+ 128   2                P0=LEDData1[ LED[2]];
+ 129   2                LED3=0;
+ 130   2                Delay(255);
+ 131   2                LED3=1;
+ 132   2      
+ 133   2                P0=LEDData1[ LED[3]];
+ 134   2                LED4=0;
+ 135   2                Delay(255);
+ 136   2                LED4=1;
+ 137   2                }
+ 138   1       } 
+ 139          
+ 140                void   main (void)
+ 141          {
+ 142   1               da5615(Volt);
+ 143   1               Volt_To_LED(); 
+ 144   1       
+ 145   1      
+ 146   1                while(1)
+ 147   1                {
+ 148   2      
+ 149   2                if(KEY1==0)
+ 150   2              { 
+ 151   3                Delay(100);
+ 152   3                if(KEY1==0)
+ 153   3                {
+ 154   4                 while(!KEY1)
+ 155   4                 Display();
+ 156   4      
+ 157   4                 Volt=Volt+10;
+ 158   4                 da5615(Volt);              
+ 159   4                 Volt_To_LED();
+ 160   4                }
+ 161   3              }
+ 162   2               
+ 163   2                  if(KEY2==0)
+ 164   2              { 
+ 165   3                Delay(100);
+ 166   3                if(KEY2==0)
+ 167   3                {
+ 168   4                 while(!KEY2)
+ 169   4                 Display();
+ 170   4                 
+ 171   4                 Volt=Volt-10;
+ 172   4                 da5615(Volt);              
+ 173   4                 Volt_To_LED();
+ 174   4                 
+ 175   4                }
+ 176   3              }
+ 177   2      
+ 178   2                Display();
+ 179   2                }
+C51 COMPILER V8.02   TLC5615                                                               06/14/2009 21:45:50 PAGE 4   
+
+ 180   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    257    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,66 @@
+C51 COMPILER V8.02   911                                                                   06/13/2009 01:33:40 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE 911
+OBJECT MODULE PLACED IN 911.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE 911.C DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2                             
+   3          #include <reg51.h>
+   4          #include <intrins.h>
+   5          
+   6          sbit    SPK = P3^7;
+   7          
+   8          unsigned char frq; 
+   9          
+  10          void delayms(unsigned char ms);
+  11          
+  12          main()
+  13          {
+  14   1              TMOD = 0x01;
+  15   1              frq = 0x00;
+  16   1              TH0 = 0x00;
+  17   1              TL0 = 0xff;     
+  18   1              TR0 = 1;
+  19   1              IE = 0x82;
+  20   1              
+  21   1              while(1)
+  22   1              {
+  23   2                      frq++;
+  24   2                      delayms(1);
+  25   2              }
+  26   1      }
+  27          
+  28          void timer0() interrupt 1 using 1
+  29          {
+  30   1              TH0 = 0xfe;
+  31   1              TL0 = frq;
+  32   1              SPK = ~SPK;     
+  33   1      }
+  34          
+  35          void delayms(unsigned char ms)  
+  36          // ÑÓÊ±×Ó³ÌÐò
+  37          {                                               
+  38   1              unsigned char i;
+  39   1              while(ms--)
+  40   1              {
+  41   2                      for(i = 0; i < 120; i++);
+  42   2              }
+  43   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     52    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

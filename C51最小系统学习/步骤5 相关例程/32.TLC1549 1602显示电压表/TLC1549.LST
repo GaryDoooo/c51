@@ -1,0 +1,189 @@
+C51 COMPILER V8.02   TLC1549                                                               05/29/2011 14:51:18 PAGE 1   
+
+
+C51 COMPILER V8.02, COMPILATION OF MODULE TLC1549
+OBJECT MODULE PLACED IN TLC1549.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE TLC1549.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          /*本程序为10位AD TLC1549。1602显示读内部电位器分压请J20跳线往左插*/
+   3          /*如果外部电压输入请把J20跳线往右插*******************************/
+   4          /*最大输入电压0-5V。。程序扩大10倍如需正常显示请修改相应程序******/
+   5          
+   6          #include <reg52.h>    //52系列头文件
+   7          #define Disdata P0    //液晶数据端口
+   8          #define uchar unsigned char    //无符号字符8位
+   9          #define uint  unsigned int //无符号整数8位
+  10          uint data dis[4]={0x00,0x00,0x00,0x00};//4个数据单元和一个
+  11          uchar code table[]="VOLTAGE:+  .   V"; //定义初始上电液晶默认显示状态
+  12          uchar code table1[]="designed by :";
+  13          uchar code table3[]="MUCSTUDIO";
+  14          uchar code table2[]="SCOPE:  0-50.00V";
+  15          
+  16          
+  17          sbit  lcden=P2^5;//定义液晶使能端
+  18          sbit  lcdrs=P2^3;//定义液晶RS端
+  19          sbit  rw   =P2^4;//定义液晶RW端
+  20          
+  21          sbit  cs_ad=P1^3;//片选段，低电平有效
+  22          sbit  dout =P1^6;//数据输出端
+  23          sbit  clk  =P1^7;  //转换结束标志位
+  24          
+  25          data  int result;//测量变量暂存地址
+  26          
+  27          uchar num,num1,num2,num3,num4,num5;
+  28          uchar shii,gei;
+  29          
+  30          //********延时函数************
+  31          void delay(uint z)
+  32          {
+  33   1         uint x,y;
+  34   1          for(x=z;x>0;x--)
+  35   1          for(y=110;y>0;y--);
+  36   1      }
+  37             
+  38          //*************
+  39          void write_com(uchar com)          //液晶写命令函数
+  40          {
+  41   1        lcdrs=0;
+  42   1        P0 = ((com&0x01)<<7)|((com&0x02)<<5)|((com&0x04)<<3)|((com&0x08)<<1)|((com&0x10)>>1)|((com&0x20)>>3)|((c
+             -om&0x40)>>5)|((com&0x80)>>7);
+  43   1        delay(5);
+  44   1        lcden=1;
+  45   1        delay(5);
+  46   1        lcden=0;
+  47   1       }
+  48           void write_data(uchar date)        //液晶写数据函数
+  49           {
+  50   1         lcdrs=1;
+  51   1         P0 = ((date&0x01)<<7)|((date&0x02)<<5)|((date&0x04)<<3)|((date&0x08)<<1)|((date&0x10)>>1)|((date&0x20)>
+             ->3)|((date&0x40)>>5)|((date&0x80)>>7);
+  52   1         delay(5);
+  53   1         lcden=1;
+C51 COMPILER V8.02   TLC1549                                                               05/29/2011 14:51:18 PAGE 2   
+
+  54   1         delay(5);
+  55   1         lcden=0;
+  56   1       }
+  57          void write_sg(uchar add,uchar date)//写整数位和小数位函数
+  58          {
+  59   1         uchar shi,ge;
+  60   1         shi=date/10;                    //分解出一个2位数的十位
+  61   1         ge= date%10;
+  62   1         write_com(0x80+add);            //设置显示位置
+  63   1         write_data(0x30+shi);           //送去液晶显示十位
+  64   1         write_data(0x30+ge);            //送去液晶显示个位
+  65   1      }
+  66          
+  67          void init()                                        
+  68          {
+  69   1           rw=0;                                                   
+  70   1           lcden=0;
+  71   1           shii=0;
+  72   1           gei=0;
+  73   1           write_com(0x38);     //初始化1602液晶
+  74   1           write_com(0x0c);
+  75   1           write_com(0x06);
+  76   1           write_com(0x01);
+  77   1           write_com(0x80);     //设置显示初始坐标
+  78   1      
+  79   1       for(num2=0;num2<13;num2++)
+  80   1        {
+  81   2          write_data(table1[num2]);
+  82   2          delay(5);
+  83   2        } 
+  84   1       write_com(0x80+40);     
+  85   1         for(num3;num3<16;num3++)
+  86   1         {
+  87   2           write_data(table3[num3]);
+  88   2           delay(5);
+  89   2         }
+  90   1           delay(3000);
+  91   1       
+  92   1       }
+  93          
+  94           //*******************************
+  95          void scan1()
+  96          {
+  97   1         write_com(0x80);              //设置显示初始坐标
+  98   1        for(num=0;num<16;num++)
+  99   1        {
+ 100   2          write_data(table[num]);
+ 101   2          delay(5);
+ 102   2        } 
+ 103   1          write_sg(9,shii);                                        
+ 104   1          write_sg(12,gei);
+ 105   1          write_com(0x80+40);     
+ 106   1         for(num1;num1<16;num1++)
+ 107   1         {
+ 108   2           write_data(table2[num1]);
+ 109   2           delay(5);
+ 110   2         }
+ 111   1           write_sg(9,shii);
+ 112   1           write_sg(12,gei);
+ 113   1       }
+ 114             
+ 115          //*********************************TLC1549转换处理子函数****************************************
+C51 COMPILER V8.02   TLC1549                                                               05/29/2011 14:51:18 PAGE 3   
+
+ 116          
+ 117          void test()
+ 118          
+ 119          { 
+ 120   1           data  uchar i;
+ 121   1           cs_ad=1;                    //禁止i/o clock
+ 122   1           cs_ad=0;                    //开启控制电路，使能data out和i/o clock
+ 123   1           result=0;                   //清转换变量
+ 124   1           for(i=0;i<10;i++)           //采集10次 ，即10bit
+ 125   1             { 
+ 126   2                clk=0;
+ 127   2                result*=2;
+ 128   2                if(dout) result++;
+ 129   2                clk=1;
+ 130   2              }
+ 131   1           delay(590);
+ 132   1           cs_ad=1; ;;;; //data out 返回到高阻状态而终止序列
+ 133   1      //**********************************数据转换处理**************************************************
+ 134   1           result=result*10;     //结果值扩大10倍
+ 135   1           dis[2]=result/205;    //计算整数位
+ 136   1           dis[3]=result%205;    //余数暂存
+ 137   1           dis[3]=dis[3]*10;     //计算小数第一位
+ 138   1           dis[1]=dis[3]/205;                                   
+ 139   1           dis[3]=dis[3]%205;                   
+ 140   1           dis[3]=dis[3]*10;     //计算小数第二位
+ 141   1           dis[0]=dis[3]/205;
+ 142   1           shii=dis[2];
+ 143   1           gei=dis[1]*10+dis[0];
+ 144   1           write_sg(9,shii);
+ 145   1           write_sg(12,gei);
+ 146   1      }  
+ 147          //************************************主函数******************************************************
+ 148          void main()
+ 149          {
+ 150   1           init();
+ 151   1           scan1();
+ 152   1           while(1)
+ 153   1        {
+ 154   2           test(); 
+ 155   2         } 
+ 156   1      }
+ 157           
+ 158           
+ 159           
+ 160           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    531    ----
+   CONSTANT SIZE    =     58    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     18    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

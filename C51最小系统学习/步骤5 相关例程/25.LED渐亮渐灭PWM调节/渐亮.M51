@@ -1,0 +1,94 @@
+BL51 BANKED LINKER/LOCATER V6.00                                                        05/22/2011  23:45:52  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.00, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE 渐高.obj TO 渐亮
+
+
+INPUT MODULES INCLUDED:
+  渐高.obj (絖高)
+
+
+LINK MAP OF MODULE:  渐亮 (絖高)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     007EH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  渐亮 (絖高)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        絖高
+  C:004AH         SYMBOL        D1
+  C:0069H         SYMBOL        D11
+  C:0055H         SYMBOL        D2
+  C:0074H         SYMBOL        D22
+  C:0047H         SYMBOL        E1
+  C:0049H         SYMBOL        E2
+  C:0040H         SYMBOL        LOOP
+  C:005FH         SYMBOL        LOOP2
+  C:0030H         SYMBOL        MAIN
+  C:005EH         SYMBOL        OVER
+  C:007DH         SYMBOL        OVER2
+  D:0090H         SYMBOL        P1
+  C:0066H         SYMBOL        W1
+  C:0068H         SYMBOL        W2
+  C:0000H         LINE#         4
+  C:0030H         LINE#         8
+  C:0032H         LINE#         9
+  C:0034H         LINE#         10
+  C:0037H         LINE#         11
+  C:0039H         LINE#         12
+  C:003BH         LINE#         13
+  C:003EH         LINE#         14
+  C:0040H         LINE#         19
+  C:0043H         LINE#         20
+  C:0044H         LINE#         21
+  C:0047H         LINE#         22
+  C:0049H         LINE#         23
+  C:004AH         LINE#         24
+  C:004CH         LINE#         25
+  C:004EH         LINE#         26
+BL51 BANKED LINKER/LOCATER V6.00                                                      05/22/2011  23:45:52  PAGE 2
+
+
+  C:0050H         LINE#         27
+  C:0053H         LINE#         30
+  C:0054H         LINE#         31
+  C:0055H         LINE#         32
+  C:0057H         LINE#         33
+  C:0059H         LINE#         34
+  C:005BH         LINE#         35
+  C:005CH         LINE#         36
+  C:005EH         LINE#         37
+  C:005FH         LINE#         42
+  C:0062H         LINE#         43
+  C:0063H         LINE#         44
+  C:0066H         LINE#         45
+  C:0068H         LINE#         47
+  C:0069H         LINE#         48
+  C:006BH         LINE#         49
+  C:006DH         LINE#         50
+  C:006FH         LINE#         51
+  C:0072H         LINE#         53
+  C:0073H         LINE#         54
+  C:0074H         LINE#         55
+  C:0076H         LINE#         56
+  C:0078H         LINE#         57
+  C:007AH         LINE#         58
+  C:007BH         LINE#         59
+  C:007DH         LINE#         60
+  -------         ENDMOD        絖高
+
+Program Size: data=8.0 xdata=0 code=126
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,105 @@
+C51 COMPILER V6.12  _____´_ü                                                               10/11/2010 20:41:12 PAGE 1   
+
+
+C51 COMPILER V6.12, COMPILATION OF MODULE _____´_ü
+OBJECT MODULE PLACED IN .\¶ÀÁ¢°´¼ü.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE .\¶ÀÁ¢°´¼ü.c DEBUG OBJECTEXTEND
+
+stmt level    source
+
+   1          /*´Ë³ÌÐò¿ÉÒÔÊµÏÖ£¬°´¿ª¹ØS10,Á÷Ë®µÆµÚ1ºÍ2ÁÁ£¬°´¿ª¹ØS9,Á÷Ë®µÆµÚ3ºÍ4ÁÁ£»°´¿ª¹ØS8,Á÷Ë®µÆµÚ5ºÍ6ÁÁ£»
+   2            °´¿ª¹ØS2,Á÷Ë®µÆµÚ7ºÍ8ÁÁ*/
+   3          #include <reg52.h>
+   4          #define uchar unsigned char 
+   5          sbit P1_0 = P1^0;
+   6          sbit P1_1 = P1^1;
+   7          sbit P1_2 = P1^2;
+   8          sbit P1_3 = P1^3;
+   9          sbit P1_4 = P1^4;
+  10          sbit P1_5 = P1^5;
+  11          sbit P1_6 = P1^6;
+  12          sbit P1_7 = P1^7;
+  13          
+  14          sbit P2_4 = P2^4;
+  15          sbit P2_5 = P2^5;
+  16          sbit P2_6 = P2^6;
+  17          sbit P2_7 = P2^7;
+  18          
+  19          void delay(uchar i)
+  20          {
+  21   1        uchar j,k; 
+  22   1        for(j=i;j>0;j--)
+  23   1          for(k=125;k>0;k--);
+  24   1      }
+  25          
+  26          void display()
+  27          {
+  28   1         if(P2_7 == 0)
+  29   1         {
+  30   2            delay(10);//ÑÓÊ±È¥¶¶¶¯
+  31   2      	  if(P2_7 == 0)
+  32   2            {
+  33   3               P1_0 = 0;
+  34   3               P1_1 = 0;
+  35   3            }
+  36   2         }
+  37   1         if(P2_6 == 0)
+  38   1         {
+  39   2            delay(10);//ÑÓÊ±È¥¶¶¶¯
+  40   2      	  if(P2_6 == 0)
+  41   2            {
+  42   3               P1_2 = 0;
+  43   3               P1_3 = 0;
+  44   3            }
+  45   2         }
+  46   1         if(P2_5 == 0)
+  47   1         {
+  48   2            delay(10);//ÑÓÊ±È¥¶¶¶¯
+  49   2      	  if(P2_5 == 0)
+  50   2            {
+  51   3               P1_4 = 0;
+  52   3               P1_5 = 0;
+  53   3            }
+  54   2         }
+  55   1         if(P2_4 == 0)
+C51 COMPILER V6.12  _____´_ü                                                               10/11/2010 20:41:12 PAGE 2   
+
+  56   1         {
+  57   2            delay(10);//ÑÓÊ±È¥¶¶¶¯
+  58   2      	  if(P2_4 == 0)
+  59   2            {
+  60   3               P1_6 = 0;
+  61   3               P1_7 = 0;
+  62   3            }
+  63   2         }
+  64   1      }
+  65          
+  66          /*ÑÝÊ¾Ö÷³ÌÐò*/
+  67          void main(void)
+  68          {
+  69   1          unsigned int  a;
+  70   1         P2_7 = 1; P2_6 = 1; P2_5 = 1; P2_4 = 1; // °´¼ü¶Ë¿ÚÉèÖÃÎªÊäÈë
+  71   1       while(1)
+  72   1       {
+  73   2       
+  74   2         for(a=100;a>0;a--)
+  75   2         {
+  76   3           display();
+  77   3         }
+  78   2       
+  79   2       }
+  80   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    101    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

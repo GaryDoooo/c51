@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+F:\51最小系统板自已\51 最小系统板资料自\51最小系统板资料\相关例程\普中例程\1 LED灯\3 LED流水灯\C版\LED3.uv2
+Project File Date:  03/16/2009
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling led3.c...
+linking...
+Program Size: data=9.0 xdata=0 code=59
+creating hex file from "LED3"...
+"LED3" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling led3.c...
+linking...
+Program Size: data=9.0 xdata=0 code=59
+creating hex file from "LED3"...
+"LED3" - 0 Error(s), 0 Warning(s).
